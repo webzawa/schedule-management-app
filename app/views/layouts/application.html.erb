@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BigwestSchApp3</title>
+    <title><%= yield(:title) %> | BigwestSchedule</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
   </head>
 
   <body>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "BIGWEST勤怠管理", root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "スケジュール一覧",pages_workschedule_path %></li>
+            <li><%= link_to "シフト申請",     pages_requestschedule_path %></li>
+            <li><%= link_to "シフト承認",     pages_approveschedule_path %></li>
+            <li><%= link_to "申請履歴（必要なし？）",   '#' %></li>
+            <li><%= link_to "ログイン", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,0 +1,43 @@
+<% provide(:title, "シフト申請") %>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for @requestschedule do |f| %>
+      <h3>スケジュール作成画面</h3>
+      <p>■対象者</p>
+      ★ここにログインユーザ固定表示（user_idから氏名を表示すること）
+      <p>■カレンダーからシフト申請する日を選択してください</p>
+      <div class="field">
+        <%= f.label :シフト申請日 %><br />
+        <%= f.date_field :request_day_and_time %>
+      </div>
+      <div class="field">
+        <%= f.label :シフト勤務時間帯 %><br />
+        <p>A (06:00-09:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+        <p>B (09:00-13:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+        <p>C (13:00-17:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+        <p>D (17:00-21:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+        <p>E (21:00-06:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+      </div>
+      <p>■チェックボックス以外の時間を申請する場合は下記フォームに時間を入力してください。</p>
+      <div class="field">
+        <%= f.label :シフト申請時間（開始） %><br />
+        <%= f.time_field :request_day_and_time %>
+      </div>
+      <div class="field">
+        <%= f.label :シフト申請時間（終了） %><br />
+        <%= f.time_field :request_day_and_time %>
+      </div>
+      <p>■指定したシフトを確認後、ボタンをクリックしてカレンダーにシフトを追加してください。</p>
+      <%= f.submit "シフト申請", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h3>申請済みシフト欄</h3>
+    <div>
+      <p>★ここに申請済みシフトをDBから一覧表示（Micropostsを参考に,承認されたやつだけマークつける）
+      </p>
+      <p>★申請したシフトは年月で検索可能、申請時間の横にどの店のシフトかも表示
+      </p>
+    </div>
+  </div>
+</div>
