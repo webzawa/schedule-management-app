@@ -24,12 +24,18 @@
             <li><%= link_to "シフト申請",     pages_requestschedule_path %></li>
             <li><%= link_to "シフト承認",     pages_approveschedule_path %></li>
             <li><%= link_to "申請履歴（必要なし？）",   '#' %></li>
-            <li><%= link_to "ログイン", '#' %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path,method: :delete %></li>
           </ul>
         </nav>
       </div>
     </header>
     <div class="container">
+      <% if user_signed_in? %>
+        <p>ようこそ <%= current_user.username %> さん</p>
+      <% end %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </body>

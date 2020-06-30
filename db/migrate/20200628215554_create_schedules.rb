@@ -1,8 +1,10 @@
 class CreateSchedules < ActiveRecord::Migration[6.0]
   def change
     create_table :schedules do |t|
-      t.integer :user_id
-      t.time :request_day_and_time
+      t.date :request_day
+      t.time :request_start_time
+      t.time :request_end_time
+      t.string :request_timezone
       t.boolean :approved
 
       t.timestamps

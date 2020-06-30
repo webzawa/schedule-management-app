@@ -8,24 +8,24 @@
       <p>■カレンダーからシフト申請する日を選択してください</p>
       <div class="field">
         <%= f.label :シフト申請日 %><br />
-        <%= f.date_field :request_day_and_time %>
+        <%= f.date_field :request_day %>
       </div>
       <div class="field">
-        <%= f.label :シフト勤務時間帯 %><br />
-        <p>A (06:00-09:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
-        <p>B (09:00-13:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
-        <p>C (13:00-17:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
-        <p>D (17:00-21:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
-        <p>E (21:00-06:00): <%= f.check_box :request_day_and_time ,{ multiple: true }, "true", "false" %></p>
+        <%= f.label :シフト勤務時間帯 ★下の時間の部分は別枠に移動する？店舗ごとに差異があるので %><br />
+        <p>A (06:00-09:00): <%= f.check_box :request_timezone ,{ multiple: true }, "true", "false" %></p>
+        <p>B (09:00-13:00): <%= f.check_box :request_timezone ,{ multiple: true }, "true", "false" %></p>
+        <p>C (13:00-17:00): <%= f.check_box :request_timezone ,{ multiple: true }, "true", "false" %></p>
+        <p>D (17:00-21:00): <%= f.check_box :request_timezone ,{ multiple: true }, "true", "false" %></p>
+        <p>E (21:00-06:00): <%= f.check_box :request_timezone ,{ multiple: true }, "true", "false" %></p>
       </div>
       <p>■チェックボックス以外の時間を申請する場合は下記フォームに時間を入力してください。</p>
       <div class="field">
         <%= f.label :シフト申請時間（開始） %><br />
-        <%= f.time_field :request_day_and_time %>
+        <%= f.time_field :request_start_time %>
       </div>
       <div class="field">
         <%= f.label :シフト申請時間（終了） %><br />
-        <%= f.time_field :request_day_and_time %>
+        <%= f.time_field :request_end_time %>
       </div>
       <p>■指定したシフトを確認後、ボタンをクリックしてカレンダーにシフトを追加してください。</p>
       <%= f.submit "シフト申請", class: "btn btn-primary" %>
