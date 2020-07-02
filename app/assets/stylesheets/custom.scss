@@ -1,6 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
@@ -8,7 +9,8 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  padding-top: 60px;
+  padding-top: 80px;
+  // top: 10%;
 }
 
 section {
@@ -49,8 +51,7 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
-  line-height: 1.7em;
+  // line-height: 0.7em;
 }
 
 
@@ -68,5 +69,13 @@ p {
   &:hover {
     color: white;
     text-decoration: none;
+  }
+}
+
+
+/* other */
+.request_timezone {
+  p {
+    line-height: 0em;
   }
 }

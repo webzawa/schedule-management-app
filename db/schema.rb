@@ -10,20 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_184726) do
+ActiveRecord::Schema.define(version: 2020_07_02_211434) do
 
   create_table "schedules", force: :cascade do |t|
     t.date "request_day"
-    t.time "request_start_time"
-    t.time "request_end_time"
+    t.string "request_start_time"
+    t.string "request_end_time"
     t.string "request_timezone"
     t.boolean "approved"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "store_id"
+    t.integer "user_id"
+    t.index ["id", "user_id"], name: "index_schedules_on_id_and_user_id", unique: true
+    t.index ["store_id"], name: "index_schedules_on_store_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "store_name"
+    t.string "storename"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -41,4 +46,6 @@ ActiveRecord::Schema.define(version: 2020_06_30_184726) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "schedules", "stores"
+  add_foreign_key "schedules", "users"
 end

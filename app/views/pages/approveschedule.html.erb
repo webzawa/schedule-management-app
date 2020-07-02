@@ -1,2 +1,48 @@
-<h1>Pages#approveschedule</h1>
-<p>Find me in app/views/pages/approveschedule.html.erb</p>
+<% provide(:title, "シフト承認") %>
+<div class="row">
+  <div class="col-md-6">
+    <p>店舗選択</p>
+    <p>年月日選択</p>
+    <p>承認者選択（admin権限ユーザ選択）</p>
+  </div>
+  <div class="col-md-6">
+    <h3>申請されたシフト欄</h3>
+    <div>
+      <table border="1">
+        <tr>
+          <th>申請者</th>
+          <th>店舗</th>
+          <th>申請日</th>
+          <th>申請時間帯</th>
+          <th>承認可否</th>
+        </tr>
+        <% @schedules.each do |schedule| %>
+          <tr class="schedules">
+            <td><%= @user.username           %></td>
+            <td><%= schedule.storename        %></td>
+            <td><%= schedule.request_day        %></td>
+            <td> 
+              <% unless schedule.request_timezone.nil? %>
+                <%= schedule.request_timezone %>
+              <% end %>
+              <% unless schedule.request_start_time == "" %>
+                <%= schedule.request_start_time %>-
+              <% end %>
+              <% unless schedule.request_end_time == "" %>
+                <%= schedule.request_end_time %>
+              <% end %>
+            </td>
+            <td>
+              <% if schedule.approved == nil %>
+                未承認
+              <% else %>
+                承認済
+              <% end %>
+            </td>
+            <td><%= link_to "削除", schedule, method: :delete, data: { confirm: "削除してもよろしいですか？"}%></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
