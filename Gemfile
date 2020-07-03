@@ -86,4 +86,7 @@ group :production, :development, :test do
   gem 'devise-i18n-views'
   
   gem 'bootstrap_form'
+
+  gem 'rails_12factor'
+
 end
