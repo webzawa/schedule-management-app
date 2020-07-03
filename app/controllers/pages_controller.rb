@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
   def requestschedule
     @requestschedule = Schedule.new
-    @stores = Store.all
+    # @stores = Store.all
     @schedules = Schedule.all
     @user = User.find_by(id: current_user.id)
     # @user = User.find_by(id: user_id)
@@ -19,7 +19,8 @@ class PagesController < ApplicationController
 
   def approveschedule
     # @user = User.find_by(id: current_user.id)
-    @stores = Store.all
+    # @stores = Store.all
     @schedules = Schedule.all
+    @approveschedules = Schedule.new
   end
 end

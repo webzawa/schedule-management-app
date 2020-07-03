@@ -74,8 +74,16 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'devise'
-gem 'devise-i18n'
-gem 'devise-i18n-views'
+# gem 'devise'
+# gem 'devise-i18n'
+# gem 'devise-i18n-views'
 
-gem 'bootstrap_form'
+# gem 'bootstrap_form'
+
+group :production, :development, :test do
+  gem 'devise'
+  gem 'devise-i18n'
+  gem 'devise-i18n-views'
+  
+  gem 'bootstrap_form'
+end
