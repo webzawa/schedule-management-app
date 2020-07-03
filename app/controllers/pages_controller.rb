@@ -23,4 +23,9 @@ class PagesController < ApplicationController
     @schedules = Schedule.all
     @approveschedules = Schedule.new
   end
+
+  def addstores
+    @store  = Store.new
+    @stores = Store.all
+  end
 end

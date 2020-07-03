@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   get  'pages/workschedule'
   get  'pages/requestschedule'
   get  'pages/approveschedule'
+  get  'pages/addstores'
 
   # post 'schedules', to: 'pages#requestschedule'
   # resources :schedules, only: [:create, :destory]
   resources :schedules
+  resources :stores
  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root 'application#hello'

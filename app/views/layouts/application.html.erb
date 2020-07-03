@@ -23,10 +23,10 @@
             <% if user_signed_in? %>
               <li><%= link_to current_user.username,"#" %></li>
             <% end %>
-            <li><%= link_to "スケジュール一覧(rootにする？)",pages_workschedule_path %></li>
+            <li><%= link_to "スケジュール一覧",pages_workschedule_path %></li>
             <li><%= link_to "シフト申請",     pages_requestschedule_path %></li>
-            <li><%= link_to "シフト承認(only admin)",     pages_approveschedule_path %></li>
-            <li><%= link_to "申請履歴（必要なし？）",   '#' %></li>
+            <li><%= link_to "シフト承認",     pages_approveschedule_path %><%# only admin%></li>
+            <li><%= link_to "店舗追加",   pages_addstores_path %><%# only superadmin%></li>
             <li><%= link_to "ログイン", new_user_session_path %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path,method: :delete %></li>
           </ul>
