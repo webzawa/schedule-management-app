@@ -29,6 +29,29 @@ class SchedulesController < ApplicationController
     end
   end
 
+  def update
+    @schedule = Schedule.find_by(id: params[:id])
+
+    if @schedule.approved == false
+      if @schedule.update_attribute(:approved, true)
+        flash[:success] = "シフトを承認しました。"
+        redirect_to pages_approveschedule_path
+      else
+        flash[:danger]  = "承認に失敗しました、サイト管理者に問い合わせてください。"
+        redirect_to pages_approveschedule_path
+      end
+    else
+      if @schedule.update_attribute(:approved, false)
+        flash[:success] = "承認を解除しました。"
+        redirect_to pages_approveschedule_path
+      else
+        flash[:danger]  = "承認解除に失敗しました、サイト管理者に問い合わせてください。"
+        redirect_to pages_approveschedule_path
+      end
+    end
+
+  end
+
   def destroy
     schedule = Schedule.find_by(id: params[:id])
     schedule.destroy

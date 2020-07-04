@@ -13,11 +13,11 @@
 ActiveRecord::Schema.define(version: 2020_07_03_171227) do
 
   create_table "schedules", force: :cascade do |t|
-    t.date "request_day"
-    t.string "request_start_time"
-    t.string "request_end_time"
+    t.date "request_day", null: false
+    t.string "request_start_time", default: ""
+    t.string "request_end_time", default: ""
     t.string "request_timezone"
-    t.boolean "approved"
+    t.boolean "approved", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "store_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_171227) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "storename"
+    t.string "storename", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

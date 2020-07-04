@@ -35,16 +35,9 @@
                   <%= schedule.request_end_time %>
                 <% end %>
               </td>
-              <td>
-                <% if schedule.approved == nil %>未承認<% else %>承認済<% end %>
-              </td>
-              <td>
-                <% if schedule.approved == nil %>
-                  <p><%= f.check_box :approved , {}, true, nil %></p>
-                <% else %>
-                  承認済
-                <% end %>
-              </td>
+              <div id="approve_buttons_<%= schedule.id %>">
+                <%= render partial: 'shared/approve', locals: { schedule: schedule} %>
+              </div>
             </tr>
           <% end %>
         <% end %>

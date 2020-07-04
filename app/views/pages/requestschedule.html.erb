@@ -34,6 +34,7 @@
         <%= f.label :シフト申請時間（終了） %>
         <%= f.select :request_end_time,   ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'], {include_blank: true} %>時
       </div>
+
       <p>■指定したシフトを確認後、申請ボタンを押してください。</p>
       <%= f.submit "シフト申請", class: "btn btn-primary" %>
     <% end %>
@@ -68,7 +69,7 @@
               <% end %>
             </td>
             <td>
-              <% if schedule.approved == nil %>未承認<% else %>承認済<% end %>
+              <% if schedule.approved == false %>未承認<% else %>承認済<% end %>
             </td>
             <td><%# link_to "削除", schedule, method: :delete, data: { confirm: "削除してもよろしいですか？"}%><%= link_to "削除", schedule, method: :delete %></td>
           </tr>
