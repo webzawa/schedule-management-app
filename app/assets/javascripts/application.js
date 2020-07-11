@@ -1,4 +1,8 @@
-//= require jquery3
-//= require popper
+//= require jquery
 //= require jquery.turbolinks
 //= require rails-ujs
+//= require activestorage
+//= require turbolinks
+//= require_tree .
+
+window.$ = jQuery;

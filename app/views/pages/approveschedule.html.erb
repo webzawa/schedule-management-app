@@ -16,30 +16,11 @@
           <th>申請日</th>
           <th>申請時間帯</th>
           <th>承認可否</th>
-          <th>承認可否CHK</th>
         </tr>
-        <%= form_for @approveschedules do |f| %>
-          <% @schedules.each do |schedule| %>
-            <tr class="schedules">
-              <td><%= schedule.user.username%></td>
-              <td><%= schedule.store.storename%></td>
-              <td><%= schedule.request_day%></td>
-              <td> 
-                <%#　スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
-                <% unless schedule.request_timezone.nil? %>
-                  <%= schedule.request_timezone %>
-                <% end %>
-                <%# start or end time is not blank, then indicate value %>
-                <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-                  <%= schedule.request_start_time %>-
-                  <%= schedule.request_end_time %>
-                <% end %>
-              </td>
-              <div id="approve_buttons_<%= schedule.id %>">
-                <%= render partial: 'shared/approve', locals: { schedule: schedule} %>
-              </div>
-            </tr>
-          <% end %>
+        <% @schedules.each do |schedule| %>
+          <tr class="schedules_<%= schedule.id %>">
+            <%= render partial: "pages/approve", locals: { schedule: schedule} %>
+          </tr>
         <% end %>
       </table>
     </div>

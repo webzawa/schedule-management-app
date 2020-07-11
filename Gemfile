@@ -16,7 +16,7 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -33,6 +33,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 
 # gem 'jquery-ui-rails'
 # gem 'bootstrap_form'
@@ -84,9 +85,8 @@ group :production, :development, :test do
   gem 'devise'
   gem 'devise-i18n'
   gem 'devise-i18n-views'
-  
+
   gem 'bootstrap_form'
 
   gem 'rails_12factor'
-
 end

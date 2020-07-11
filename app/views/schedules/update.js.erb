@@ -1,1 +1,1 @@
-$('#approve_buttons_<%= @schedule.id %>').html("<%= j(render partial: '/pages/approve', locals: {schedule: @schedule}) %>");
+$('.schedules_<%= @schedule.id %>').html("<%= j(render partial: 'pages/approve', locals: {schedule: @schedule}) %>");
