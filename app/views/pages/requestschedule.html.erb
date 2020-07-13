@@ -1,7 +1,8 @@
 <% provide(:title, "シフト申請") %>
 <div class="row">
   <div class="col-md-6">
-    <%= form_for @requestschedule do |f| %>
+    <%= form_with model: @requestschedule, local: true  do |f| %>
+    <%#formwith完成形はremote trueにしてAjax処理にする form_with model: @requestschedule do |f| %>
       <h3>シフト申請</h3>
       <p>■シフト申請者：<%= current_user.username %></p>
 
@@ -44,7 +45,7 @@
     <div>
       <p>★ここに申請済みシフトをDBから一覧表示（Micropostsを参考に,承認されたやつだけマークつける）</p>
       <p>★申請したシフトは年月で検索可能、申請時間の横にどの店のシフトかも表示</p>
-      <table class="table-bordered table-striped table-responsive">
+      <table class="schtable table-bordered table-striped table-responsive">
         <tr>
           <th>申請者</th>
           <th>店舗</th>
@@ -53,25 +54,8 @@
           <th>承認可否</th>
         </tr>
         <% @schedules.each do |schedule| %>
-          <tr class="schedules">
-            <td><%= schedule.user.username%></td>
-            <td><%= schedule.store.storename%></td>
-            <td><%= schedule.request_day%></td>
-            <td> 
-              <%#　スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
-              <% unless schedule.request_timezone.nil? %>
-                <%= schedule.request_timezone %>
-              <% end %>
-              <%# start or end time is not blank, then indicate value %>
-              <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-                <%= schedule.request_start_time %>-
-                <%= schedule.request_end_time %>
-              <% end %>
-            </td>
-            <td>
-              <% if schedule.approved == false %>未承認<% else %>承認済<% end %>
-            </td>
-            <td><%# link_to "削除", schedule, method: :delete, data: { confirm: "削除してもよろしいですか？"}%><%= link_to "削除", schedule, method: :delete %></td>
+          <tr class="schedules_<%= schedule.id %>">
+            <%= render partial: "pages/request", locals: { schedule: schedule} %>
           </tr>
         <% end %>
       </table>

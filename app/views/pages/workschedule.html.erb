@@ -1,5 +1,73 @@
 <% provide(:title, "スケジュール一覧") %>
-承認済みのシフトが表示されます
+<table class="table-bordered table-striped table-responsive">
+<%# 日付　1-月末　部分%>
+  <tr>
+      <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
+    <% @beginningtoendday.each do |day| %>
+      <th><%= day.strftime("%d").to_s %></th>
+    <% end %>
+  </tr>
+  <tr>
+      <th>曜日</th>
+    <% @beginningtoendday.each do |day| %>
+      <th><%= day.strftime("%a").to_s %></th>
+    <% end %>
+  </tr>
+
+<%if false%>
+  <% @users.each do |user| %>
+    <tr>
+      <th><%= user.username %></th>
+      <% @beginningtoendday.each do |day| %>
+        <% @schedules.each do |schedule| %>
+          <td>
+            <% if day == schedule.request_day %>
+              <%= schedule.request_timezone %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+<%end %>
+
+
+  <% @users.each do |user| %>
+    <tr>
+      <th><%= user.username %></th>
+      <% @beginningtoendday.each do |day| %>
+          <td>
+            <%# Schedule.where(id: user.id).where(request_day: day) %>
+            <% @schedules.each do |schedule| %>
+              <% if day == schedule.request_day && user.id == schedule.user.id %>
+                <%= schedule.request_timezone %>
+              <% end %>
+            <% end %>
+          </td>
+      <% end %>
+    </tr>
+  <% end %>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% if false %>
+  承認済みのシフトが表示されます
 simple_calenderに日付が対応するシフトをぶち込む
 store_codeで表示わける
 表示はもとシフト表準拠にするか悩む
@@ -22,3 +90,4 @@ https://living-sun.com/ja/ruby-on-rails/767557-rails-drop-down-select-month-year
 
 【Rails】date_selectタグの使い方メモ
 https://qiita.com/ozackiee/items/3c027d07cdeb61df6029
+<% end %>

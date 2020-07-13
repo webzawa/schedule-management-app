@@ -3,10 +3,16 @@
 class PagesController < ApplicationController
   # before_action :authenticate_user!
 
-  def home
-  end
+  def home; end
 
-  def workschedule; end
+  def workschedule
+    @schedules = Schedule.all
+    @beginningday = Date.today.beginning_of_month
+    @endday       = Date.today.end_of_month
+    @beginningtoendday = @beginningday..@endday
+    @users = User.all
+    @schedules = Schedule.all
+  end
 
   def requestschedule
     @requestschedule = Schedule.new

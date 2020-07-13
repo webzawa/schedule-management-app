@@ -52,10 +52,10 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    schedule = Schedule.find_by(id: params[:id])
-    schedule.destroy
-    flash[:success] = '削除しました'
-    redirect_to pages_requestschedule_path
+    @schedule = Schedule.find_by(id: params[:id])
+    @schedule.destroy
+    # flash[:success] = '削除しました'
+    # redirect_to pages_requestschedule_path
   end
 
   private
