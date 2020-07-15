@@ -20,6 +20,15 @@ class SchedulesController < ApplicationController
       return redirect_to pages_requestschedule_path
     end
 
+    # @schedule.request_timezone.delete(',[]')
+    unless @schedule.request_timezone.nil?
+      @schedule.request_timezone.gsub!('"', '')
+      @schedule.request_timezone.gsub!(',', '')
+      @schedule.request_timezone.gsub!('[', '')
+      @schedule.request_timezone.gsub!(']', '')
+      @schedule.request_timezone.gsub!(' ', '')
+    end
+
     if @schedule.save
       flash[:success] = 'シフトの申請ができました。'
       redirect_to pages_requestschedule_path

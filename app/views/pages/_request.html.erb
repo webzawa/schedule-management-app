@@ -8,8 +8,7 @@
   <% end %>
   <%# start or end time is not blank, then indicate value %>
   <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-    <%= schedule.request_start_time %>-
-    <%= schedule.request_end_time %>
+    <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
   <% end %>
 </td>
 <td>

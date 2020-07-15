@@ -14,35 +14,12 @@
     <% end %>
   </tr>
 
-<%if false%>
-  <% @users.each do |user| %>
-    <tr>
-      <th><%= user.username %></th>
-      <% @beginningtoendday.each do |day| %>
-        <% @schedules.each do |schedule| %>
-          <td>
-            <% if day == schedule.request_day %>
-              <%= schedule.request_timezone %>
-            <% end %>
-          </td>
-        <% end %>
-      <% end %>
-    </tr>
-  <% end %>
-<%end %>
-
-
   <% @users.each do |user| %>
     <tr>
       <th><%= user.username %></th>
       <% @beginningtoendday.each do |day| %>
           <td>
-            <%# Schedule.where(id: user.id).where(request_day: day) %>
-            <% @schedules.each do |schedule| %>
-              <% if day == schedule.request_day && user.id == schedule.user.id %>
-                <%= schedule.request_timezone %>
-              <% end %>
-            <% end %>
+            <%= schedule_pick(user.id, day) %>
           </td>
       <% end %>
     </tr>
