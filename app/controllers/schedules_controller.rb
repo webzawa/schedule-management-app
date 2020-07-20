@@ -16,7 +16,10 @@ class SchedulesController < ApplicationController
 
   def workschedule
     # @users = User.all #RerationshopModelから取得するよう変更予定
-    @users = Schedule.select(:user_id).distinct
+
+    #postgre一時対応
+    # @users = Schedule.select(:user_id).distinct
+
     @stores = Store.all
 
     # @beginningday      = Date.today.beginning_of_month
@@ -26,7 +29,10 @@ class SchedulesController < ApplicationController
     #↓Ransackで店舗＆月を検索して絞る
     # @search = Schedule.ransack(params[:q])
     @schedules_search = Schedule.ransack(params[:q])
-    @schedules = @schedules_search.result.order(request_day: 'ASC')
+
+    #postgre一時対応
+    # @schedules = @schedules_search.result.order(request_day: 'ASC')
+    @schedules = @schedules_search.result
 
     @check = params[:q]
 
