@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def nextmonth
   #   @beginningday      = Date.today.beginning_of_month
@@ -55,24 +55,53 @@ class SchedulesController < ApplicationController
 
   def requestschedule
     @requestschedule = Schedule.new
-    # @stores = Store.all
-    @schedules = Schedule.all.order(user_id: 'ASC').order(request_day: 'DESC')
+    @stores = Store.all
+    # @schedules = Schedule.all.order(user_id: 'ASC').order(request_day: 'DESC')
+    @schedules = Schedule.where(user_id: current_user.id).order(user_id: 'ASC').order(request_day: 'DESC')
     # @schedules = Schedule.find_by(user_id: current_user.id)
     @user = User.find_by(id: current_user.id)
     # @user = User.find_by(id: user_id)
     # @store = Store.find_by(id: @schedule.store_id)
+    @schedules_search = Schedule.ransack(params[:q])
+    @schedules = @schedules_search.result.order(request_day: 'DESC')
+    @schedules = @schedules.where(user_id: current_user.id)
   end
 
   def approveschedule
-    # @user = User.find_by(id: current_user.id)
-    # @stores = Store.all
-    @schedules = Schedule.all.order(user_id: 'ASC').order(request_day: 'DESC')
+    @users = User.all
+    @stores = Store.all
     @approveschedules = Schedule.new
+    @schedules_search = Schedule.ransack(params[:q])
+    @schedules = @schedules_search.result.order(user_id: 'ASC').order(store_id: 'ASC').order(request_day: 'DESC')
+    @check = params[:q]
   end
 
   def addstores
+    @users = User.all
     @store  = Store.new
     @stores = Store.all.order(id: 'ASC')
+  end
+
+  def updateadmin
+    user = User.find_by(id: params[:id])
+
+    if user.admin == false
+      if user.update_attribute(:admin, true)
+        flash[:success] = '指定のユーザに管理者権限を付与しました。'
+        redirect_to schedules_addstores_path
+      else
+        flash[:danger]  = '管理者権限の付与に失敗しました、サイト管理者に問い合わせてください。'
+        redirect_to schedules_addstores_path
+      end
+    else
+      if user.update_attribute(:admin, false)
+        flash[:success] = '管理者権限を解除しました。'
+        redirect_to schedules_addstores_path
+      else
+        flash[:danger]  = '管理者権限の解除に失敗しました、サイト管理者に問い合わせてください。'
+        redirect_to schedules_addstores_path
+      end
+    end
   end
 
   def create

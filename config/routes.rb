@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get  'schedules/requestschedule'
   get  'schedules/approveschedule'
   get  'schedules/addstores'
+  post  'schedules/updateadmin'
 
   get  'schedules/beforemonth'
   get  'schedules/nextmonth'

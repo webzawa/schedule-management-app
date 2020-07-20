@@ -7,17 +7,17 @@
       <p>■シフト申請者：<%= current_user.username %></p>
 
       <div class="field">
-        <%= f.label :シフト申請先店舗 %><br />
+        <%= f.label :シフト申請先店舗 %><br>
         <%= f.collection_select :store_id, Store.all, :id, :storename %>
       </div>
       <p>■カレンダーからシフト申請する日を選択してください</p>
       <div class="field">
-        <%= f.label :シフト申請日 %><br />
+        <%= f.label :シフト申請日 %><br>
         <%= f.date_field :request_day %>
       </div>
       <div class="field request_timezone">
-        <%= f.label :シフト勤務時間帯 %><br />
-         ★Aとかの右の時間帯の部分は別枠に移動する？店舗ごとに差異があるので
+        <%= f.label :シフト勤務時間帯 %><br>
+        <%# ★Aとかの右の時間帯の部分は別枠に移動する？店舗ごとに差異があるので %>
         <p>A  (06:00-09:00): <%= f.check_box :request_timezone ,{ multiple: true }, "A" , nil %></p>
         <p>B  (09:00-13:00): <%= f.check_box :request_timezone ,{ multiple: true }, "B" , nil %></p>
         <p>C  (13:00-17:00): <%= f.check_box :request_timezone ,{ multiple: true }, "C" , nil %></p>
@@ -42,9 +42,33 @@
   </div>
   <div class="col-md-6">
     <h3>申請済みシフト欄</h3>
+      <p>
+        条件を指定して検索すると申請済みのシフトが表示されます。<br>
+        条件指定なしの場合は全検索となります。
+      </p>
     <div>
-      <p>★ここに申請済みシフトをDBから一覧表示（Micropostsを参考に,承認されたやつだけマークつける）</p>
-      <p>★申請したシフトは年月で検索可能、申請時間の横にどの店のシフトかも表示</p>
+      <%= search_form_for @schedules_search, url: schedules_requestschedule_path do |f| %>
+
+        <%= f.hidden_field :user_id_eq, :value => current_user.id %>
+      
+        <%= f.label :store_id_eq, "店舗"%>
+        <%= f.collection_select :store_id_eq, @stores, :id, :storename, {include_blank: true} %>
+        <br>
+      
+        <%= f.label :request_day, "年月指定"%>
+        <%= f.date_select :request_day_during_year_month, discard_day: true, include_blank: true %>
+        <br>
+      
+        <%= f.label :request_day, "検索開始時期"%>
+        <%= f.date_select :request_day_gteq, discard_day: true, include_blank: true  %>
+        <br>
+      
+        <%= f.label :request_day, "検索終了時期"%>
+        <%= f.date_select :request_day_lteq, discard_day: true, include_blank: true  %>
+        <br>
+      
+        <div class="actions"><%= f.submit "検索" %></div>
+      <% end %>
       <table class="schtable table-bordered table-striped table-responsive">
         <tr>
           <th>申請者</th>

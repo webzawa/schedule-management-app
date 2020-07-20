@@ -15,6 +15,7 @@
   <% if schedule.approved == false %>未承認<% else %>承認済<% end %>
 </td>
 <td>
-  <%# link_to "削除", schedule, method: :delete, data: { confirm: "削除してもよろしいですか？"}%>
-  <%= link_to "削除", schedule, method: :delete, remote: true %>
+  <% if schedule.approved == false %>
+    <%= link_to "削除", schedule, method: :delete, remote: true, data: { confirm: "削除してもよろしいですか？"} %>
+  <% end %>
 </td>

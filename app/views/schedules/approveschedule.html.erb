@@ -1,14 +1,27 @@
 <% provide(:title, "シフト承認") %>
 <div class="row">
   <div class="col-md-6">
-    <p>店舗選択</p>
-    <p>従業員選択</p>
-    <p>年月日選択</p>
-    <p>承認者選択（admin権限ユーザ選択）</p>
+    <%= search_form_for @schedules_search, url: schedules_approveschedule_path do |f| %>
+
+      <%= f.label :store_id_eq, "店舗"%>
+      <%= f.collection_select :store_id_eq, @stores, :id, :storename, {include_blank: true} %>
+      <br>
+    
+      <%= f.label :request_day, "年月指定"%>
+      <%= f.date_select :request_day_during_year_month, discard_day: true, include_blank: true %>
+      <br>
+
+      <%= f.label :user_id_eq, "従業員指定"%>
+      <%= f.collection_select :user_id_eq, @users, :id, :username, {include_blank: true} %>
+      <br>
+    
+      <div class="actions"><%= f.submit "検索" %></div>
+    <% end %>
   </div>
   <div class="col-md-6">
     <h3>申請されたシフト欄</h3>
     <div>
+      <% if @check.present? %>
       <table class="table-bordered table-striped table-responsive">
         <tr>
           <th>申請者</th>
@@ -23,6 +36,12 @@
           </tr>
         <% end %>
       </table>
+      <% else %>
+        <p>
+          条件を指定して検索すると申請済みのシフトが表示されます。<br>
+          条件指定なしの場合は全検索となります。
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
