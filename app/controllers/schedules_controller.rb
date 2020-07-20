@@ -50,6 +50,7 @@ class SchedulesController < ApplicationController
 
       # @users = Schedule.select(:user_id).distinct
       @users = @schedules.select(:user_id).distinct
+      @users = @users.order(user_id: 'ASC')
       
       # @schedule_has_users = Schedule.where(store_id: @schedule.store.id)
       # @schedule_has_users = @schedule_has_users.include(:users)
