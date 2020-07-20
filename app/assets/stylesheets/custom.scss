@@ -79,3 +79,30 @@ p {
     line-height: 0em;
   }
 }
+
+.calender-table{
+  margin: 20px auto;
+  table-layout: fixed;
+  // line-height: 1.5;
+  th, td{
+    // width: 50px;
+  }
+  th {
+    background: #295554;
+    border: solid 1px #ccc;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+  }
+  td {
+    border: solid 1px #ccc;
+    padding: 5px;
+    text-align: center;
+  }
+  .saturday{
+    color: cyan;
+  }
+  .sunday{
+    color: red;
+  }
+}

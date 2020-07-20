@@ -55,7 +55,7 @@
         </tr>
         <% @schedules.each do |schedule| %>
           <tr class="schedules_<%= schedule.id %>">
-            <%= render partial: "pages/request", locals: { schedule: schedule} %>
+            <%= render partial: "schedules/request", locals: { schedule: schedule} %>
           </tr>
         <% end %>
       </table>

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :schedules
+  has_many :schedules, dependent: :destroy
   
   before_save { self.email = email.downcase }
   validates :username, presence: true

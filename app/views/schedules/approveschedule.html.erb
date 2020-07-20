@@ -19,7 +19,7 @@
         </tr>
         <% @schedules.each do |schedule| %>
           <tr class="schedules_<%= schedule.id %>">
-            <%= render partial: "pages/approve", locals: { schedule: schedule} %>
+            <%= render partial: "schedules/approve", locals: { schedule: schedule} %>
           </tr>
         <% end %>
       </table>

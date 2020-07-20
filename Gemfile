@@ -89,4 +89,7 @@ group :production, :development, :test do
   gem 'bootstrap_form'
 
   gem 'rails_12factor'
+
+  gem 'rails-i18n'
+  gem 'ransack'
 end

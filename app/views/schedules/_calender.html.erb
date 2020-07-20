@@ -1,0 +1,48 @@
+<%# 日付　1-月末　部分%>
+<tr>
+    <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
+  <% @beginningtoendday.each do |day| %>
+    <th><%= day.strftime("%d").to_s %></th>
+  <% end %>
+</tr>
+<tr>
+    <th>曜日</th>
+  <% @beginningtoendday.each do |day| %>
+    <th>
+      <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
+      <% if day.strftime("%a").to_s == "Mon" %>月<% end %>
+      <% if day.strftime("%a").to_s == "Tue" %>火<% end %>
+      <% if day.strftime("%a").to_s == "Wed" %>水<% end %>
+      <% if day.strftime("%a").to_s == "Thu" %>木<% end %>
+      <% if day.strftime("%a").to_s == "Fri" %>金<% end %>
+      <% if day.strftime("%a").to_s == "Sat" %><div class="saturday">土</div><% end %>
+    </th>
+  <% end %>
+</tr>
+
+<% @users.each do |user| %>
+<%# @schedule.user.each do |user| %>
+  <tr>
+    <th><%= user.user.username %></th>
+    <% @beginningtoendday.each do |day| %>
+        <td>
+          <%#Ransackの都合上ヘルパーは廃止して@scheduleで表示するように変更予定%>
+          <%# schedule_pick(user.id, day) %>
+          <% @schedules.each do |schedule| %>
+            <% if schedule.approved == true %>
+              <% if day == schedule.request_day && user.user.id == schedule.user.id %>
+                <% unless schedule.request_timezone.nil? %>
+                  <%= schedule.request_timezone %>
+                <% end %>
+                <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+                  <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </td>
+    <% end %>
+  </tr>
+<% end %>
+
+

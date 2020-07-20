@@ -14,11 +14,14 @@
     <div>
       <table class="table-bordered table-striped table-responsive">
         <tr>
-          <th>店舗</th>
+          <th>店舗ID</th>
+          <th>店舗名</th>
         </tr>
         <% @stores.each do |store| %>
           <tr class="stores">
+            <td><%= store.id%></td>
             <td><%= store.storename%></td>
+            <td><%= link_to "削除", store, method: :delete, data: { confirm: "削除してもよろしいですか？"}%></td>
           </tr>
         <% end %>
       </table>

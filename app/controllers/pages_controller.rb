@@ -5,33 +5,12 @@ class PagesController < ApplicationController
 
   def home; end
 
-  def workschedule
-    @schedules = Schedule.all
-    @beginningday = Date.today.beginning_of_month
-    @endday       = Date.today.end_of_month
-    @beginningtoendday = @beginningday..@endday
-    @users = User.all
-    @schedules = Schedule.all
+  def beforemonth
+    
   end
 
-  def requestschedule
-    @requestschedule = Schedule.new
-    # @stores = Store.all
-    @schedules = Schedule.all.order(request_day: 'DESC')
-    @user = User.find_by(id: current_user.id)
-    # @user = User.find_by(id: user_id)
-    # @store = Store.find_by(id: @schedule.store_id)
-  end
-
-  def approveschedule
-    # @user = User.find_by(id: current_user.id)
-    # @stores = Store.all
-    @schedules = Schedule.all.order(request_day: 'DESC')
-    @approveschedules = Schedule.new
-  end
-
-  def addstores
-    @store  = Store.new
-    @stores = Store.all
+  def nextmonth
+    # @beginningday = @beginningday >> 1
+    # @beginningday = @beginningday + '0000/01/00'
   end
 end

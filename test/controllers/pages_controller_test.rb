@@ -7,17 +7,17 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get workschedule" do
-    get pages_workschedule_url
+    get schedules_workschedule_url
     assert_response :success
   end
 
   test "should get requestschedule" do
-    get pages_requestschedule_url
+    get schedules_requestschedule_url
     assert_response :success
   end
 
   test "should get approveschedule" do
-    get pages_approveschedule_url
+    get schedules_approveschedule_url
     assert_response :success
   end
 
