@@ -10,10 +10,25 @@
       <%= f.label :request_day, "年月指定"%>
       <%= f.date_select :request_day_during_year_month, discard_day: true, include_blank: true %>
       <br>
+    
+      <%= f.label :request_day, "検索開始時期"%>
+      <%= f.date_select :request_day_gteq, include_blank: true  %>
+      <br>
+    
+      <%= f.label :request_day, "検索終了時期"%>
+      <%= f.date_select :request_day_lteq, include_blank: true  %>
+      <br>
 
       <%= f.label :user_id_eq, "従業員指定"%>
       <%= f.collection_select :user_id_eq, @users, :id, :username, {include_blank: true} %>
       <br>
+
+      <%= f.label :approved_eq, "承認可否"%>
+      <%= f.select :approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
+      <br>
+
+      <%# f.label :approved_eq, "未承認"%>
+      <%# f.check_box :approved_eq , {},checked_value = "false", unchecked_value = "" %>
     
       <div class="actions"><%= f.submit "検索" %></div>
     <% end %>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get  'schedules/workschedule'
   get  'schedules/requestschedule'
   get  'schedules/approveschedule'
-  get  'schedules/addstores'
+  get  'users/adminsettings'
   post  'schedules/updateadmin'
 
   get  'schedules/beforemonth'
@@ -26,12 +26,14 @@ Rails.application.routes.draw do
       # match 'calendersearch' => 'schedules#calendersearch'
     # end
   # end
+  resources :users, only: [:update]
   resources :stores
  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root 'application#hello'
   
   # Rails.application.routes.draw do
+  get 'users/new'
   #   devise_for :users, controllers: {
   #     sessions: 'users/sessions'
   #   }

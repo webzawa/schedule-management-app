@@ -2,6 +2,7 @@
 <div class="row">
   <div class="col-md-6">
     <%= form_with model: @requestschedule, local: true  do |f| %>
+    <%# form_with model: @requestschedule do |f| %>
     <%#formwith完成形はremote trueにしてAjax処理にする form_with model: @requestschedule do |f| %>
       <h3>シフト申請</h3>
       <p>■シフト申請者：<%= current_user.username %></p>

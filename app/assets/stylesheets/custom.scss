@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import "toastr";
 
 /* mixins, variables, etc. */
 
@@ -105,8 +105,15 @@ p {
   .sunday{
     color: red;
   }
+  .notapproved{
+    color: darkred;
+  }
 }
 
 // .navbar{
   // background-color: darkcyan;
 // }
+
+.noapproved{
+  color:gray;
+}

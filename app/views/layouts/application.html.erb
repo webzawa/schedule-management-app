@@ -28,7 +28,7 @@
               <li><%= link_to "シフト申請",     schedules_requestschedule_path %></li>
               <% if current_user.admin? %>
                 <li><%= link_to "シフト承認",     schedules_approveschedule_path %><%# only admin%></li>
-                <li><%= link_to "管理者用設定",   schedules_addstores_path %><%# only superadmin%></li>
+                <li><%= link_to "管理者用設定",   users_adminsettings_path %><%# only superadmin%></li>
               <% end %>
               <li><%= link_to "ログアウト", destroy_user_session_path,method: :delete %></li>
             <% else %>
@@ -39,13 +39,24 @@
       </div>
     </header>
     <div class="container">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <% if false %> #不要？なためコメントアウト
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
+      <script type="text/javascript">
+        <% flash.each do |key, value| %>
+          <% key = "success" if key == "notice" %>
+          <% key = "error" if key == "alert" %>
+          toastr['<%= key %>']('<%= value %>');
         <% end %>
-      <% end %>
+        <% if false %> #不要？なためコメントアウト
+          <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>">
+              <%= message %>
+            </div>
+            <% if false %> #不要？なためコメントアウト
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
+            <% end %>
+          <% end %>
+        <% end %>
+      </script>
       <%= yield %>
       <%= debug(params) if Rails.env.development? %>
     </div>

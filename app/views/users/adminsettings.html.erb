@@ -1,0 +1,93 @@
+<% provide(:title, "管理者用設定") %>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for @store do |f| %>
+      <div class="field">
+        <%= f.label :追加する店舗名を入力してください %><br />
+        <%= f.text_field :storename %>
+      </div>
+      <%= f.submit "追加", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h3>追加済み店舗一覧</h3>
+    <div>
+      <table class="table-bordered table-striped table-responsive">
+        <tr>
+          <th>店舗ID</th>
+          <th>店舗名</th>
+        </tr>
+        <% @stores.each do |store| %>
+          <tr class="stores">
+            <td><%= store.id%></td>
+            <td><%= store.storename%></td>
+            <td><%= link_to "削除", store, method: :delete, data: { confirm: "削除してもよろしいですか？"}%></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<br>
+<br>
+
+
+
+<%#if false%>
+<div class="row">
+  <div class="col-md-6">
+    <%= search_form_for @users_search, url: users_adminsettings_path do |f| %>
+
+      <%= f.label :id_eq, "従業員指定"%>
+      <%= f.collection_select :id_eq, @users, :id, :username, {include_blank: true} %>
+      <br>
+
+      <%= f.label :admin_eq, "権限指定"%>
+      <%= f.select :admin_eq, [['',nil],['管理者',true],['従業員',false]] %>
+      <br>
+    
+      <div class="actions"><%= f.submit "検索" %></div>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <% if @check.present? %>
+      <h3>管理者権限追加</h3>
+      <div>
+        <table class="table-bordered table-striped table-responsive">
+          <tr>
+            <th>ユーザ名</th>
+            <th>権限</th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr class="stores">
+              <td><%= user.username %></td>
+              <td>
+                <% if user.admin? %>
+                  管理者
+                <% else %>
+                  従業員
+                <% end %>
+              </td>
+              <td>
+                <% unless user.admin? %>
+                  <%= link_to "承認する", user, method: :patch, data: {confirm: "#{user.username}に管理者権限を付与します。"} %>
+                <% else %>
+                  <%= link_to "承認解除", user, method: :patch, data: {confirm: "#{user.username}の管理者権限を解除します。"}  %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% else %>
+      <p>
+        検索したユーザを表示します<br>
+        未指定は全検索になります。
+      </p>
+    <% end %>
+  </div>
+</div>
+<%#end%>

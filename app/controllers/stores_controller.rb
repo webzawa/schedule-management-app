@@ -7,16 +7,16 @@ class StoresController < ApplicationController
     @store = Store.new(store_params)
 
     if @store.storename == nil or @store.storename == ""
-      flash[:danger]  = "申請内容を修正してください。"
-      return redirect_to schedules_addstores_path
+      flash[:error]  = "申請内容を修正してください。"
+      return redirect_to users_adminsettings_path
     end
 
     if @store.save
       flash[:success] = "店舗を追加しました。"
-      redirect_to schedules_addstores_path
+      redirect_to users_adminsettings_path
     else
-      flash[:danger]  = "店舗追加に失敗しました、申請内容を修正してください。"
-      redirect_to schedules_addstores_path
+      flash[:error]  = "店舗追加に失敗しました、申請内容を修正してください。"
+      redirect_to users_adminsettings_path
     end
   end
 
@@ -24,7 +24,7 @@ class StoresController < ApplicationController
     store = Store.find_by(id: params[:id])
     store.destroy
     flash[:success] = "削除しました"
-    redirect_to schedules_addstores_path
+    redirect_to users_adminsettings_path
   end
 
   private

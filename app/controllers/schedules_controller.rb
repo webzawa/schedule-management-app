@@ -15,6 +15,12 @@ class SchedulesController < ApplicationController
   end
 
   def workschedule
+    schedule_nil_check = Schedule.first
+    if schedule_nil_check == nil
+      flash[:error] = "スケジュールのレコードが存在しません。"
+      return redirect_to root_path
+    end
+
     # @users = User.all #RerationshopModelから取得するよう変更予定
 
     #postgre一時対応
@@ -40,7 +46,7 @@ class SchedulesController < ApplicationController
     # @users = User.find_by(store_id: @store.store.id)
     
     if @schedule == nil
-      flash[:danger] = '指定された店舗、または指定された年月のシフトが存在しません。'
+      flash[:error] = '指定された店舗、または指定された年月のシフトが存在しません。'
       return redirect_to schedules_workschedule_path
     else
       # 指定店舗が存在する　スケジュールがある
@@ -83,54 +89,26 @@ class SchedulesController < ApplicationController
     @check = params[:q]
   end
 
-  def addstores
-    @users = User.all
-    @store  = Store.new
-    @stores = Store.all.order(id: 'ASC')
-  end
-
-  def updateadmin
-    user = User.find_by(id: params[:id])
-
-    if user.admin == false
-      if user.update_attribute(:admin, true)
-        flash[:success] = '指定のユーザに管理者権限を付与しました。'
-        redirect_to schedules_addstores_path
-      else
-        flash[:danger]  = '管理者権限の付与に失敗しました、サイト管理者に問い合わせてください。'
-        redirect_to schedules_addstores_path
-      end
-    else
-      if user.update_attribute(:admin, false)
-        flash[:success] = '管理者権限を解除しました。'
-        redirect_to schedules_addstores_path
-      else
-        flash[:danger]  = '管理者権限の解除に失敗しました、サイト管理者に問い合わせてください。'
-        redirect_to schedules_addstores_path
-      end
-    end
-  end
-
   def create
     # @schedule = Schedule.new(schedule_params)　良くない書き方
     @schedule = current_user.schedules.build(schedule_params)
 
     dupcheck = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
     unless dupcheck == nil
-      flash[:danger] = 'シフトの申請に失敗しました。指定日のシフトは申請済みです、申請内容を修正してください。'
+      flash[:error] = 'シフトの申請に失敗しました。指定日のシフトは申請済みです、申請内容を修正してください。'
       return redirect_to schedules_requestschedule_path
     end
 
     if @schedule.request_timezone.nil? && @schedule.request_start_time == '' && @schedule.request_end_time == ''
-      flash[:danger] = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
+      flash[:error] = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
       return redirect_to schedules_requestschedule_path
     end
     if @schedule.request_start_time != '' && @schedule.request_end_time == ''
-      flash[:danger] = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。'
+      flash[:error] = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。'
       return redirect_to schedules_requestschedule_path
     end
     if @schedule.request_start_time == '' && @schedule.request_end_time != ''
-      flash[:danger] = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。'
+      flash[:error] = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。'
       return redirect_to schedules_requestschedule_path
     end
 
@@ -152,7 +130,7 @@ class SchedulesController < ApplicationController
       flash[:success] = 'シフトの申請ができました。'
       redirect_to schedules_requestschedule_path
     else
-      flash[:danger] = 'シフトの申請に失敗しました、申請内容を修正してください。'
+      flash[:error] = 'シフトの申請に失敗しました、申請内容を修正してください。'
       redirect_to schedules_requestschedule_path
     end
   end
@@ -165,7 +143,7 @@ class SchedulesController < ApplicationController
         # flash[:success] = 'シフトを承認しました。'
         # redirect_to schedules_approveschedule_path
       else
-        # flash[:danger]  = '承認に失敗しました、サイト管理者に問い合わせてください。'
+        # flash[:error]  = '承認に失敗しました、サイト管理者に問い合わせてください。'
         # redirect_to schedules_approveschedule_path
       end
     else
@@ -173,7 +151,7 @@ class SchedulesController < ApplicationController
         # flash[:success] = '承認を解除しました。'
         # redirect_to schedules_approveschedule_path
       else
-        # flash[:danger]  = '承認解除に失敗しました、サイト管理者に問い合わせてください。'
+        # flash[:error]  = '承認解除に失敗しました、サイト管理者に問い合わせてください。'
         # redirect_to schedules_approveschedule_path
       end
     end
@@ -182,8 +160,10 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule = Schedule.find_by(id: params[:id])
     @schedule.destroy
+    # flash[:success] = 'シフトを削除しました。'
     # flash[:success] = '削除しました'
     # redirect_to schedules_requestschedule_path
+    # render schedules_requestschedule_path
   end
 
   private

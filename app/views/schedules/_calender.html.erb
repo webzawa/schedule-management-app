@@ -38,6 +38,17 @@
                   <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
                 <% end %>
               <% end %>
+            <% else %>
+              <div class="notapproved">
+                <% if day == schedule.request_day && user.user.id == schedule.user.id %>
+                  <% unless schedule.request_timezone.nil? %>
+                    <%= schedule.request_timezone %>
+                  <% end %>
+                  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+                    <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
+                  <% end %>
+                <% end %>
+              <div class="notapproved">
             <% end %>
           <% end %>
         </td>
