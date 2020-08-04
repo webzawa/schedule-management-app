@@ -14,14 +14,12 @@
     <div>
       <table class="table-bordered table-striped table-responsive">
         <tr>
-          <th>店舗ID</th>
           <th>店舗名</th>
         </tr>
         <% @stores.each do |store| %>
           <tr class="stores">
-            <td><%= store.id%></td>
             <td><%= store.storename%></td>
-            <td><%= link_to "削除", store, method: :delete, data: { confirm: "削除してもよろしいですか？"}%></td>
+            <td><%= link_to "削除", store, method: :delete, data: { confirm: "警告：店舗を削除すると、紐付いているシフトも削除されます。\nこの操作は取り消せません。\n削除してもよろしいですか？"}%></td>
           </tr>
         <% end %>
       </table>
@@ -29,26 +27,26 @@
   </div>
 </div>
 
-
 <br>
 <br>
 <br>
 
-
-
-<%#if false%>
 <div class="row">
   <div class="col-md-6">
     <%= search_form_for @users_search, url: users_adminsettings_path do |f| %>
 
-      <%= f.label :id_eq, "従業員指定"%>
+      <%= f.label :id_eq, "ユーザ名"%>
       <%= f.collection_select :id_eq, @users, :id, :username, {include_blank: true} %>
       <br>
 
-      <%= f.label :admin_eq, "権限指定"%>
+      <%= f.label :id_eq, "勤務時間帯"%>
+      <%= f.select :duty_hours_eq, [['',nil],['指定なし',0],['朝勤',1],['昼勤',2],['夕勤',3],['夜勤',4],['店長クラス',5]] %>
+      <br>
+
+      <%= f.label :admin_eq, "権限"%>
       <%= f.select :admin_eq, [['',nil],['管理者',true],['従業員',false]] %>
       <br>
-    
+
       <div class="actions"><%= f.submit "検索" %></div>
     <% end %>
   </div>
@@ -59,11 +57,20 @@
         <table class="table-bordered table-striped table-responsive">
           <tr>
             <th>ユーザ名</th>
+            <th>主な勤務時間帯</th>
             <th>権限</th>
           </tr>
           <% @users.each do |user| %>
             <tr class="stores">
-              <td><%= user.username %></td>
+              <td><%= user.username   %></td>
+              <td>
+                <% if user.duty_hours == 0 %>指定なし<% end %>
+                <% if user.duty_hours == 1 %>朝勤<% end %>
+                <% if user.duty_hours == 2 %>昼勤<% end %>
+                <% if user.duty_hours == 3 %>夕勤<% end %>
+                <% if user.duty_hours == 4 %>夜勤<% end %>
+                <% if user.duty_hours == 5 %>店長クラス<% end %>
+              </td>
               <td>
                 <% if user.admin? %>
                   管理者
@@ -73,9 +80,9 @@
               </td>
               <td>
                 <% unless user.admin? %>
-                  <%= link_to "承認する", user, method: :patch, data: {confirm: "#{user.username}に管理者権限を付与します。"} %>
+                  <%= link_to "管理者権限付与", user, method: :patch, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
                 <% else %>
-                  <%= link_to "承認解除", user, method: :patch, data: {confirm: "#{user.username}の管理者権限を解除します。"}  %>
+                  <%= link_to "管理者権限削除", user, method: :patch, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
                 <% end %>
               </td>
             </tr>
@@ -90,4 +97,3 @@
     <% end %>
   </div>
 </div>
-<%#end%>

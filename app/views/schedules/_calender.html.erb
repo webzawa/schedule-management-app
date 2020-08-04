@@ -1,59 +1,70 @@
-<%# 日付　1-月末　部分%>
-<tr>
-    <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
-  <% @beginningtoendday.each do |day| %>
-    <th><%= day.strftime("%d").to_s %></th>
-  <% end %>
-</tr>
-<tr>
-    <th>曜日</th>
-  <% @beginningtoendday.each do |day| %>
-    <th>
-      <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
-      <% if day.strftime("%a").to_s == "Mon" %>月<% end %>
-      <% if day.strftime("%a").to_s == "Tue" %>火<% end %>
-      <% if day.strftime("%a").to_s == "Wed" %>水<% end %>
-      <% if day.strftime("%a").to_s == "Thu" %>木<% end %>
-      <% if day.strftime("%a").to_s == "Fri" %>金<% end %>
-      <% if day.strftime("%a").to_s == "Sat" %><div class="saturday">土</div><% end %>
-    </th>
-  <% end %>
-</tr>
-
-<% @users.each do |user| %>
-<%# @schedule.user.each do |user| %>
+<table class="calender-table table-bordered table-striped table-responsive">
+  <%# 店名 %>
   <tr>
-    <th><%= user.user.username %></th>
+    <th><%= @user_and_schedules_first.schedules.first.store.storename %></th>
+  </tr>
+  
+  <%# 日付 %>
+  <tr>
+    <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
     <% @beginningtoendday.each do |day| %>
-        <td>
-          <%#Ransackの都合上ヘルパーは廃止して@scheduleで表示するように変更予定%>
-          <%# schedule_pick(user.id, day) %>
-          <% @schedules.each do |schedule| %>
-            <% if schedule.approved == true %>
-              <% if day == schedule.request_day && user.user.id == schedule.user.id %>
-                <% unless schedule.request_timezone.nil? %>
-                  <%= schedule.request_timezone %>
-                <% end %>
-                <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-                  <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
-                <% end %>
-              <% end %>
-            <% else %>
-              <div class="notapproved">
-                <% if day == schedule.request_day && user.user.id == schedule.user.id %>
-                  <% unless schedule.request_timezone.nil? %>
-                    <%= schedule.request_timezone %>
-                  <% end %>
+      <th><%= day.strftime("%d").to_s %></th>
+    <% end %>
+  </tr>
+  
+  <%# 月初から月末まで曜日を表示%>
+  <tr>
+    <th>曜日</th>
+    <% @beginningtoendday.each do |day| %>
+      <th>
+        <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
+        <% if day.strftime("%a").to_s == "Mon" %>月<% end %>
+        <% if day.strftime("%a").to_s == "Tue" %>火<% end %>
+        <% if day.strftime("%a").to_s == "Wed" %>水<% end %>
+        <% if day.strftime("%a").to_s == "Thu" %>木<% end %>
+        <% if day.strftime("%a").to_s == "Fri" %>金<% end %>
+        <% if day.strftime("%a").to_s == "Sat" %><div class="saturday">土</div><% end %>
+      </th>
+    <% end %>
+  </tr>
+  
+  <%# 個人ごとにシフトスケジュールを表示%>
+  <% @users_and_schedules.each do |user_and_schedules| %>
+    <tr>
+      <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
+      <% if user_and_schedules.duty_hours == 0 %><th class="no-settings"><%= user_and_schedules.username %></th><% end %>
+      <% if user_and_schedules.duty_hours == 1 %><th class="morning"    ><%= user_and_schedules.username %></th><% end %>
+      <% if user_and_schedules.duty_hours == 2 %><th class="noon"       ><%= user_and_schedules.username %></th><% end %>
+      <% if user_and_schedules.duty_hours == 3 %><th class="evening"    ><%= user_and_schedules.username %></th><% end %>
+      <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
+      <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
+      <% @beginningtoendday.each do |day| %>
+          <td>
+            <% user_and_schedules.schedules.each do |schedule| %>
+              <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
+                <%#申請シフトが未承認だったらCSSでColor付与する%>
+                <% if schedule.approved == false %><div class="not-approved"><% end %>
                   <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
                     <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
                   <% end %>
-                <% end %>
-              <div class="notapproved">
+                  <% unless schedule.request_timezone.nil? %>
+                    <%= schedule.request_timezone %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
-        </td>
-    <% end %>
-  </tr>
-<% end %>
-
-
+          </td>
+      <% end %>
+    </tr>
+  <% end %>
+  
+  <%# 申請シフトを時間枠ごとにカウント（不足シフト確認用）%>
+  <% @timezones.each do |timezone| %><%# "A"はTimezoneTableからEach.doで取り出し%>
+    <tr>
+      <th><%= timezone %>申請数</th>
+      <% @beginningtoendday.each do |day| %>
+        <td><%= countschedule_check(@user_and_schedules_first_schedules_first.store_id, day, timezone) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

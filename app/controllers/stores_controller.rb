@@ -3,8 +3,17 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
 
+  # 管理者専用コントローラ
+  
+  # 店舗追加
   def create
     @store = Store.new(store_params)
+
+    dupcheck = Store.find_by(storename: @store.storename)
+    unless dupcheck == nil
+      flash[:error] = '店舗の登録に失敗しました。既存の店舗名は登録できません、申請内容を修正してください。'
+      return redirect_to users_adminsettings_path
+    end
 
     if @store.storename == nil or @store.storename == ""
       flash[:error]  = "申請内容を修正してください。"

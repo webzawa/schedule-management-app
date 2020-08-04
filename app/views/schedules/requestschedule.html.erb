@@ -17,15 +17,15 @@
         <%= f.date_field :request_day %>
       </div>
       <div class="field request_timezone">
-        <%= f.label :シフト勤務時間帯 %><br>
-        <%# ★Aとかの右の時間帯の部分は別枠に移動する？店舗ごとに差異があるので %>
-        <p>A  (06:00-09:00): <%= f.check_box :request_timezone ,{ multiple: true }, "A" , nil %></p>
-        <p>B  (09:00-13:00): <%= f.check_box :request_timezone ,{ multiple: true }, "B" , nil %></p>
-        <p>C  (13:00-17:00): <%= f.check_box :request_timezone ,{ multiple: true }, "C" , nil %></p>
-        <p>D  (17:00-21:00): <%= f.check_box :request_timezone ,{ multiple: true }, "D" , nil %></p>
-        <p>E1 (21:00-01:00): <%= f.check_box :request_timezone ,{ multiple: true }, "E1", nil %></p>
-        <p>E3 (21:00-03:00): <%= f.check_box :request_timezone ,{ multiple: true }, "E3", nil %></p>
-        <p>E  (21:00-06:00): <%= f.check_box :request_timezone ,{ multiple: true }, "E" , nil %></p>
+        <%= f.label :シフト勤務時間枠 %><br>
+        <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
+        <p>A  : <%= f.check_box :request_timezone ,{ multiple: true }, "A" , nil %></p>
+        <p>B  : <%= f.check_box :request_timezone ,{ multiple: true }, "B" , nil %></p>
+        <p>C  : <%= f.check_box :request_timezone ,{ multiple: true }, "C" , nil %></p>
+        <p>D  : <%= f.check_box :request_timezone ,{ multiple: true }, "D" , nil %></p>
+        <p>E1 : <%= f.check_box :request_timezone ,{ multiple: true }, "E1", nil %></p>
+        <p>E3 : <%= f.check_box :request_timezone ,{ multiple: true }, "E3", nil %></p>
+        <p>E  : <%= f.check_box :request_timezone ,{ multiple: true }, "E" , nil %></p>
       </div>
       <p>■チェックボックス外の時間を申請する場合は下記に時間を入力してください。</p>
       <div class="field">
@@ -56,18 +56,22 @@
         <%= f.collection_select :store_id_eq, @stores, :id, :storename, {include_blank: true} %>
         <br>
       
-        <%= f.label :request_day, "年月指定"%>
+        <%= f.label :request_day, "年月"%>
         <%= f.date_select :request_day_during_year_month, discard_day: true, include_blank: true %>
         <br>
       
-        <%= f.label :request_day, "検索開始時期"%>
-        <%= f.date_select :request_day_gteq, discard_day: true, include_blank: true  %>
+        <%= f.label :request_day, "年月日（開始）"%>
+        <%= f.date_select :request_day_gteq, include_blank: true  %>
         <br>
       
-        <%= f.label :request_day, "検索終了時期"%>
-        <%= f.date_select :request_day_lteq, discard_day: true, include_blank: true  %>
+        <%= f.label :request_day, "年月日（終了）"%>
+        <%= f.date_select :request_day_lteq, include_blank: true  %>
         <br>
       
+        <%= f.label :approved_eq, "承認可否"%>
+        <%= f.select :approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
+        <br>
+
         <div class="actions"><%= f.submit "検索" %></div>
       <% end %>
       <table class="schtable table-bordered table-striped table-responsive">
@@ -75,7 +79,7 @@
           <th>申請者</th>
           <th>店舗</th>
           <th>申請日</th>
-          <th>申請時間帯</th>
+          <th>申請時間枠</th>
           <th>承認可否</th>
         </tr>
         <% @schedules.each do |schedule| %>

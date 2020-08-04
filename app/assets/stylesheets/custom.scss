@@ -11,6 +11,13 @@ $gray-medium-light: #eaeaea;
 body {
   padding-top: 80px;
   // top: 10%;
+
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
 }
 
 section {
@@ -81,6 +88,7 @@ p {
 }
 
 .calender-table{
+  font-weight: 500;
   margin: 20px auto;
   table-layout: fixed;
   // line-height: 1.5;
@@ -91,8 +99,8 @@ p {
   }
   th {
     background: #295554;
-    border: solid 1px #ccc;
     color: #fff;
+    border: solid 1px #ccc;
     text-align: center;
   }
   td {
@@ -105,8 +113,29 @@ p {
   .sunday{
     color: red;
   }
-  .notapproved{
-    color: darkred;
+  .no-settings{
+    background-color: white;
+    color: black;
+  }
+  .morning{
+    background-color: yellow;
+    color: black;
+  }
+  .noon{
+    background-color: lightgreen;
+    color: black;
+  }
+  .evening{
+    background-color: forestgreen;
+    color: black;
+  }
+  .night{
+    background-color: lightblue;
+    color: black;
+  }
+  .manager{
+    background-color: orange;
+    color: black;
   }
 }
 
@@ -114,6 +143,6 @@ p {
   // background-color: darkcyan;
 // }
 
-.noapproved{
-  color:gray;
-}
+.not-approved{
+  color: darkred;
+}  

@@ -12,10 +12,14 @@
   <% end %>
 </td>
 <td>
-  <% if schedule.approved == false %>未承認<% else %>承認済<% end %>
+  <% if schedule.approved == false %>
+    <div class="not-approved">未承認</div>
+  <% else %>
+    承認済
+  <% end %>
 </td>
 <td>
   <% if schedule.approved == false %>
-    <%= link_to "削除", schedule, method: :delete, remote: true, data: { confirm: "削除してもよろしいですか？"} %>
+    <%= link_to "削除", schedule, method: :delete, remote: true, data: { confirm: "以下のシフトを削除します。\n店舗：#{schedule.store.storename}\n申請日：#{schedule.request_day}"} %>
   <% end %>
 </td>

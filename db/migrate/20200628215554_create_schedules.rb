@@ -4,7 +4,7 @@ class CreateSchedules < ActiveRecord::Migration[6.0]
       t.date    :request_day       , null: false
       t.string  :request_start_time, default: ""
       t.string  :request_end_time  , default: ""
-      t.string  :request_timezone
+      t.string  :request_timezone  , default: ""
       t.boolean :approved          , default: false, null: false
 
       t.timestamps

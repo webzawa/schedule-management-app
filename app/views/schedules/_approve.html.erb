@@ -1,3 +1,5 @@
+<%if false%>
+
 <td><%= schedule.user.username%></td>
 <td><%= schedule.store.storename%></td>
 <td><%= schedule.request_day%></td>
@@ -13,7 +15,7 @@
 </td>
 <td>
   <% if schedule.approved == false %>
-    <div class="noapproved">未承認</div>
+    <div class="not-approved">未承認</div>
   <% else %>
     承認済
   <% end %>
@@ -25,3 +27,23 @@
     <%= link_to "承認解除", schedule, method: :patch, remote: true %>
   <% end %>
 </td>
+
+<%end%>
+
+
+  <%#申請シフトが未承認だったらCSSでColor付与する%>
+<% if schedule.approved == true %>
+  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+    <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+  <% end %>
+  <% unless schedule.request_timezone.nil? %>
+    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:black;" %>
+  <% end %>
+<% else %>
+  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+    <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+  <% end %>
+  <% unless schedule.request_timezone.nil? %>
+    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+  <% end %>
+<% end %>
