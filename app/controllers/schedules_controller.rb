@@ -23,6 +23,7 @@ class SchedulesController < ApplicationController
     end
 
     @requestschedule = Schedule.new #シフト申請用インスタンス変数
+    timezones
     @stores = Store.all #全店舗呼び出し
 
     if params[:q] == nil #読み込み時処理
@@ -43,7 +44,7 @@ class SchedulesController < ApplicationController
     # 申請先店舗には同日シフトの申請はできないようにする
     requested_check = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
     unless requested_check == nil
-      flash[:error] = "#{@schedule.store.storename}へは#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
+      flash[:error] = "#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
       return redirect_to schedules_requestschedule_path
     end
 
@@ -95,6 +96,8 @@ class SchedulesController < ApplicationController
 
       flash[:success] = 'シフトの申請ができました。'
       redirect_to schedules_requestschedule_path
+      # flash.now[:success] = 'シフトの申請ができました。'
+      # render schedules_requestschedule_path
     else
       flash[:error] = 'シフトの申請に失敗しました、申請内容を修正してください。'
       redirect_to schedules_requestschedule_path
@@ -106,21 +109,9 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find_by(id: params[:id])
 
     if @schedule.approved == false
-      if @schedule.update_attribute(:approved, true)
-        # flash[:success] = 'シフトを承認しました。'
-        # redirect_to schedules_approveschedule_path
-      else
-        # flash[:error]  = '承認に失敗しました、サイト管理者に問い合わせてください。'
-        # redirect_to schedules_approveschedule_path
-      end
+      @schedule.update_attribute(:approved, true)
     else
-      if @schedule.update_attribute(:approved, false)
-        # flash[:success] = '承認を解除しました。'
-        # redirect_to schedules_approveschedule_path
-      else
-        # flash[:error]  = '承認解除に失敗しました、サイト管理者に問い合わせてください。'
-        # redirect_to schedules_approveschedule_path
-      end
+      @schedule.update_attribute(:approved, false)
     end
   end
 
@@ -128,10 +119,6 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule = Schedule.find_by(id: params[:id])
     @schedule.destroy
-    # flash[:success] = 'シフトを削除しました。'
-    # flash[:success] = '削除しました'
-    # redirect_to schedules_requestschedule_path
-    # render schedules_requestschedule_path
   end
 
   private
@@ -141,12 +128,17 @@ class SchedulesController < ApplicationController
     # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, :user_id, request_timezone: [] )
     # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, request_timezone: [] )
     params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
+    # params.permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
   end
 
   # def search_params
   #   # params.require(:q).permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
   #   params.require(:q).permit!
   # end
+
+  def timezones
+    @timezones = ["A","B","C","D","E1","E3","E"]
+  end
 
   def render_schedule_calender(link_target)
     # エラーハンドリング
@@ -193,7 +185,7 @@ class SchedulesController < ApplicationController
       @beginningtoendday = @beginningday..@endday
 
       # シフト時間枠の配列を作成
-      @timezones = ["A","B","C","D","E1","E3","E"]
+      timezones
     end
     @check = params[:q] #未検索時チェック
   end

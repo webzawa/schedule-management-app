@@ -19,13 +19,9 @@
       <div class="field request_timezone">
         <%= f.label :シフト勤務時間枠 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
-        <p>A  : <%= f.check_box :request_timezone ,{ multiple: true }, "A" , nil %></p>
-        <p>B  : <%= f.check_box :request_timezone ,{ multiple: true }, "B" , nil %></p>
-        <p>C  : <%= f.check_box :request_timezone ,{ multiple: true }, "C" , nil %></p>
-        <p>D  : <%= f.check_box :request_timezone ,{ multiple: true }, "D" , nil %></p>
-        <p>E1 : <%= f.check_box :request_timezone ,{ multiple: true }, "E1", nil %></p>
-        <p>E3 : <%= f.check_box :request_timezone ,{ multiple: true }, "E3", nil %></p>
-        <p>E  : <%= f.check_box :request_timezone ,{ multiple: true }, "E" , nil %></p>
+        <% @timezones.each do |timezone| %>
+          <p><%= timezone %> : <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></p>
+        <% end %>
       </div>
       <p>■チェックボックス外の時間を申請する場合は下記に時間を入力してください。</p>
       <div class="field">
@@ -41,6 +37,7 @@
       <%= f.submit "シフト申請", class: "btn btn-primary" %>
     <% end %>
   </div>
+<%#if false%>
   <div class="col-md-6">
     <h3>申請済みシフト欄</h3>
       <p>
@@ -91,3 +88,4 @@
     </div>
   </div>
 </div>
+<%# end %>
