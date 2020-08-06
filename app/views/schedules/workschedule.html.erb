@@ -7,11 +7,16 @@
   <%= f.label :request_day, "年月"%>
   <%= f.date_select :schedules_request_day_during_year_month, discard_day: true %>
 
+  <%= f.label :approved, "承認可否"%>
+  <%= f.select :schedules_approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
+
   <div class="actions"><%= f.submit "検索" %></div>
 <% end %>
 
 <% if @check.present? %>
   <%= render partial: "schedules/calender" %>
+  <p>黒：承認済</p>
+  <p class="not-approved">赤：未承認</p>
 <% else %>
   <p>表示したい店舗と年月を検索して下さい。</p>
 <% end %>

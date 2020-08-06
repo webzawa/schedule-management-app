@@ -145,7 +145,7 @@ class SchedulesController < ApplicationController
     # 申請先店舗には同日シフトの申請はできないようにする
     requested_check = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
     unless requested_check == nil
-      flash[:error] = "#{@schedule.request_day}は#{@schedule.store.storename}にシフトを申請済みです。申請内容を修正してください。"
+      flash[:error] = "#{@schedule.store.storename}へは#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
       return redirect_to schedules_requestschedule_path
     end
 
