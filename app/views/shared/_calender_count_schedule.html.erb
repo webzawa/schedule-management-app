@@ -1,0 +1,9 @@
+<%# 申請シフトを時間枠ごとにカウント（不足シフト確認用）%>
+<% @timezones.each do |timezone| %><%# "A"はTimezoneTableからEach.doで取り出し%>
+  <tr>
+    <th><%= timezone %>申請数</th>
+    <% @beginningtoendday.each do |day| %>
+      <td><%= countschedule_check(@user_and_schedules_first_schedules_first.store_id, day, timezone) %></td>
+    <% end %>
+  </tr>
+<% end %>

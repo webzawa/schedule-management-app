@@ -1,0 +1,28 @@
+<%# 店名 %>
+<tr>
+  <th><%= @user_and_schedules_first.schedules.first.store.storename %></th>
+</tr>
+
+<%# 日付 %>
+<tr>
+  <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
+  <% @beginningtoendday.each do |day| %>
+    <th><%= day.strftime("%d").to_s %></th>
+  <% end %>
+</tr>
+
+<%# 月初から月末まで曜日を表示%>
+<tr>
+  <th>曜日</th>
+  <% @beginningtoendday.each do |day| %>
+    <th>
+      <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
+      <% if day.strftime("%a").to_s == "Mon" %>月<% end %>
+      <% if day.strftime("%a").to_s == "Tue" %>火<% end %>
+      <% if day.strftime("%a").to_s == "Wed" %>水<% end %>
+      <% if day.strftime("%a").to_s == "Thu" %>木<% end %>
+      <% if day.strftime("%a").to_s == "Fri" %>金<% end %>
+      <% if day.strftime("%a").to_s == "Sat" %><div class="saturday">土</div><% end %>
+    </th>
+  <% end %>
+</tr>
