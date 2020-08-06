@@ -35,6 +35,7 @@ class SchedulesController < ApplicationController
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
       @schedules = @schedules_search.result.includes([:user,:store]).where(user_id: current_user.id)
     end
+# @msg = "シフトの申請ができました。"
   end
 
   #シフト作成
@@ -66,8 +67,9 @@ class SchedulesController < ApplicationController
       return redirect_to schedules_requestschedule_path
     end
 
+# debugger
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
-    unless @schedule.request_timezone.nil?
+    unless @schedule.request_timezone.empty?
       @schedule.request_timezone.gsub!('"', '')
       @schedule.request_timezone.gsub!(',', '')
       @schedule.request_timezone.gsub!('[', '')
@@ -75,7 +77,7 @@ class SchedulesController < ApplicationController
       @schedule.request_timezone.gsub!(' ', '')
     end
 
-    if @schedule.request_timezone.nil? && @schedule.request_start_time == '' && @schedule.request_end_time == ''
+    if @schedule.request_timezone.empty? && @schedule.request_start_time == '' && @schedule.request_end_time == ''
       flash[:error] = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
       return redirect_to schedules_requestschedule_path
     end
@@ -94,6 +96,8 @@ class SchedulesController < ApplicationController
       # relationship.save
       # @schedule.update_attribute(:approved, true)
 
+      @msg = "シフトの申請ができました。"
+
       flash[:success] = 'シフトの申請ができました。'
       redirect_to schedules_requestschedule_path
       # flash.now[:success] = 'シフトの申請ができました。'
@@ -104,7 +108,13 @@ class SchedulesController < ApplicationController
     end
   end
 
-  # シフト承認用UPDATEロジック （管理者専用）
+  # シフト削除
+  def destroy
+    @schedule = Schedule.find_by(id: params[:id])
+    @schedule.destroy
+  end
+
+  # シフト承認用UPDATE （管理者専用）
   def update
     @schedule = Schedule.find_by(id: params[:id])
 
@@ -113,12 +123,6 @@ class SchedulesController < ApplicationController
     else
       @schedule.update_attribute(:approved, false)
     end
-  end
-
-  # シフト削除
-  def destroy
-    @schedule = Schedule.find_by(id: params[:id])
-    @schedule.destroy
   end
 
   private
