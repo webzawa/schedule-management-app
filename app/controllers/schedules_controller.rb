@@ -35,7 +35,6 @@ class SchedulesController < ApplicationController
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
       @schedules = @schedules_search.result.includes(%i[user store]).where(user_id: current_user.id)
     end
-    # @msg = "シフトの申請ができました。"
   end
 
   # シフト作成
@@ -43,16 +42,12 @@ class SchedulesController < ApplicationController
     @schedule = current_user.schedules.build(schedule_params)
 
     # シフト申請日存在チェック
-    if @schedule.request_day.nil?
-      flash[:error] = '日付が選択されていません。'
-      return redirect_to schedules_requestschedule_path
-    end
+    return @msg = '日付が選択されていません。' if @schedule.request_day.nil?
 
     # 申請先店舗には同日シフトの申請はできないようにする
     requested_check = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
     unless requested_check.nil?
-      flash[:error] = "#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
-      return redirect_to schedules_requestschedule_path
+      return @msg = "#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
     end
 
     # 同じ時間枠でに別店舗にシフト申請していないか確認
@@ -66,25 +61,19 @@ class SchedulesController < ApplicationController
       duplicate_check = duplicate_check.where('request_timezone like ?', "%#{timezone}%")
     end
     # 時間枠の重複があればエラー処理 (whereの結果がemptyならその申請の時間の重複はない→申請してOK)
-    unless duplicate_check.empty?
-      flash[:error] = 'シフトの申請に失敗しました。別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。'
-      return redirect_to schedules_requestschedule_path
-    end
+    return @msg = 'シフトの申請に失敗しました。別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。' unless duplicate_check.empty?
 
     # シフト時間枠、２４時間指定の申請がいずれも存在しない場合エラー
     if @schedule.request_timezone.empty? && @schedule.request_start_time.empty? && @schedule.request_end_time.empty?
-      flash[:error] = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
-      return redirect_to schedules_requestschedule_path
+      return @msg = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
     end
     # シフト２４時間指定の開始時間が存在しない場合エラー
     if @schedule.request_start_time.empty? && @schedule.request_end_time.present?
-      flash[:error] = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。'
-      return redirect_to schedules_requestschedule_path
+      return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。'
     end
     # シフト２４時間指定の終了時間が存在しない場合エラー
     if @schedule.request_start_time.present? && @schedule.request_end_time.empty?
-      flash[:error] = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。'
-      return redirect_to schedules_requestschedule_path
+      return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。'
     end
 
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
@@ -96,22 +85,11 @@ class SchedulesController < ApplicationController
       @schedule.request_timezone.gsub!(' ', '')
     end
 
-    if @schedule.save
-
-      # relationship = Relationship.new(:user_id: @schedule.user.id, :store_id: @schedule.store.id)
-      # relationship.save
-      # @schedule.update_attribute(:approved, true)
-
-      @msg = 'シフトの申請ができました。AJAX'
-
-      flash[:success] = 'シフトの申請ができました。'
-      redirect_to schedules_requestschedule_path
-      # flash.now[:success] = 'シフトの申請ができました。'
-      # render schedules_requestschedule_path
-    else
-      flash[:error] = 'シフトの申請に失敗しました、申請内容を修正してください。'
-      redirect_to schedules_requestschedule_path
-    end
+    @msg = if @schedule.save
+             "シフトの申請ができました。申請先:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+           else
+             'シフトの申請に失敗しました、申請内容を修正してください。'
+           end
   end
 
   # シフト削除

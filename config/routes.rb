@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
- 
   root 'pages#home'
   get  'users/adminsettings'
   get  'schedules/workschedule'
@@ -12,5 +11,4 @@ Rails.application.routes.draw do
   resources :users, only: [:update] # adminsettings用
   resources :schedules
   resources :stores
- 
 end
