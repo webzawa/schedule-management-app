@@ -1,56 +1,60 @@
 <% provide(:title, "スケジュール一覧") %>
 
-<%= search_form_for @users_and_schedules_search, url: schedules_workschedule_path do |f| %>
-  <%= f.label :store_id_eq, "店舗"%>
-  <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
-
-  <%= f.label :request_day, "年月"%>
-  <%= f.date_select :schedules_request_day_during_year_month, discard_day: true %>
-
-  <%= f.label :approved, "承認可否"%>
-  <%= f.select :schedules_approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
-
-  <div class="actions"><%= f.submit "検索" %></div>
-<% end %>
-
-<% if @check.present? %>
-  <table class="calender-table table-bordered table-striped table-hover">
-    <%= render partial: "shared/calender_storename_datepart" %>
+<div class="row">
+  <div class="col-md-12">
+    <%= search_form_for @users_and_schedules_search, url: schedules_workschedule_path do |f| %>
+      <%= f.label :store_id_eq, "店舗"%>
+      <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
     
-    <%# 個人ごとにシフトスケジュールを表示%>
-    <% @users_and_schedules.each do |user_and_schedules| %>
-      <tr>
-        <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
-        <% if user_and_schedules.duty_hours == 0 %><th class="no-settings"><%= user_and_schedules.username %></th><% end %>
-        <% if user_and_schedules.duty_hours == 1 %><th class="morning"    ><%= user_and_schedules.username %></th><% end %>
-        <% if user_and_schedules.duty_hours == 2 %><th class="noon"       ><%= user_and_schedules.username %></th><% end %>
-        <% if user_and_schedules.duty_hours == 3 %><th class="evening"    ><%= user_and_schedules.username %></th><% end %>
-        <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
-        <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
-        <% @beginningtoendday.each do |day| %>
-            <td>
-              <% user_and_schedules.schedules.each do |schedule| %>
-                <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
-                  <%#申請シフトが未承認だったらCSSでColor付与する%>
-                  <% if schedule.approved == false %><div class="not-approved"><% end %>
-                    <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-                      <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
-                    <% end %>
-                    <% unless schedule.request_timezone.nil? %>
-                      <%= schedule.request_timezone %>
-                    <% end %>
-                  </div>
-                <% end %>
-              <% end %>
-            </td>
-        <% end %>
-      </tr>
+      <%= f.label :request_day, "年月"%>
+      <%= f.date_select :schedules_request_day_during_year_month, discard_day: true %>
+    
+      <%= f.label :approved, "承認可否"%>
+      <%= f.select :schedules_approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
+    
+      <div class="actions"><%= f.submit "検索" %></div>
     <% end %>
     
-    <%= render partial: "shared/calender_count_schedule" %>
-  </table>
-  <p>黒：承認済</p>
-  <p class="not-approved">赤：未承認</p>
-<% else %>
-  <p>表示したい店舗と年月を検索して下さい。</p>
-<% end %>
+    <% if @check.present? %>
+      <table class="calender-table table-bordered table-striped table-hover">
+        <%= render partial: "shared/calender_storename_datepart" %>
+        
+        <%# 個人ごとにシフトスケジュールを表示%>
+        <% @users_and_schedules.each do |user_and_schedules| %>
+          <tr>
+            <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
+            <% if user_and_schedules.duty_hours == 0 %><th class="no-settings"><%= user_and_schedules.username %></th><% end %>
+            <% if user_and_schedules.duty_hours == 1 %><th class="morning"    ><%= user_and_schedules.username %></th><% end %>
+            <% if user_and_schedules.duty_hours == 2 %><th class="noon"       ><%= user_and_schedules.username %></th><% end %>
+            <% if user_and_schedules.duty_hours == 3 %><th class="evening"    ><%= user_and_schedules.username %></th><% end %>
+            <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
+            <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
+            <% @beginningtoendday.each do |day| %>
+                <td>
+                  <% user_and_schedules.schedules.each do |schedule| %>
+                    <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
+                      <%#申請シフトが未承認だったらCSSでColor付与する%>
+                      <% if schedule.approved == false %><div class="not-approved"><% end %>
+                        <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+                          <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
+                        <% end %>
+                        <% unless schedule.request_timezone.nil? %>
+                          <%= schedule.request_timezone %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </td>
+            <% end %>
+          </tr>
+        <% end %>
+        
+        <%= render partial: "shared/calender_count_schedule" %>
+      </table>
+      <p>黒：承認済</p>
+      <p class="not-approved">赤：未承認</p>
+    <% else %>
+      <p>表示したい店舗と年月を検索して下さい。</p>
+    <% end %>
+  </div>
+</div>

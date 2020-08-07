@@ -1,37 +1,4 @@
-<%if false%>
-
-<td><%= schedule.user.username%></td>
-<td><%= schedule.store.storename%></td>
-<td><%= schedule.request_day%></td>
-<td> 
-  <%#　スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
-  <% unless schedule.request_timezone.nil? %>
-    <%= schedule.request_timezone %>
-  <% end %>
-  <%# start or end time is not blank, then indicate value %>
-  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
-    <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
-  <% end %>
-</td>
-<td>
-  <% if schedule.approved == false %>
-    <div class="not-approved">未承認</div>
-  <% else %>
-    承認済
-  <% end %>
-</td>
-<td>
-  <% if schedule.approved == false %>
-    <%= link_to "承認する", schedule, method: :patch, remote: true %>
-  <% else %>
-    <%= link_to "承認解除", schedule, method: :patch, remote: true %>
-  <% end %>
-</td>
-
-<%end%>
-
-
-  <%#申請シフトが未承認だったらCSSでColor付与する%>
+<%#シフトが承認済かでlink_toの文字色変更%>
 <% if schedule.approved == true %>
   <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
     <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>

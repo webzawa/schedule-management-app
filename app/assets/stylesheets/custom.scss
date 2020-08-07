@@ -9,9 +9,7 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  padding-top: 80px;
-  // top: 10%;
-
+  padding-top: 10rem;
   font-family: "Helvetica Neue",
     Arial,
     "Hiragino Kaku Gothic ProN",
@@ -28,6 +26,7 @@ textarea {
   resize: vertical;
 }
 
+//削除予定
 .center {
   text-align: center;
   h1 {
@@ -89,22 +88,15 @@ p {
 
 .calender-table{
   font-weight: 500;
-  margin: 20px auto;
+  margin: 1rem auto 1rem auto;
   table-layout: fixed;
-  // line-height: 1.5;
-  th, td{
-    // width: 50px;
-    // height:10px;
-    padding: 0px 5px 0px 5px;
-  }
   th {
     background: #295554;
     color: #fff;
-    border: solid 1px #ccc;
     text-align: center;
+    padding: 0rem 0.5rem 0rem 0.5rem;
   }
   td {
-    border: solid 1px #ccc;
     text-align: center;
   }
   .saturday{

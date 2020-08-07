@@ -1,10 +1,11 @@
 <% provide(:title, "シフト承認") %>
 
-<h4>シフト承認ページ</h4>
-<p>カレンダー内のシフトをクリックすると、シフトの承認、未承認を切り替えられます。</p>
-
 <div class="row">
   <div class="col-md-12">
+
+    <h4>シフト承認ページ</h4>
+    <p>カレンダー内のシフトをクリックすると、シフトの承認、未承認を切り替えられます。</p>
+
     <%= search_form_for @users_and_schedules_search, url: schedules_approveschedule_path do |f| %>
       <%= f.label :store_id_eq, "店舗"%>
       <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
