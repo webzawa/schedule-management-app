@@ -42,12 +42,12 @@ class SchedulesController < ApplicationController
     @schedule = current_user.schedules.build(schedule_params)
 
     # シフト申請日存在チェック
-    return @msg = '日付が選択されていません。' if @schedule.request_day.nil?
+    return @msg = 'シフトの申請に失敗しました。日付が選択されていません。' if @schedule.request_day.nil?
 
     # 申請先店舗には同日シフトの申請はできないようにする
     requested_check = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
     unless requested_check.nil?
-      return @msg = "#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
+      return @msg = "シフトの申請に失敗しました。#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
     end
 
     # 同じ時間枠でに別店舗にシフト申請していないか確認
@@ -57,7 +57,9 @@ class SchedulesController < ApplicationController
     request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
     # 上記でユーザIDと申請日でWhereしたものから、時間枠の重複がないか確認
     request_timezone_array.each do |timezone|
-      timezone = 'E' if timezone == 'E1' || timezone == 'E3' # Eの付いた時間枠はいずれも21時始まりであることから、E1,E3はEに変換して重複チェックにかかるようにする。
+      if timezone == 'E0' || timezone == 'E1' || timezone == 'E3'
+        timezone = 'E'
+      end # Eの付いた時間枠はいずれも21時始まりであることから、E1,E3はEに変換して重複チェックにかかるようにする。
       duplicate_check = duplicate_check.where('request_timezone like ?', "%#{timezone}%")
     end
     # 時間枠の重複があればエラー処理 (whereの結果がemptyならその申請の時間の重複はない→申請してOK)
@@ -126,7 +128,7 @@ class SchedulesController < ApplicationController
 
   # シフト時間枠
   def timezones
-    @timezones = %w[A B C D E1 E3 E]
+    @timezones = %w[A B C D E0 E1 E3 E]
   end
 
   def render_schedule_calender(link_target)

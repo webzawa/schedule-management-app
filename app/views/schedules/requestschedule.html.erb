@@ -1,11 +1,8 @@
 <% provide(:title, "シフト申請") %>
 
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>">
-    <%= message %>
-  </div>
-<% end %>
 <div id="alert-message"></div>
+<br>
+<br>
 
 <div class="row">
   <div class="col-md-6">
@@ -24,20 +21,17 @@
         <%= f.label :シフト申請日 %><br>
         <%= f.date_field :request_day %>
       </div>
-      <div class="field request_timezone">
+      <div class="field">
         <%= f.label :シフト勤務時間枠 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
         <% @timezones.each do |timezone| %>
-          <p><%= timezone %> : <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></p>
+          <span class="timezones-checkbox"><%= timezone %> : <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
         <% end %>
       </div>
       <p>■チェックボックス外の時間を申請する場合は下記に時間を入力してください。</p>
       <div class="field">
-        <%= f.label :シフト申請時間（開始） %>
-        <%= f.select :request_start_time, ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'], {include_blank: true} %>時
-      </div>
-      <div class="field">
-        <%= f.label :シフト申請時間（終了） %>
+        <%= f.label :２４時間指定 %><br>
+        <%= f.select :request_start_time, ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'], {include_blank: true} %>時〜
         <%= f.select :request_end_time,   ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'], {include_blank: true} %>時
       </div>
 

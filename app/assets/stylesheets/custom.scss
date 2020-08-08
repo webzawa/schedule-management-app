@@ -137,4 +137,12 @@ p {
 
 .not-approved{
   color: darkred;
-}  
+}
+
+#alert-message{
+  position: absolute;
+}
+
+.timezones-checkbox{
+  margin-right: 0.5rem;
+}
