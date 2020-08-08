@@ -48,8 +48,6 @@ class SchedulesController < ApplicationController
     requested_check = Schedule.find_by(:user_id => @schedule.user.id, :store_id => @schedule.store.id, :request_day => @schedule.request_day)
     return @msg = "シフトの申請に失敗しました。#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。" unless requested_check.nil?
 
-    # 夜勤のTimezone E1とEは同時に申請できないようにする
-
     # 同じ時間枠でに別店舗にシフト申請していないか確認
     # whereで日付検索
     duplicate_check = Schedule.where(:user_id => @schedule.user.id, :request_day => @schedule.request_day)
@@ -73,6 +71,14 @@ class SchedulesController < ApplicationController
     return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.empty? && @schedule.request_end_time.present?
     # シフト２４時間指定の終了時間が存在しない場合エラー
     return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.present? && @schedule.request_end_time.empty?
+
+    # 夜勤のTimezone E0,E1,E3,Eは１つまでしか申請できないようにする（勤務時間が重複しているため）
+    request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
+    count = 0
+    request_timezone_array.each do |timezone|
+      count += 1 if timezone.include?('E')
+    end
+    return @msg = 'シフトの申請に失敗しました。E系統の勤務時間枠は１つしか選択できません' if count != 1
 
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
     unless @schedule.request_timezone.empty?
