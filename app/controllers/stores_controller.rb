@@ -9,7 +9,7 @@ class StoresController < ApplicationController
   def create
     @store = Store.new(store_params)
 
-    dupcheck = Store.find_by(storename: @store.storename)
+    dupcheck = Store.find_by(:storename => @store.storename)
     unless dupcheck == nil
       flash[:error] = '店舗の登録に失敗しました。既存の店舗名は登録できません、申請内容を修正してください。'
       return redirect_to users_adminsettings_path
@@ -30,7 +30,7 @@ class StoresController < ApplicationController
   end
 
   def destroy
-    store = Store.find_by(id: params[:id])
+    store = Store.find_by(:id => params[:id])
     store.destroy
     flash[:success] = "削除しました"
     redirect_to users_adminsettings_path

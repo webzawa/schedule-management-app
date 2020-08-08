@@ -2,9 +2,9 @@ class UsersController < ApplicationController
 
   def adminsettings
     @store  = Store.new
-    @stores = Store.all.order(storename: 'ASC')
+    @stores = Store.all.order(:storename => 'ASC')
     @users_search = User.ransack(params[:q])
-    @users = @users_search.result.order(admin: 'DESC').order(duty_hours: 'ASC').order(username: 'ASC')
+    @users = @users_search.result.order(:admin => 'DESC').order(:duty_hours => 'ASC').order(:username => 'ASC')
     @check = params[:q]
   end
 
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       return redirect_to users_adminsettings_path
     end
 
-    user = User.find_by(id: params[:id])
+    user = User.find_by(:id => params[:id])
     if user.admin == false
       if user.update_attribute(:admin, true)
         flash[:success] = '指定のユーザに管理者権限を付与しました。'

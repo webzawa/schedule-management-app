@@ -1,7 +1,7 @@
 Ransack.configure do |config|
   config.add_predicate :during_year_month,
-                        arel_predicate: :between,
-                        formatter: proc { |v|
+                        :arel_predicate => :between,
+                        :formatter => proc { |v|
                           if v.month == 12
                             # 12月の時はv.monthは加算しない（エラーになる）
                             # v.yearを1加算、monthは1月固定、最後にdateを1引くことで12月の末日を取得
@@ -13,5 +13,5 @@ Ransack.configure do |config|
                           #検索月の初日から月末日まで
                           Time.zone.parse("#{v.year}-#{v.month}-1").to_date..endday
                         },
-                        type: :date
+                        :type => :date
 end

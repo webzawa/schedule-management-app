@@ -28,12 +28,12 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.2', :require => false
 
 gem 'coffee-rails'
-gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
+gem 'uglifier'
 
 # gem 'jquery-ui-rails'
 # gem 'bootstrap_form'
@@ -41,7 +41,7 @@ gem 'jquery-turbolinks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', :platforms => %i[mri mingw x64_mingw]
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
   # N+1問題検知用
@@ -50,11 +50,17 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # gem 'pre-commit'
+  gem 'rubocop', :require => false
+  gem 'rubocop-performance', :require => false
+  gem 'rubocop-rails', :require => false
+  gem 'rubocop-rspec'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem "onkcop", require: false
 end
 
 group :test do
@@ -62,12 +68,12 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-  gem 'rails-controller-testing'
-  gem 'minitest'
-  gem 'minitest-reporters'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'rails-controller-testing'
+  gem 'webdrivers'
 end
 
 group :production do
@@ -75,7 +81,7 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data', :platforms => %i[mingw mswin x64_mingw jruby]
 
 # gem 'devise'
 # gem 'devise-i18n'
@@ -94,6 +100,5 @@ group :production, :development, :test do
 
   gem 'rails-i18n'
   gem 'ransack'
-  gem 'rubocop'
   gem 'toastr-rails'
 end

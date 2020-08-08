@@ -29,11 +29,11 @@ class SchedulesController < ApplicationController
     if params[:q].nil? # 読み込み時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(user_id: current_user.id)
+      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
     else # 検索時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(user_id: current_user.id)
+      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
     end
   end
 
@@ -45,14 +45,14 @@ class SchedulesController < ApplicationController
     return @msg = 'シフトの申請に失敗しました。日付が選択されていません。' if @schedule.request_day.nil?
 
     # 申請先店舗には同日シフトの申請はできないようにする
-    requested_check = Schedule.find_by(user_id: @schedule.user.id, store_id: @schedule.store.id, request_day: @schedule.request_day)
-    unless requested_check.nil?
-      return @msg = "シフトの申請に失敗しました。#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。"
-    end
+    requested_check = Schedule.find_by(:user_id => @schedule.user.id, :store_id => @schedule.store.id, :request_day => @schedule.request_day)
+    return @msg = "シフトの申請に失敗しました。#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。" unless requested_check.nil?
+
+    # 夜勤のTimezone E1とEは同時に申請できないようにする
 
     # 同じ時間枠でに別店舗にシフト申請していないか確認
     # whereで日付検索
-    duplicate_check = Schedule.where(user_id: @schedule.user.id, request_day: @schedule.request_day)
+    duplicate_check = Schedule.where(:user_id => @schedule.user.id, :request_day => @schedule.request_day)
     # StringをArrayに変換 不要文字も合わせて削除
     request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
     # 上記でユーザIDと申請日でWhereしたものから、時間枠の重複がないか確認
@@ -70,13 +70,9 @@ class SchedulesController < ApplicationController
       return @msg = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
     end
     # シフト２４時間指定の開始時間が存在しない場合エラー
-    if @schedule.request_start_time.empty? && @schedule.request_end_time.present?
-      return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。'
-    end
+    return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.empty? && @schedule.request_end_time.present?
     # シフト２４時間指定の終了時間が存在しない場合エラー
-    if @schedule.request_start_time.present? && @schedule.request_end_time.empty?
-      return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。'
-    end
+    return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.present? && @schedule.request_end_time.empty?
 
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
     unless @schedule.request_timezone.empty?
@@ -96,13 +92,13 @@ class SchedulesController < ApplicationController
 
   # シフト削除
   def destroy
-    @schedule = Schedule.find_by(id: params[:id])
+    @schedule = Schedule.find_by(:id => params[:id])
     @schedule.destroy
   end
 
   # シフト承認用UPDATE （管理者専用）
   def update
-    @schedule = Schedule.find_by(id: params[:id])
+    @schedule = Schedule.find_by(:id => params[:id])
 
     if @schedule.approved == false
       @schedule.update_attribute(:approved, true)
@@ -117,7 +113,7 @@ class SchedulesController < ApplicationController
   def schedule_params
     # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, :user_id, request_timezone: [] )
     # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, request_timezone: [] )
-    params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
+    params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :store_id, :request_timezone => [])
     # params.permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
   end
 
@@ -152,7 +148,7 @@ class SchedulesController < ApplicationController
 
       # 勤務時間帯順に並び替え
       @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.empty?
-      @users_and_schedules = @users_and_schedules_search.result(distinct: true).includes(:schedules) # schedulesをincludesしないと検索がうまくいかない
+      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules) # schedulesをincludesしないと検索がうまくいかない
 
       # 検索対象のレコードがない場合
       if @users_and_schedules.empty?

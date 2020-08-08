@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get  'schedules/approveschedule'
 
   devise_for :users
-  resources :users, only: [:update] # adminsettings用
+  resources :users, :only => [:update] # adminsettings用
   resources :schedules
   resources :stores
 end
