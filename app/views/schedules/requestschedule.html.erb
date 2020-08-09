@@ -25,7 +25,7 @@
         <%= f.label :シフト勤務時間枠 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
         <% @timezones.each do |timezone| %>
-          <span class="timezones-checkbox"><%= timezone %> : <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
+          <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
         <% end %>
       </div>
       <p>■チェックボックス外の時間を申請する場合は下記に時間を入力してください。</p>

@@ -4,40 +4,27 @@
     <title><%= yield(:title) %> | BigwestSchedule</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-<% if false %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'true' %>
-<% end %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+<%if false%>
+    <%# materialize.css %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<%end%>
+    <%# viewport %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
       </script>
     <![endif]-->
+
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "BIGWEST勤怠管理", root_path, id: "logo" %>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <li><%= link_to current_user.username,edit_user_registration_path %></li>
-              <li><%= link_to "スケジュール一覧",schedules_workschedule_path %></li>
-              <li><%= link_to "シフト申請",     schedules_requestschedule_path %></li>
-              <% if current_user.admin? %>
-                <li><%= link_to "シフト承認",     schedules_approveschedule_path %><%# only admin%></li>
-                <li><%= link_to "管理者用設定",   users_adminsettings_path %><%# only superadmin%></li>
-              <% end %>
-              <li><%= link_to "ログアウト", destroy_user_session_path,method: :delete %></li>
-            <% else %>
-              <li><%= link_to "ログイン", new_user_session_path %></li>
-            <% end %>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <%= render "shared/header"%>
     <div class="container">
       <script type="text/javascript">
         <% flash.each do |key, value| %>
@@ -47,7 +34,7 @@
         <% end %>
       </script>
       <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
     </div>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
