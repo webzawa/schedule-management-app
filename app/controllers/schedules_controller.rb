@@ -28,11 +28,11 @@ class SchedulesController < ApplicationController
 
     if params[:q].nil? # 読み込み時処理
       @schedules_search = Schedule.ransack(params[:q])
-      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
+      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
       @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
     else # 検索時処理
       @schedules_search = Schedule.ransack(params[:q])
-      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.empty?
+      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
       @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
     end
   end
@@ -61,16 +61,16 @@ class SchedulesController < ApplicationController
       duplicate_check = duplicate_check.where('request_timezone like ?', "%#{timezone}%")
     end
     # 時間枠の重複があればエラー処理 (whereの結果がemptyならその申請の時間の重複はない→申請してOK)
-    return @msg = 'シフトの申請に失敗しました。別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。' unless duplicate_check.empty?
+    return @msg = 'シフトの申請に失敗しました。別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。' if duplicate_check.present?
 
     # シフト時間枠、２４時間指定の申請がいずれも存在しない場合エラー
-    if @schedule.request_timezone.empty? && @schedule.request_start_time.empty? && @schedule.request_end_time.empty?
+    if @schedule.request_timezone.blank? && @schedule.request_start_time.blank? && @schedule.request_end_time.blank?
       return @msg = 'シフトの申請に失敗しました。時間が選択されていません、申請内容を修正してください。'
     end
     # シフト２４時間指定の開始時間が存在しない場合エラー
-    return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.empty? && @schedule.request_end_time.present?
+    return @msg = 'シフトの申請に失敗しました。開始時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.blank? && @schedule.request_end_time.present?
     # シフト２４時間指定の終了時間が存在しない場合エラー
-    return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.present? && @schedule.request_end_time.empty?
+    return @msg = 'シフトの申請に失敗しました。終了時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.present? && @schedule.request_end_time.blank?
 
     # 夜勤のTimezone E0,E1,E3,Eは１つまでしか申請できないようにする（勤務時間が重複しているため）
     request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
@@ -81,7 +81,7 @@ class SchedulesController < ApplicationController
     return @msg = 'シフトの申請に失敗しました。E系統の勤務時間枠は１つしか選択できません' if count != 1
 
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
-    unless @schedule.request_timezone.empty?
+    if @schedule.request_timezone.present?
       @schedule.request_timezone.gsub!('"', '')
       @schedule.request_timezone.gsub!(',', '')
       @schedule.request_timezone.gsub!('[', '')
@@ -153,11 +153,11 @@ class SchedulesController < ApplicationController
       @users_and_schedules_search = User.joins(:schedules).ransack(params[:q])
 
       # 勤務時間帯順に並び替え
-      @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.empty?
+      @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
       @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules) # schedulesをincludesしないと検索がうまくいかない
 
       # 検索対象のレコードがない場合
-      if @users_and_schedules.empty?
+      if @users_and_schedules.blank?
         flash.now[:error] = 'スケジュールが存在しません。'
         return render link_target
       end
