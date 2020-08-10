@@ -35,7 +35,7 @@
                     <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
                       <%#申請シフトが未承認だったらCSSでColor付与する%>
                       <% if schedule.approved == false %><div class="not-approved"><% end %>
-                        <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+                        <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
                           <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
                         <% end %>
                         <% unless schedule.request_timezone.nil? %>

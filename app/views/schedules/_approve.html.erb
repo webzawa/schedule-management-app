@@ -1,13 +1,13 @@
 <%#シフトが承認済かでlink_toの文字色変更%>
 <% if schedule.approved == true %>
-  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+  <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
     <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
     <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:black;" %>
   <% end %>
 <% else %>
-  <% unless schedule.request_start_time == "" || schedule.request_end_time == "" %>
+  <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
     <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
