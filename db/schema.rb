@@ -14,9 +14,9 @@ ActiveRecord::Schema.define(version: 2020_07_20_184721) do
 
   create_table "schedules", force: :cascade do |t|
     t.date "request_day", null: false
-    t.string "request_start_time", default: ""
-    t.string "request_end_time", default: ""
     t.string "request_timezone", default: ""
+    t.integer "request_start_time"
+    t.integer "request_end_time"
     t.boolean "approved", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
