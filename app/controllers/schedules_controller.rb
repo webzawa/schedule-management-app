@@ -56,7 +56,6 @@ class SchedulesController < ApplicationController
     # シフト２４時間指定の終了時間が存在しない場合エラー
     return @msg = '終了時間が選択されていません、申請内容を修正してください。' if @schedule.request_start_time.present? && @schedule.request_end_time.blank?
 
-    # debugger
     # 夜勤のTimezone E0,E1,E3,Eは１つまでしか申請できないようにする（勤務時間が重複しているため）
     request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
     count = 0 # カウンタ初期化
@@ -69,7 +68,6 @@ class SchedulesController < ApplicationController
     if @schedule.request_start_time.present? || @schedule.request_end_time.present?
       return @msg = '勤務開始時間が終了時間を上回っています。申請内容を修正してください。' if @schedule.request_start_time > @schedule.request_end_time
     end
-    # debugger
 
     # 同じ時間枠でに別店舗にシフト申請していないか確認
     # whereで日付検索

@@ -8,8 +8,8 @@ ruby '2.7.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 
-gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'jquery-rails'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -83,12 +83,12 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', :platforms => %i[mingw mswin x64_mingw jruby]
 
+gem 'bootstrap_form'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
-gem 'bootstrap_form'
+gem 'font-awesome-sass'
 gem 'rails_12factor'
 gem 'rails-i18n'
 gem 'ransack'
 gem 'toastr-rails'
-gem 'font-awesome-sass'
