@@ -1,5 +1,8 @@
+// @import "reset";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
 @import "toastr";
 
 /* mixins, variables, etc. */
@@ -9,7 +12,6 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  padding-top: 10rem;
   font-family: "Helvetica Neue",
     Arial,
     "Hiragino Kaku Gothic ProN",
@@ -65,12 +67,12 @@ p {
 
 #logo {
   float: left;
-  margin-right: 10px;
+  // margin-right: 10px;
   font-size: 1.7em;
   color: white;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 9px;
+  // padding-top: 9px;
   font-weight: bold;
   &:hover {
     color: white;
@@ -139,10 +141,19 @@ p {
   color: darkred;
 }
 
-#alert-message{
-  position: absolute;
-}
-
 .timezones-checkbox{
   margin-right: 0.3rem;
+}
+
+.menuicon{
+  color:white;
+}
+
+.schedule-request-button{
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+//アラートの下余白を削除
+.alert{
+  margin-bottom: 0px;
 }

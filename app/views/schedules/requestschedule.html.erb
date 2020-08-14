@@ -1,22 +1,15 @@
 <% provide(:title, "シフト申請") %>
 
-<div id="alert-message"></div>
-<br>
-<br>
-
 <div class="row">
   <div class="col-md-6">
     <%# form_with model: @requestschedule, local: true  do |f| %>
     <%= form_with model: @requestschedule do |f| %>
     <%#formwith完成形はremote trueにしてAjax処理にする form_with model: @requestschedule do |f| %>
       <h3>シフト申請</h3>
-      <p>■シフト申請者：<%= current_user.username %></p>
-
       <div class="field">
         <%= f.label :シフト申請先店舗 %><br>
         <%= f.collection_select :store_id, Store.all, :id, :storename %>
       </div>
-      <p>■カレンダーからシフト申請する日を選択してください</p>
       <div class="field">
         <%= f.label :シフト申請日 %><br>
         <%= f.date_field :request_day %>
@@ -28,17 +21,22 @@
           <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
         <% end %>
       </div>
-      <p>■チェックボックス外の時間を申請する場合は下記に時間を入力してください。</p>
       <div class="field">
         <%= f.label :２４時間指定 %><br>
         <%= f.select :request_start_time, @timehours, {include_blank: true} %>時〜
         <%= f.select :request_end_time  , @timehours, {include_blank: true} %>時
       </div>
 
-      <p>■指定したシフトを確認後、申請ボタンを押してください。</p>
-      <%= f.submit "シフト申請", class: "btn btn-primary" %>
+      <%= f.submit "シフト申請", class: "schedule-request-button btn btn-primary" %>
     <% end %>
+
+    <div id="alert-message">
+      <br>
+      <br>
+      <br>
+    </div>
   </div>
+
 <%#if false%>
   <div class="col-md-6">
     <h3>申請済みシフト欄</h3>
