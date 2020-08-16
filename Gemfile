@@ -86,7 +86,6 @@ gem 'tzinfo-data', :platforms => %i[mingw mswin x64_mingw jruby]
 gem 'bootstrap_form'
 gem 'devise'
 gem 'devise-i18n'
-gem 'devise-i18n-views'
 gem 'font-awesome-sass'
 gem 'rails_12factor'
 gem 'rails-i18n'

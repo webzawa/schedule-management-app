@@ -1,21 +1,21 @@
 <h2>ユーザ情報編集</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :氏名 %><br />
-    <%= f.text_field :username %>
+    <%= f.text_field :username, hide_label: true %>
   </div>
 
   <div class="field">
     <%= f.label :主な勤務時間枠 %><br />
-    <%= f.select :duty_hours, [['指定なし',0],['朝勤',1],['昼勤',2],['夕勤',3],['夜勤',4],['店長クラス',5]] %>
+    <%= f.select :duty_hours, [['指定なし',0],['朝勤',1],['昼勤',2],['夕勤',3],['夜勤',4],['店長クラス',5]], hide_label: true %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", hide_label: true %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -23,22 +23,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :パスワードの変更 %> <i>(変更しない場合は空白のままにして下さい)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上</em>
-    <% end %>
+    <%= f.label :パスワードの変更 %> <p>(<%= @minimum_password_length %>文字以上、変更しない場合は空白のままにして下さい)</p>
+    <%= f.password_field :password, autocomplete: "new-password", hide_label: true %>
   </div>
 
   <div class="field">
     <%= f.label :パスワード再入力 %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", hide_label: true %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(ユーザ情報の変更には、現在のパスワードが必要です)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.label :current_password %> <p>(ユーザ情報の変更には、現在のパスワードが必要です)</p>
+    <%= f.password_field :current_password, autocomplete: "current-password", hide_label: true %>
   </div>
 
   <div class="actions">
@@ -46,6 +42,6 @@
   </div>
 <% end %>
 
-<p><%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "警告：この変更は取り消せません\nアカウントを削除してもよろしいでしょうか？" }, method: :delete %></p>
+<p><%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "警告：この変更は取り消せません\nアカウントを削除してもよろしいでしょうか？" }, method: :delete, style: "background-color: darkred; color: white;" %></p>
 
 <%= link_to "戻る", :back %>
