@@ -108,6 +108,7 @@ class SchedulesController < ApplicationController
     end
 
     @msg = if @schedule.save
+             @created = true
              "シフトの申請ができました。申請先:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
            else
              'シフトの申請に失敗しました、申請内容を修正してください。'
