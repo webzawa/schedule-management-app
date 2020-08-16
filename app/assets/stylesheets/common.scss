@@ -1,4 +1,4 @@
-@import "normalize";
+// @import "normalize";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'font-awesome-sprockets';
@@ -91,6 +91,7 @@ p {
 .calender-table{
   font-weight: 500;
   margin: 1rem auto 1rem auto;
+  white-space: nowrap;
   th {
     background: #295554;
     color: #fff;
@@ -155,4 +156,62 @@ p {
 //アラートの下余白を削除
 .alert{
   margin-bottom: 0px;
+}
+
+.btn{
+  background-color: #428bca;
+  color: white;
+
+  &:hover{
+    opacity:0.8;
+    color: white;
+  }
+}
+
+.account_delete_button{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: darkred;
+  color: white;
+
+  &:hover{
+    opacity:0.8;
+  }
+}
+
+.ransack-submit{
+  input[type="submit"]{
+  margin-top:1rem;
+  margin-bottom:1rem;
+  width:100px;
+  line-height:35px;
+  font-size:16px;
+  background-color:#16A6B6;
+  border:none;
+  border-radius: 5px;
+  color:#fff;
+  cursor: pointer;
+  transition: 0.3s;
+  display:block;
+
+  &:hover{
+    opacity:0.8;
+  }
+  }
 }

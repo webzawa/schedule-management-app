@@ -1,14 +1,22 @@
 <%#シフトが承認済かでlink_toの文字色変更%>
 <% if schedule.approved == true %>
   <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
-    <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+    <% if schedule.request_start_time == schedule.request_end_time %>
+      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+    <% else %>
+      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+    <% end %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
     <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:black;" %>
   <% end %>
 <% else %>
   <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
-    <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+    <% if schedule.request_start_time == schedule.request_end_time %>
+      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+    <% else %>
+      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+    <% end %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
     <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:darkred;" %>

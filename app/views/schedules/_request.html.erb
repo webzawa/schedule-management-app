@@ -4,7 +4,11 @@
 <td> 
   <%# start or end time is not blank, then indicate value %>
   <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
-    <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
+    <% if schedule.request_start_time == schedule.request_end_time %>
+      <%= schedule.request_start_time %>
+    <% else %>
+      <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
+    <% end %>
   <% end %>
   <%#　スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
   <% unless schedule.request_timezone.nil? %>
