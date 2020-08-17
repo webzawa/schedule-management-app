@@ -3,13 +3,13 @@
 class DeviseCreateUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :users do |t|
-      # 個人設定用カラム 氏名、主な勤務時間枠(指定なし:0、朝勤:1、昼勤:2、夕勤:3、夜勤:4、店長クラス:5でソートする用)
-      t.string  :username,   :default => "", :null => false
+      # 個人設定用カラム 氏名、主な勤務時間帯(指定なし:0、朝勤:1、昼勤:2、夕勤:3、夜勤:4、店長クラス:5でソートする用)
+      t.string  :username,   :default => '', :null => false
       t.integer :duty_hours, :default => 0,  :null => false
 
       ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
-      t.string :encrypted_password, :null => false, :default => ""
+      t.string :email,              :null => false, :default => ''
+      t.string :encrypted_password, :null => false, :default => ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -35,7 +35,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
-
 
       t.timestamps :null => false
     end

@@ -15,7 +15,7 @@
         <%= f.date_field :request_day %>
       </div>
       <div class="field">
-        <%= f.label :シフト勤務時間枠 %><br>
+        <%= f.label :シフト勤務時間帯 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
         <% @timezones.each do |timezone| %>
           <% if timezone == "E0"%>
@@ -62,12 +62,12 @@
 
         <div class="actions ransack-submit"><%= f.submit "検索" %></div>
       <% end %>
-      <table class="table-bordered table-striped table-responsive">
+      <table class="table-bordered table-striped table-responsive ransack-searched-table">
         <tr>
           <th>店舗</th>
           <th>申請日</th>
-          <th>申請時間枠</th>
-          <th>承認可否</th>
+          <th>時間</th>
+          <th>承認</th>
         </tr>
         <% @schedules.each do |schedule| %>
           <tr class="schedules_<%= schedule.id %>">
