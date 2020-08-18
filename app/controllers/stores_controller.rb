@@ -2,6 +2,7 @@
 
 class StoresController < ApplicationController
   before_action :authenticate_user!
+  before_action :admin_user
 
   # 管理者専用コントローラ
 

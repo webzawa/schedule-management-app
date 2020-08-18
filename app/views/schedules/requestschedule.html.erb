@@ -12,7 +12,12 @@
       </div>
       <div class="field">
         <%= f.label :シフト申請日 %><br>
-        <%= f.date_field :request_day %>
+        <%= raw sprintf(
+            f.date_select(
+              :request_day,
+              use_month_numbers: true,
+              date_separator: '%s'),
+            '年 ', '月 ') + '日' %>
       </div>
       <div class="field">
         <%= f.label :シフト勤務時間帯 %><br>
@@ -52,8 +57,15 @@
         <%= f.collection_select :store_id_eq, @stores, :id, :storename, {include_blank: true} %>
         <br>
       
-        <%= f.label :request_day, "年月"%>
-        <%= f.date_select :request_day_during_year_month, discard_day: true, include_blank: true %>
+        <%= f.label :request_day, "期間"%>
+        <%= raw sprintf(
+            f.date_select(
+              :request_day_during_year_month,
+              discard_day: true,
+              include_blank: true,
+              use_month_numbers: true,
+              date_separator: '%s'),
+            '年 ') + '月' %>
         <br>
       
         <%= f.label :approved_eq, "承認可否"%>

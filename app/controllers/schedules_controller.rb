@@ -2,6 +2,7 @@
 
 class SchedulesController < ApplicationController
   before_action :authenticate_user!
+  before_action :admin_user, :only => [:approveschedule, :update]
 
   # シフト表ページ
   def workschedule
@@ -61,7 +62,7 @@ class SchedulesController < ApplicationController
     count = 0 # カウンタ初期化
     request_timezone_array.each do |timezone|
       count += 1 if timezone.include?('E') # Eが含まれるTimezoneを申請していたらカウントする
-      return @msg = 'E系統の勤務時間枠は１つしか選択できません' if count >= 2 # countが2以上であればE勤の重複あり、エラー処理
+      return @msg = 'E系統の勤務時間帯は１つしか選択できません' if count >= 2 # countが2以上であればE勤の重複あり、エラー処理
     end
 
     # timehours関連エラーハンドリング
@@ -117,6 +118,12 @@ class SchedulesController < ApplicationController
 
   # シフト削除
   def destroy
+    # 自分以外のシフトは削除不可にする。
+    destroy_schedule_check = current_user.schedules.find_by(:id => params[:id])
+    if destroy_schedule_check.nil?
+      return
+    end
+
     @schedule = Schedule.find_by(:id => params[:id])
     @schedule.destroy
   end
@@ -136,16 +143,14 @@ class SchedulesController < ApplicationController
 
   # Strong parameterチェック
   def schedule_params
-    # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, :user_id, request_timezone: [] )
-    # params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :storename, request_timezone: [] )
-    params.require(:schedule).permit(:request_day, :request_start_time, :request_end_time, :store_id, :request_timezone => [])
-    # params.permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
+    params.require(:schedule).permit(
+      :request_day,
+      :request_start_time,
+      :request_end_time,
+      :store_id,
+      :request_timezone => []
+    )
   end
-
-  # def search_params
-  #   # params.require(:q).permit(:request_day, :request_start_time, :request_end_time, :store_id, request_timezone: [])
-  #   params.require(:q).permit!
-  # end
 
   # シフト時間枠
   def timezones
@@ -172,7 +177,6 @@ class SchedulesController < ApplicationController
     else # 検索時処理
       # RansackでUserとScheduleをInnerJoinしたところからシフト申請店舗＆シフト申請月を検索して絞る
       # すべてのUserとScheduleを取得
-      # @users_and_schedules_search = User.ransack(params[:q]) #schedulesをInnerJoinしていないのでうまく検索出来ない、下記手法で解決
       @users_and_schedules_search = User.joins(:schedules).ransack(params[:q])
 
       # 勤務時間帯順に並び替え

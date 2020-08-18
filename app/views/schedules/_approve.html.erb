@@ -2,23 +2,23 @@
 <% if schedule.approved == true %>
   <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
     <% if schedule.request_start_time == schedule.request_end_time %>
-      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, class: "approved" %>
     <% else %>
-      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:black;" %>
+      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, class: "approved" %>
     <% end %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
-    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:black;" %>
+    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, class: "approved" %>
   <% end %>
 <% else %>
   <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
     <% if schedule.request_start_time == schedule.request_end_time %>
-      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+      <%= link_to "#{schedule.request_start_time}", schedule, method: :patch, remote: true, class: "not-approved" %>
     <% else %>
-      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+      <%= link_to "#{schedule.request_start_time}-#{schedule.request_end_time}", schedule, method: :patch, remote: true, class: "not-approved" %>
     <% end %>
   <% end %>
   <% unless schedule.request_timezone.nil? %>
-    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, style: "color:darkred;" %>
+    <%= link_to "#{schedule.request_timezone}", schedule, method: :patch, remote: true, class: "not-approved" %>
   <% end %>
 <% end %>

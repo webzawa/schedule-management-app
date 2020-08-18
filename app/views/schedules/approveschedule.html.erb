@@ -11,8 +11,14 @@
       <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
     
       <br>
-      <%= f.label :request_day, "年月"%>
-      <%= f.date_select :schedules_request_day_during_year_month, discard_day: true %>
+      <%= f.label :request_day, "期間"%>
+      <%= raw sprintf(
+          f.date_select(
+            :schedules_request_day_during_year_month,
+            discard_day: true,
+            use_month_numbers: true,
+            date_separator: '%s'),
+          '年 ') + '月' %>
     
       <br>
       <%= f.label :approved, "承認可否"%>
@@ -54,7 +60,7 @@
       <p>黒：承認済</p>
       <p class="not-approved">赤：未承認</p>
     <% else %>
-      <p>表示したい店舗と年月を検索して下さい。</p>
+      <p>表示したい店舗と期間を検索して下さい。</p>
     <% end %>
   </div>
 </div>
