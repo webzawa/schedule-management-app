@@ -16,16 +16,11 @@ class StoresController < ApplicationController
       return redirect_to users_adminsettings_path
     end
 
-    if @store.storename.blank?
-      flash[:error] = '申請内容を修正してください。'
-      return redirect_to users_adminsettings_path
-    end
-
     if @store.save
       flash[:success] = '店舗を追加しました。'
       redirect_to users_adminsettings_path
     else
-      flash[:error] = '店舗追加に失敗しました、申請内容を修正してください。'
+      flash[:error] = '店舗追加に失敗しました。'
       redirect_to users_adminsettings_path
     end
   end

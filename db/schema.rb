@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_07_20_184721) do
 
-  create_table "schedules", force: :cascade do |t|
+  create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "request_day", null: false
     t.string "request_timezone", default: ""
     t.integer "request_start_time"
@@ -20,20 +20,20 @@ ActiveRecord::Schema.define(version: 2020_07_20_184721) do
     t.boolean "approved", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "store_id"
-    t.integer "user_id"
+    t.bigint "store_id"
+    t.bigint "user_id"
     t.index ["id", "user_id"], name: "index_schedules_on_id_and_user_id", unique: true
     t.index ["store_id"], name: "index_schedules_on_store_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
-  create_table "stores", force: :cascade do |t|
+  create_table "stores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "storename", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "username", default: "", null: false
     t.integer "duty_hours", default: 0, null: false
     t.string "email", default: "", null: false
