@@ -9,7 +9,7 @@
       <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
     <% end %>
   <% end %>
-  <%#　スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
+  <%# スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
   <% unless schedule.request_timezone.nil? %>
     <%= schedule.request_timezone %>
   <% end %>
@@ -18,7 +18,7 @@
   <% if schedule.approved == false %>
     <div class="not-approved">未</div>
   <% else %>
-    済
+    <div class="approved">済</div>
   <% end %>
 </td>
 <td>

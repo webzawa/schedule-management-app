@@ -6,11 +6,11 @@
     <%= form_with model: @requestschedule do |f| %>
     <%#formwith完成形はremote trueにしてAjax処理にする form_with model: @requestschedule do |f| %>
       <h3>シフト申請</h3>
-      <div class="field">
+      <div class="request-schedule-field">
         <%= f.label :シフト申請先店舗 %><br>
         <%= f.collection_select :store_id, Store.all, :id, :storename %>
       </div>
-      <div class="field">
+      <div class="request-schedule-field">
         <%= f.label :シフト申請日 %><br>
         <%= raw sprintf(
             f.date_select(
@@ -19,7 +19,7 @@
               date_separator: '%s'),
             '年 ', '月 ') + '日' %>
       </div>
-      <div class="field">
+      <div class="request-schedule-field">
         <%= f.label :シフト勤務時間帯 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
         <% @timezones.each do |timezone| %>
@@ -31,7 +31,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="field">
+      <div class="request-schedule-field">
         <%= f.label :２４時間指定 %><br>
         <%= f.select :request_start_time, @timehours, {include_blank: true} %>時〜
         <%= f.select :request_end_time  , @timehours, {include_blank: true} %>時
