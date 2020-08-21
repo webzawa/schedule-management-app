@@ -114,7 +114,7 @@ text-align: center;
   margin-bottom: 0px;
 }
 
-.ransack-searched-table{
+.common-table{
   white-space: nowrap;
   font-weight: 900;
   th{
@@ -249,5 +249,17 @@ text-align: center;
   .field{
     width: 100%;
     margin: 0 auto;
+  }
+
+  .common-table{
+    white-space: nowrap;
+    font-weight: 900;
+    th{
+      text-align: center;
+      padding: 0rem;
+    }
+    td{
+      text-align: center;
+    }
   }
 }
