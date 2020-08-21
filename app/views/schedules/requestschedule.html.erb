@@ -86,6 +86,7 @@
             <%= render partial: "schedules/request", locals: { schedule: schedule} %>
           </tr>
         <% end %>
+        <%= paginate @schedules %>
       </table>
     </div>
   </div>

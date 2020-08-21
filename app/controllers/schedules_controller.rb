@@ -31,11 +31,11 @@ class SchedulesController < ApplicationController
     if params[:q].nil? # 読み込み時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
+      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id).page(params[:page])
     else # 検索時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id)
+      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id).page(params[:page])
     end
   end
 
@@ -120,9 +120,7 @@ class SchedulesController < ApplicationController
   def destroy
     # 自分以外のシフトは削除不可にする。
     destroy_schedule_check = current_user.schedules.find_by(:id => params[:id])
-    if destroy_schedule_check.nil?
-      return
-    end
+    return if destroy_schedule_check.nil?
 
     @schedule = Schedule.find_by(:id => params[:id])
     @schedule.destroy

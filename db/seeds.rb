@@ -1,34 +1,27 @@
-# frozen_string_literal: true
+5.times do |n|
+  User.create!(
+    :username => "ユーザ#{n + 1}",
+    :email => "test#{n + 1}@test.com",
+    :duty_hours => 0,
+    :password => 'testuser',
+    :password_confirmation => 'testuser',
+    :admin => false,
+    :confirmed_at => Time.zone.now
+  )
+end
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-# User.create!(:username => '芹澤誠',
-#              :email => 'seri@gmail.com',
-#              :password => 'hinnahinna',
-#              :password_confirmation => 'hinnahinna',
-#              :activated_at => Time.zone.now)
-# User.create!(:username => '瀬戸勇気',
-#              :email => 'seto@gmail.com',
-#              :password => 'hinnahinna',
-#              :password_confirmation => 'hinnahinna',
-#              :activated_at => Time.zone.now)
-# User.create!(:username => '織田直樹',
-#              :email => 'oda@gmail.com',
-#              :password => 'hinnahinna',
-#              :password_confirmation => 'hinnahinna',
-#              :activated_at => Time.zone.now)
-# User.create!(:username => '小暮智彦',
-#              :email => 'kogure@gmail.com',
-#              :password => 'hinnahinna',
-#              :password_confirmation => 'hinnahinna',
-#              :activated_at => Time.zone.now)
-# User.create!(:username => '大植',
-#              :email => 'ooue@gmail.com',
-#              :password => 'hinnahinna',
-#              :password_confirmation => 'hinnahinna',
-#              :activated_at => Time.zone.now)
+3.times do |n|
+  Store.create!(
+    :storename => "ストア#{n + 1}店"
+  )
+end
+
+30.times do |n|
+  Schedule.create!(
+    :request_day => "2020-08-#{n + 1}",
+    :request_timezone => 'A',
+    :approved => true,
+    :store_id => 1,
+    :user_id => 1
+  )
+end
