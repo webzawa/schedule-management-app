@@ -66,6 +66,7 @@ p {
 /* header */
 
 #logo {
+  margin-left: 1rem;
   float: left;
   // margin-right: 10px;
   font-size: 1.7em;
@@ -161,6 +162,15 @@ text-align: center;
   &:hover{
     opacity:0.8;
   }
+}
+
+.signup-btn{
+  text-decoration: none;
+  color: white;
+  // background-color: rgba(255,255,0,0.8);
+  font-size: 30px;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 //検索ボタン
