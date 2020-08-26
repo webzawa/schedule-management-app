@@ -14,15 +14,15 @@ default: &default
 
 development:
   <<: *default
-  database: bigwest_dev
+  database: schedule_management_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: bigwest_test
+  database: schedule_management_test
 
 production:
   <<: *default
-  database: bigwest_pro
+  database: schedule_management_pro

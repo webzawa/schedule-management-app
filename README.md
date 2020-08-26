@@ -1,4 +1,4 @@
-# Work Schedule App
+# Schedule Management App
 
 コンビニ経営者の知人に依頼されて作成した自作アプリです。<br />
 従業員のシフト申請を一覧で見える化し、直感的な操作で承認する事ができます。<br />
