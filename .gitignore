@@ -40,4 +40,6 @@
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore other settings
 /.env
+.ssh/
