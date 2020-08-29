@@ -5,35 +5,35 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
-gem 'bootstrap-sass'
-gem 'jquery-rails'
-gem 'puma', '~> 4.1'
-gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 4.0'
-gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', :require => false
-gem 'coffee-rails'
-gem 'uglifier'
 gem 'bootstrap_form'
+gem 'bootstrap-sass'
+gem 'coffee-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'font-awesome-sass'
+gem 'jbuilder', '~> 2.7'
+gem 'jquery-rails'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
+gem 'mysql2'
+gem 'puma', '~> 4.1'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'rails_12factor'
 gem 'rails-i18n'
 gem 'ransack'
-gem 'toastr-rails'
-gem 'kaminari'
-gem 'kaminari-bootstrap'
 gem 'rename'
-gem 'mysql2'
+gem 'sass-rails', '>= 6'
+gem 'toastr-rails'
+gem 'uglifier'
+gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', :platforms => %i[mri mingw x64_mingw]
-  gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
+  gem 'rspec-rails'
 end
 
 group :development do
