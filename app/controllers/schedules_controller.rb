@@ -27,21 +27,24 @@ class SchedulesController < ApplicationController
     timezones
     timehours
     @stores = Store.all # 全店舗呼び出し
+    @users  = User.all  # 全ユーザ呼び出し
 
     if params[:q].nil? # 読み込み時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id).page(params[:page])
+      @schedules = @schedules_search.result.includes(%i[user store]).page(params[:page])
     else # 検索時処理
       @schedules_search = Schedule.ransack(params[:q])
       @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).where(:user_id => current_user.id).page(params[:page])
+      @schedules = @schedules_search.result.includes(%i[user store]).page(params[:page])
     end
+    @check = params[:q] # 未検索時チェック
   end
 
   # シフト作成
   def create
-    @schedule = current_user.schedules.build(schedule_params)
+    # @schedule = current_user.schedules.build(schedule_params) # 2020/09/03要望により削除
+    @schedule = Schedule.new(schedule_params)
 
     # シフト申請日存在チェック
     return @msg = '日付が選択されていません。' if @schedule.request_day.nil?
@@ -70,34 +73,35 @@ class SchedulesController < ApplicationController
       return @msg = '勤務開始時間が終了時間を上回っています。申請内容を修正してください。' if @schedule.request_start_time > @schedule.request_end_time
     end
 
-    # 同じ時間枠でに別店舗にシフト申請していないか確認
-    # whereで日付検索
-    schedule_of_other_stores = Schedule.where(:user_id => @schedule.user.id, :request_day => @schedule.request_day)
-    if schedule_of_other_stores.present? # 同日、他店舗にシフト申請済みの場合
-      # StringをArrayに変換 不要文字も合わせて削除
-      request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
-      # 上記でユーザIDと申請日でWhereしたものから、時間枠の重複がないか確認
-      request_timezone_array.each do |timezone|
-        if timezone == 'E0' || timezone == 'E1' || timezone == 'E3'
-          timezone = 'E'
-        end # Eの付いた時間枠はいずれも21時始まりであることから、E1,E3はEに変換して重複チェックにかかるようにする。
-        duplicate_check_timezone = schedule_of_other_stores.where('request_timezone like ?', "%#{timezone}%")
-        # 時間枠の重複があればエラー処理 (whereの結果がemptyならその申請の時間の重複はない→申請してOK)
-        return @msg = '別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。' if duplicate_check_timezone.present?
-      end
+    # 2020/09/03　要望により削除
+    # # 同じ時間枠でに別店舗にシフト申請していないか確認
+    # # whereで日付検索
+    # schedule_of_other_stores = Schedule.where(:user_id => @schedule.user.id, :request_day => @schedule.request_day)
+    # if schedule_of_other_stores.present? # 同日、他店舗にシフト申請済みの場合
+    #   # StringをArrayに変換 不要文字も合わせて削除
+    #   request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
+    #   # 上記でユーザIDと申請日でWhereしたものから、時間枠の重複がないか確認
+    #   request_timezone_array.each do |timezone|
+    #     if timezone == 'E0' || timezone == 'E1' || timezone == 'E3'
+    #       timezone = 'E'
+    #     end # Eの付いた時間枠はいずれも21時始まりであることから、E1,E3はEに変換して重複チェックにかかるようにする。
+    #     duplicate_check_timezone = schedule_of_other_stores.where('request_timezone like ?', "%#{timezone}%")
+    #     # 時間枠の重複があればエラー処理 (whereの結果がemptyならその申請の時間の重複はない→申請してOK)
+    #     return @msg = '別店舗に申請しているシフトと時間の重複があります。申請内容を修正してください。' if duplicate_check_timezone.present?
+    #   end
 
-      # timehoursが他店舗申請済みシフトと重複しているか判定
-      if @schedule.request_start_time.present? || @schedule.request_end_time.present?
-        schedule_of_other_stores.each do |schedule_of_other_store| # 1店舗ずつ取り出し
-          if @schedule.request_start_time.between?(schedule_of_other_store.request_start_time, schedule_of_other_store.request_end_time)
-            return @msg = "#{schedule_of_other_store.store.storename}に申請しているシフトと開始時間の重複があります。申請内容を修正してください。"
-          end
-          if @schedule.request_end_time.between?(schedule_of_other_store.request_start_time, schedule_of_other_store.request_end_time)
-            return @msg = "#{schedule_of_other_store.store.storename}に申請しているシフトと終了時間の重複があります。申請内容を修正してください。"
-          end
-        end
-      end
-    end
+    #   # timehoursが他店舗申請済みシフトと重複しているか判定
+    #   if @schedule.request_start_time.present? || @schedule.request_end_time.present?
+    #     schedule_of_other_stores.each do |schedule_of_other_store| # 1店舗ずつ取り出し
+    #       if @schedule.request_start_time.between?(schedule_of_other_store.request_start_time, schedule_of_other_store.request_end_time)
+    #         return @msg = "#{schedule_of_other_store.store.storename}に申請しているシフトと開始時間の重複があります。申請内容を修正してください。"
+    #       end
+    #       if @schedule.request_end_time.between?(schedule_of_other_store.request_start_time, schedule_of_other_store.request_end_time)
+    #         return @msg = "#{schedule_of_other_store.store.storename}に申請しているシフトと終了時間の重複があります。申請内容を修正してください。"
+    #       end
+    #     end
+    #   end
+    # end
 
     # @schedule.request_timezone整形、右の文字を削除[" , [ ] ']
     if @schedule.request_timezone.present?
@@ -142,10 +146,12 @@ class SchedulesController < ApplicationController
   # Strong parameterチェック
   def schedule_params
     params.require(:schedule).permit(
+      :user_id,
+      :store_id,
+      :approved,
       :request_day,
       :request_start_time,
       :request_end_time,
-      :store_id,
       :request_timezone => []
     )
   end
@@ -179,7 +185,7 @@ class SchedulesController < ApplicationController
 
       # 勤務時間帯順に並び替え
       @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
-      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules) # schedulesをincludesしないと検索がうまくいかない
+      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules).order(:username => 'ASC') # schedulesをincludesしないと検索がうまくいかない
 
       # 検索対象のレコードがない場合
       if @users_and_schedules.blank?

@@ -15,7 +15,10 @@
             use_month_numbers: true,
             date_separator: '%s'),
           '年 ') + '月' %>
-    
+
+      <%# 承認済のみ絞り込むようにすることで、完成済みスケジュールのみ表示、未承認シフトは一般ユーザから見れないようにする。%>
+      <%= f.hidden_field :schedules_approved_eq, :value => true %>
+
       <div class="actions ransack-submit"><%= f.submit "検索" %></div>
     <% end %>
     
@@ -57,10 +60,7 @@
           </tr>
         <% end %>
         
-        <%= render partial: "shared/calender_count_schedule" %>
       </table>
-      <p class="approved">黒　：承認済</p>
-      <p class="not-approved">灰色：未承認</p>
     <% else %>
       <p>表示したい店舗と期間を検索して下さい。</p>
     <% end %>

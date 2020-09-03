@@ -1,3 +1,6 @@
+<% if current_user.admin? %>
+  <td><%= schedule.user.username%></td>
+<% end %>
 <td><%= schedule.store.storename%></td>
 <td><%= schedule.request_day.strftime("%y/%m/%d").to_s %></td>
 <td> 

@@ -1,15 +1,26 @@
 <% provide(:title, "シフト申請") %>
 
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
 <div class="row">
   <div class="col-md-6">
-    <%# form_with model: @requestschedule, local: true  do |f| %>
     <%= form_with model: @requestschedule do |f| %>
-    <%#formwith完成形はremote trueにしてAjax処理にする form_with model: @requestschedule do |f| %>
       <h3>シフト申請</h3>
+
+      <div class="request-schedule-field">
+        <% if current_user.admin? %>
+          <%= f.label :ユーザ名 %><br>
+          <%= f.collection_select :user_id, @users, :id, :username, {selected: current_user.id} %>
+        <% else %>
+          <%= f.hidden_field :user_id, :value => current_user.id %>
+        <% end %>
+      </div>
+
       <div class="request-schedule-field">
         <%= f.label :シフト申請先店舗 %><br>
         <%= f.collection_select :store_id, Store.all, :id, :storename %>
       </div>
+
       <div class="request-schedule-field">
         <%= f.label :シフト申請日 %><br>
         <%= raw sprintf(
@@ -19,6 +30,7 @@
               date_separator: '%s'),
             '年 ', '月 ') + '日' %>
       </div>
+
       <div class="request-schedule-field">
         <%= f.label :シフト勤務時間帯 %><br>
         <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
@@ -31,17 +43,30 @@
           <% end %>
         <% end %>
       </div>
+
       <div class="request-schedule-field">
         <%= f.label :２４時間指定 %><br>
         <%= f.select :request_start_time, @timehours, {include_blank: true} %>時〜
         <%= f.select :request_end_time  , @timehours, {include_blank: true} %>時
       </div>
 
+      <div class="request-schedule-field">
+        <% if current_user.admin? %>
+          <%= f.label :承認可否 %>
+          <%= f.radio_button :approved, :true %>
+          <%= f.label :approved, "承認", {value: :true, checked: true, style: "display: inline-block;"} %>
+          <%= f.radio_button :approved, :false %>
+          <%= f.label :approved, "未承認", {value: :false, style: "display: inline-block;"} %>
+        <% else %>
+          <%= f.hidden_field :approved, :value => false %>
+        <% end %>
+        <br>
+      </div>
+
       <%= f.submit "シフト申請", class: "schedule-request-button btn btn-primary" %>
     <% end %>
   </div>
 
-<%#if false%>
   <div class="col-md-6">
     <h3>申請済みシフト欄</h3>
       <p>
@@ -51,13 +76,19 @@
     <div>
       <%= search_form_for @schedules_search, url: schedules_requestschedule_path do |f| %>
 
-        <%= f.hidden_field :user_id_eq, :value => current_user.id %>
+        <% if current_user.admin? %>
+          <%= f.label :id_eq, "ユーザ名"%>
+          <%= f.collection_select :user_id_eq, @users, :id, :username, {include_blank: true, selected: current_user.id} %>
+        <% else %>
+          <%= f.hidden_field :user_id_eq, :value => current_user.id %>
+        <% end %>
+        <br>
       
         <%= f.label :store_id_eq, "店舗"%>
         <%= f.collection_select :store_id_eq, @stores, :id, :storename, {include_blank: true} %>
         <br>
       
-        <%= f.label :request_day, "期間"%>
+        <%= f.label :request_day_eq, "期間（年月指定）"%>
         <%= raw sprintf(
             f.date_select(
               :request_day_during_year_month,
@@ -67,6 +98,18 @@
               date_separator: '%s'),
             '年 ') + '月' %>
         <br>
+
+        <% if current_user.admin? %>
+          <%= f.label :request_day_eq, "期間（年月日指定）"%>
+          <%= raw sprintf(
+              f.date_select(
+                :request_day_eq,
+                use_month_numbers: true,
+                include_blank: true,
+                date_separator: '%s'),
+              '年 ', '月 ') + '日' %>
+          <br>
+        <% end %>
       
         <%= f.label :approved_eq, "承認可否"%>
         <%= f.select :approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
@@ -74,21 +117,26 @@
 
         <div class="actions ransack-submit"><%= f.submit "検索" %></div>
       <% end %>
-      <table class="table-bordered table-striped table-responsive common-table">
-        <tr>
-          <th>店舗</th>
-          <th>申請日</th>
-          <th>時間</th>
-          <th>承認</th>
-        </tr>
-        <% @schedules.each do |schedule| %>
-          <tr class="schedules_<%= schedule.id %>">
-            <%= render partial: "schedules/request", locals: { schedule: schedule} %>
+
+      <% if @check.present? %>
+        <table class="table-bordered table-striped table-responsive common-table">
+          <tr>
+            <% if current_user.admin? %>
+              <th>ユーザ名</th>
+            <% end %>
+            <th>店舗</th>
+            <th>申請日</th>
+            <th>時間</th>
+            <th>承認</th>
           </tr>
-        <% end %>
-        <%= paginate @schedules %>
-      </table>
+          <% @schedules.each do |schedule| %>
+            <tr class="schedules_<%= schedule.id %>">
+              <%= render partial: "schedules/request", locals: { schedule: schedule} %>
+            </tr>
+          <% end %>
+          <%= paginate @schedules %>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>
-<%# end %>
