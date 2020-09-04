@@ -122,10 +122,11 @@ class SchedulesController < ApplicationController
 
   # シフト削除
   def destroy
-    # 自分以外のシフトは削除不可にする。
-    destroy_schedule_check = current_user.schedules.find_by(:id => params[:id])
-    return if destroy_schedule_check.nil?
-
+    # 自分以外のシフトは削除不可にする。（管理者は可とする。）
+    unless current_user.admin?
+      destroy_schedule_check = current_user.schedules.find_by(:id => params[:id])
+      return if destroy_schedule_check.nil?
+    end
     @schedule = Schedule.find_by(:id => params[:id])
     @schedule.destroy
   end
