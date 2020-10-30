@@ -1,8 +1,6 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <%= form_with(model: @schedule,url: "/schedules/#{@schedule.id}/update2", local: true) do |form| %>
-    <%# form_with(model: @schedule,url: schedules_update2_path, local: true) do |form| %>
-    <%# form_with(model: @schedule, local: true) do |form| %>
+    <%= form_with(model: @schedule,url: "/schedules/#{@schedule.id}/update_to_edit_schedule", local: true) do |form| %>
       <% if @schedule.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>

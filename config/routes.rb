@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get  'schedules/requestschedule'
   get  'schedules/approveschedule'
   get  'schedules/editschedule'
-  patch 'schedules/:id/update2' => 'schedules#update2'
+  patch 'schedules/:id/update_to_edit_schedule' => 'schedules#update_to_edit_schedule'
 
   devise_for :users
   resources :users, :only => [:update] # adminsettings用

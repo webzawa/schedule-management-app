@@ -152,7 +152,7 @@ class SchedulesController < ApplicationController
     @@request_referer = request.referer
   end
 
-  def update2
+  def update_to_edit_schedule
     @schedule = Schedule.find_by(:id => params[:id])
     respond_to do |format|
       if @schedule.update(schedule_params2)
