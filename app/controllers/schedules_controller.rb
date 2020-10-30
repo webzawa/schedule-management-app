@@ -14,6 +14,11 @@ class SchedulesController < ApplicationController
     render_schedule_calender('approveschedule')
   end
 
+  # 申請済みシフトの編集ページ（管理者専用）
+  def editschedule
+    render_schedule_calender('editschedule')
+  end
+
   # シフト申請用ページ
   def requestschedule
     # 異常動作回避ロジック（シフト申請先店舗がない場合）
@@ -142,6 +147,24 @@ class SchedulesController < ApplicationController
     end
   end
 
+  def edit
+    @schedule = Schedule.find_by(:id => params[:id])
+    @@request_referer = request.referer
+  end
+
+  def update2
+    @schedule = Schedule.find_by(:id => params[:id])
+    respond_to do |format|
+      if @schedule.update(schedule_params2)
+        format.html { redirect_to @@request_referer, notice: '更新が完了しました。' }
+        @msg = "シフトの編集ができました。"
+      else
+        format.html { redirect_to @@request_referer, notice: '更新が失敗しました。' }
+        @msg = "シフトの編集に失敗しました。"
+      end
+    end
+  end
+
   private
 
   # Strong parameterチェック
@@ -154,6 +177,18 @@ class SchedulesController < ApplicationController
       :request_start_time,
       :request_end_time,
       :request_timezone => []
+    )
+  end
+
+  def schedule_params2
+    params.require(:schedule).permit(
+      :user_id,
+      :store_id,
+      :approved,
+      :request_day,
+      :request_start_time,
+      :request_end_time,
+      :request_timezone
     )
   end
 
