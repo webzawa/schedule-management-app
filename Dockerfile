@@ -15,7 +15,7 @@ ADD ./Gemfile $APP_ROOT/Gemfile
 ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
 RUN gem install bundler
-RUN bundle install
+RUN bundle install --jobs=4
 
 RUN NODE_ENV=development yarn install
 
