@@ -156,11 +156,11 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find_by(:id => params[:id])
     respond_to do |format|
       if @schedule.update(schedule_params2)
-        format.html { redirect_to @@request_referer, notice: '更新が完了しました。' }
-        @msg = "シフトの編集ができました。"
+        flash[:success] = "シフトを編集しました。ユーザ:#{@schedule.user.username}　日付:#{@schedule.request_day}"
+        format.html { redirect_to @@request_referer }
       else
-        format.html { redirect_to @@request_referer, notice: '更新が失敗しました。' }
-        @msg = "シフトの編集に失敗しました。"
+        flash[:error] = "シフトの編集に失敗しました。ユーザ:#{@schedule.user.username}　日付:#{@schedule.request_day}"
+        format.html { redirect_to @@request_referer }
       end
     end
   end
