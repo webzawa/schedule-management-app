@@ -1,1 +1,7 @@
 $('.schedules_<%= @schedule.id %>').remove();
+$("#schedule-modal").modal("hide")
+<% if @deleted == true %>
+  toastr.success("<%= @msg %>");
+<% else %>
+  toastr.error("<%= @msg %>");
+<% end %>

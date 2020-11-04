@@ -46,16 +46,7 @@
                 <% user_and_schedules.schedules.each do |schedule| %>
                   <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
                     <div class="schedules_<%= schedule.id %>">
-                      <%#シフトが承認済かでlink_toの文字色変更%>
-                      <% if schedule.approved == true %>
-                        <% unless schedule.request_timezone.nil? %>
-                          <%= link_to "#{schedule.request_timezone}", "/schedules/#{schedule.id}/edit", remote: true, class: "approved" %>
-                        <% end %>
-                      <% else %>
-                        <% unless schedule.request_timezone.nil? %>
-                          <%# link_to "#{schedule.request_timezone}", edit_schedule, remote: true, class: "not-approved" %>
-                        <% end %>
-                      <% end %>
+                      <%= render partial: "schedules/edit", locals: { schedule: schedule} %>
                     </div>
                   <% end %>
                 <% end %>

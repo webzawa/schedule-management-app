@@ -133,7 +133,12 @@ class SchedulesController < ApplicationController
       return if destroy_schedule_check.nil?
     end
     @schedule = Schedule.find_by(:id => params[:id])
-    @schedule.destroy
+    @msg = if @schedule.destroy
+             @deleted = true
+             "シフトを削除しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+           else
+             "シフトを削除に失敗しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+           end
   end
 
   # シフト承認用UPDATE （管理者専用）
@@ -149,20 +154,28 @@ class SchedulesController < ApplicationController
 
   def edit
     @schedule = Schedule.find_by(:id => params[:id])
-    @@request_referer = request.referer
+    # @@request_referer = request.referer
   end
 
   def update_to_edit_schedule
     @schedule = Schedule.find_by(:id => params[:id])
-    respond_to do |format|
-      if @schedule.update(schedule_params2)
-        flash[:success] = "シフトを編集しました。ユーザ:#{@schedule.user.username}　日付:#{@schedule.request_day}"
-        format.html { redirect_to @@request_referer }
-      else
-        flash[:error] = "シフトの編集に失敗しました。ユーザ:#{@schedule.user.username}　日付:#{@schedule.request_day}"
-        format.html { redirect_to @@request_referer }
-      end
-    end
+    @msg = if @schedule.update(schedule_params2)
+             @edited = true
+             "シフトを編集しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+           else
+             "シフトを編集に失敗しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+           end
+
+
+    # respond_to do |format|
+    #   if @schedule.update(schedule_params2)
+    #     flash[:success] = "シフトを編集しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+    #     format.html { redirect_to @@request_referer }
+    #   else
+    #     flash[:error] = "シフトの編集に失敗しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
+    #     format.html { redirect_to @@request_referer }
+    #   end
+    # end
   end
 
   private

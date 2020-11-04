@@ -1,6 +1,10 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <%= form_with(model: @schedule,url: "/schedules/#{@schedule.id}/update_to_edit_schedule", local: true) do |form| %>
+    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <%= bootstrap_form_with(model: @schedule,url: "/schedules/#{@schedule.id}/update_to_edit_schedule") do |form| %>
       <% if @schedule.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
@@ -12,14 +16,32 @@
         </div>
       <% end %>
 
-      <%= form.hidden_field :id %>
+      <p>ユーザ名：<%= @schedule.user.username %></p>
+      <br>
+      <p>店舗：<%= @schedule.store.storename %></p>
+      <br>
+      <p>日付：<%= @schedule.request_day %></p>
+      <br>
 
-      <%= form.label :request_timezone %>
-      <%= form.text_field :request_timezone %>
+      <div class="request-schedule-field">
+        <%= form.text_field :request_timezone, hide_label: true %>
+      </div>
+      <br>
+
+      <div class="request-schedule-field flex">
+        <%= form.label :承認可否　 %><br>
+        <%= form.radio_button :approved, :true, hide_label: true  %>
+        <%= form.label :approved, "承認　", {value: :true} %>
+        <%= form.radio_button :approved, :false, hide_label: true  %>
+        <%= form.label :approved, "未承認", {value: :false} %>
+      </div>
 
       <div class="actions">
         <%= form.submit %>
       </div>
     <% end %>
+
+    <%= button_to "削除", @schedule, method: :delete, remote: true, data: { confirm: "以下のシフトを削除します。\nユーザ：#{@schedule.user.username}\n店舗：#{@schedule.store.storename}\n申請日：#{@schedule.request_day}\n申請内容：#{@schedule.request_timezone}"}, class: "account_delete_button"  %>
+
   </div>
 </div>

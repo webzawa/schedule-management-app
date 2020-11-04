@@ -1,0 +1,9 @@
+<% if schedule.approved == true %>
+  <% unless schedule.request_timezone.nil? %>
+    <%= link_to "#{schedule.request_timezone}", "/schedules/#{schedule.id}/edit", remote: true, class: "approved" %>
+  <% end %>
+<% else %>
+  <% unless schedule.request_timezone.nil? %>
+    <%= link_to "#{schedule.request_timezone}", "/schedules/#{schedule.id}/edit", remote: true, class: "not-approved" %>
+  <% end %>
+<% end %>

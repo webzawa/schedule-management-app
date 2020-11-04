@@ -246,6 +246,24 @@ text-align: center;
   }
 }
 
+
+
+
+
+.modal-content{
+  padding: 2rem;
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.common-justify-content-center{
+  justify-content: center;
+}
+
+
 //スマホ対応
 @media screen and (max-width: 768px) {
   .field{
