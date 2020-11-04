@@ -234,7 +234,7 @@ class SchedulesController < ApplicationController
 
       # 勤務時間帯順に並び替え
       @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
-      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules).order(:username => 'ASC') # schedulesをincludesしないと検索がうまくいかない
+      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).includes(:schedules) # schedulesをincludesしないと検索がうまくいかない
 
       # 検索対象のレコードがない場合
       if @users_and_schedules.blank?
