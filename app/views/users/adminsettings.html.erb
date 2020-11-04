@@ -57,9 +57,9 @@
       <div>
         <table class="table-bordered table-striped table-responsive common-table">
           <tr>
-            <th>ユーザ名</th>
-            <th>勤務時間帯</th>
-            <th>権限</th>
+            <th><%= sort_link(@users_search, :username, "ユーザ名") %></th>
+            <th><%= sort_link(@users_search, :duty_hours, "勤務時間帯") %></th>
+            <th><%= sort_link(@users_search, :admin, "権限") %></th>
           </tr>
           <% @users.each do |user| %>
             <tr class="stores">

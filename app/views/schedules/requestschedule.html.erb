@@ -122,16 +122,16 @@
         <table class="table-bordered table-striped table-responsive common-table">
           <tr>
             <% if current_user.admin? %>
-              <th>ユーザ名</th>
+              <th><%= sort_link(@schedules_search, :user_username, "ユーザ名") %></th>
             <% end %>
-            <th>店舗</th>
-            <th>申請日</th>
-            <th>時間</th>
-            <th>承認</th>
+            <th><%= sort_link(@schedules_search, :store_storename, "店舗") %></th>
+            <th><%= sort_link(@schedules_search, :request_day, "申請日") %></th>
+            <th><%= sort_link(@schedules_search, :request_timezone, "内容") %></th>
+            <th><%= sort_link(@schedules_search, :approved, "承認") %></th>
           </tr>
           <% @schedules.each do |schedule| %>
             <tr class="schedules_<%= schedule.id %>">
-              <%= render partial: "schedules/request", locals: { schedule: schedule} %>
+              <%= render partial: "schedules/requested_schedules", locals: { schedule: schedule} %>
             </tr>
           <% end %>
           <%= paginate @schedules %>

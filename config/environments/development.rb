@@ -78,7 +78,7 @@ Rails.application.configure do
 
   # N+1問題対策用gem Bullet
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = false
     Bullet.alert = true
     Bullet.bullet_logger = true
     Bullet.console = true
