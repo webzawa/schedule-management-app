@@ -1,7 +1,7 @@
-$('.schedules_<%= @schedule.id %>').html("<%= j(render partial: 'schedules/edit', locals: {schedule: @schedule}) %>");
-$("#schedule-modal").modal("hide")
 <% if @edited == true %>
   toastr.success("<%= @msg %>");
+  $('.schedules_<%= @schedule.id %>').html("<%= j(render partial: 'schedules/edit', locals: {schedule: @schedule}) %>");
+  $("#schedule-modal").modal("hide")
 <% else %>
   toastr.error("<%= @msg %>");
 <% end %>
