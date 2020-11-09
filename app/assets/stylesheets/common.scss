@@ -1,15 +1,19 @@
-// @import "normalize";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 @import "toastr";
 
-/* mixins, variables, etc. */
-
-$gray-medium-light: #eaeaea;
-
 /* universal */
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.common-justify-content-center{
+  justify-content: center;
+}
 
 body {
   font-family: "Helvetica Neue",
@@ -19,16 +23,6 @@ body {
     Meiryo,
     sans-serif;
 }
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
-
-/* typography */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -47,34 +41,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $gray-light;
-}
-
-p {
-  // line-height: 0.7em;
-}
-
-/* header */
-
-#logo {
-  margin-left: 1rem;
-  float: left;
-  // margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  // text-transform: uppercase;
-  letter-spacing: -1px;
-  // padding-top: 9px;
-  font-weight: bold;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-}
-
-/* Common */
-
-.form-control{
+  color: gray;
 }
 
 .field{
@@ -94,10 +61,6 @@ text-align: center;
 .not-approved{
   color: gray;
   font-weight: 900;
-}
-
-.menuicon{
-  color:white;
 }
 
 //アラートの下余白を削除
@@ -175,95 +138,6 @@ text-align: center;
   }
 }
 
-/* シフト申請ページ */
-.toppage-font{
-  color: #0F3284;
-  text-align: center;
-  font-size: 30px;
-  margin-bottom: 24px;
-  font-weight: 900;
-}
-
-/* シフト申請ページ */
-
-.timezones-checkbox{
-  margin-right: 1rem;
-}
-
-.schedule-request-button{
-  margin: 1rem 0rem 1rem 0rem;
-}
-
-.request-schedule-field{
-  margin: 0.1rem 0rem 0rem 0rem;
-}
-
-/* カレンダーページ */
-.calender-table{
-  font-weight: 900;
-  margin: 1rem auto 1rem auto;
-  white-space: nowrap;
-  th {
-    background: #295554;
-    color: #fff;
-    text-align: center;
-    padding: 0rem 1rem;
-  }
-  td {
-    text-align: center;
-    font-size: 0.9em;
-  }
-  .saturday{
-    color: cyan;
-  }
-  .sunday{
-    color: rgb(255, 64, 64);
-  }
-  .no-settings{
-    background-color: white;
-    color: black;
-  }
-  //従業員の勤務時間帯でth色変更
-  .morning{
-    background-color: yellow;
-    color: black;
-  }
-  .noon{
-    background-color: lightgreen;
-    color: black;
-  }
-  .evening{
-    background-color: forestgreen;
-    color: black;
-  }
-  .night{
-    background-color: lightblue;
-    color: black;
-  }
-  .manager{
-    background-color: orange;
-    color: black;
-  }
-}
-
-
-
-
-
-.modal-content{
-  padding: 2rem;
-}
-
-.flex{
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.common-justify-content-center{
-  justify-content: center;
-}
-
-
 //スマホ対応
 @media screen and (max-width: 768px) {
   .field{
@@ -281,5 +155,11 @@ text-align: center;
     td{
       text-align: center;
     }
+  }
+}
+//PC対応
+@media screen and (min-width: 768px) {
+  .row{
+    margin: 0rem 2rem;
   }
 }
