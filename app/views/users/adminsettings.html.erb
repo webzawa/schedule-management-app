@@ -60,6 +60,7 @@
             <th><%= sort_link(@users_search, :username, "ユーザ名") %></th>
             <th><%= sort_link(@users_search, :duty_hours, "勤務時間帯") %></th>
             <th><%= sort_link(@users_search, :admin, "権限") %></th>
+            <th><%= sort_link(@users_search, :confirmed_at, "登録状況") %></th>
           </tr>
           <% @users.each do |user| %>
             <tr class="stores">
@@ -74,16 +75,16 @@
               </td>
               <td>
                 <% if user.admin? %>
-                  管理者
+                  <%= link_to "管理者", user, method: :patch, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
                 <% else %>
-                  従業員
+                  <%= link_to "従業員", user, method: :patch, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
                 <% end %>
               </td>
               <td>
-                <% unless user.admin? %>
-                  <%= link_to "管理者権限付与", user, method: :patch, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
+                <% if user.confirmed_at.present? %>
+                  <%= link_to "ログイン承認", user, method: :patch, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
                 <% else %>
-                  <%= link_to "管理者権限削除", user, method: :patch, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
+                  <%= link_to "ログイン承認解除", user, method: :patch, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
                 <% end %>
               </td>
               <td>
