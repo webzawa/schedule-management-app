@@ -15,18 +15,18 @@ class UsersController < ApplicationController
     user = User.find_by(:id => params[:id])
     if user.admin == false
       if user.update_attribute(:admin, true)
-        flash[:success] = '指定のユーザに管理者権限を付与しました。'
+        flash[:success] = "ユーザ「#{user.username}」に管理者権限を付与しました。"
         redirect_to users_adminsettings_path
       else
-        flash[:error] = '管理者権限の付与に失敗しました、サイト管理者に問い合わせてください。'
+        flash[:error] = "ユーザ「#{user.username}」の管理者権限の付与に失敗しました、サイト管理者に問い合わせてください。"
         redirect_to users_adminsettings_path
       end
     else
       if user.update_attribute(:admin, false)
-        flash[:success] = '管理者権限を削除しました。'
+        flash[:success] = "ユーザ「#{user.username}」の管理者権限を削除しました。"
         redirect_to users_adminsettings_path
       else
-        flash[:error] = '管理者権限の削除に失敗しました、サイト管理者に問い合わせてください。'
+        flash[:error] = "ユーザ「#{user.username}」の管理者権限の削除に失敗しました、サイト管理者に問い合わせてください。"
         redirect_to users_adminsettings_path
       end
     end
