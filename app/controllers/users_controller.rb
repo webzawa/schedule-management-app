@@ -32,6 +32,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_confirmed_at
+    user = User.find_by(:id => params[:id])
+    if user.confirmed_at.blank?
+      if user.update_attribute(:confirmed_at, Time.now)
+        flash[:success] = "ユーザ「#{user.username}」のログインを承認しました。"
+        redirect_to users_adminsettings_path
+      else
+        flash[:error] = "ユーザ「#{user.username}」のログイン承認に失敗しました、サイト管理者に問い合わせてください。"
+        redirect_to users_adminsettings_path
+      end
+    else
+      if user.update_attribute(:confirmed_at, nil)
+        flash[:success] = "ユーザ「#{user.username}」のログインを非承認にしました。"
+        redirect_to users_adminsettings_path
+      else
+        flash[:error] = "ユーザ「#{user.username}」のログイン非承認に失敗しました、サイト管理者に問い合わせてください。"
+        redirect_to users_adminsettings_path
+      end
+    end
+  end
+
   def destroy
     user = User.find_by(:id => params[:id])
     if user.destroy
