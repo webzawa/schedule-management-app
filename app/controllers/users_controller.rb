@@ -31,4 +31,16 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def destroy
+    user = User.find_by(:id => params[:id])
+    if user.destroy
+      flash[:success] = "ユーザ「#{user.username}」を削除しました。"
+      redirect_to users_adminsettings_path
+    else
+      flash[:error] = "ユーザ「#{user.username}」の削除に失敗しました。"
+      redirect_to users_adminsettings_path
+    end
+  end
+
 end
