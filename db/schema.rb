@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 2020_11_09_164740) do
   create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "request_day", null: false
     t.string "request_timezone", default: ""
-    t.integer "request_start_time"
-    t.integer "request_end_time"
     t.boolean "approved", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

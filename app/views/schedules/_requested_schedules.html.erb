@@ -3,15 +3,7 @@
 <% end %>
 <td><%= schedule.store.storename%></td>
 <td><%= schedule.request_day.strftime("%y/%m/%d").to_s %></td>
-<td> 
-  <%# start or end time is not blank, then indicate value %>
-  <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
-    <% if schedule.request_start_time == schedule.request_end_time %>
-      <%= schedule.request_start_time %>
-    <% else %>
-      <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
-    <% end %>
-  <% end %>
+<td>
   <%# スケジュールSTARTとENDどちらかが空白ならPOSTできないようにする。Modelで制御？ %>
   <% unless schedule.request_timezone.nil? %>
     <%= schedule.request_timezone %>

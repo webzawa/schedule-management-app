@@ -45,12 +45,6 @@
       </div>
 
       <div class="request-schedule-field">
-        <%= f.label :２４時間指定 %><br>
-        <%= f.select :request_start_time, @timehours, {include_blank: true} %>時〜
-        <%= f.select :request_end_time  , @timehours, {include_blank: true} %>時
-      </div>
-
-      <div class="request-schedule-field">
         <% if current_user.admin? %>
           <%= f.label :承認可否 %>
           <%= f.radio_button :approved, :true %>

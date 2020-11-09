@@ -5,7 +5,7 @@
     <%= search_form_for @users_and_schedules_search, url: schedules_workschedule_path do |f| %>
       <%= f.label :store_id_eq, "店舗"%>
       <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
-    
+
       <br>
       <%= f.label :request_day, "期間"%>
       <%= raw sprintf(
@@ -21,11 +21,11 @@
 
       <div class="actions ransack-submit"><%= f.submit "検索" %></div>
     <% end %>
-    
+
     <% if @check.present? %>
       <table class="calender-table table-bordered table-striped table-hover">
         <%= render partial: "shared/calender_storename_datepart" %>
-        
+
         <%# 個人ごとにシフトスケジュールを表示%>
         <% @users_and_schedules.each do |user_and_schedules| %>
           <tr>
@@ -42,16 +42,7 @@
                     <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
                       <%#申請シフトが未承認だったらCSSでColor付与する%>
                       <% if schedule.approved == true %><div class="approved"><% else %><div class="not-approved"><% end %>
-                        <% unless schedule.request_start_time.blank? || schedule.request_end_time.blank? %>
-                          <% if schedule.request_start_time == schedule.request_end_time %>
-                            <%= schedule.request_start_time %>
-                          <% else %>
-                            <%= schedule.request_start_time %>-<%= schedule.request_end_time %>
-                          <% end %>
-                        <% end %>
-                        <% unless schedule.request_timezone.nil? %>
-                          <%= schedule.request_timezone %>
-                        <% end %>
+                        <%= schedule.request_timezone %>
                       </div>
                     <% end %>
                   <% end %>
@@ -59,7 +50,7 @@
             <% end %>
           </tr>
         <% end %>
-        
+
       </table>
     <% else %>
       <p>表示したい店舗と期間を検索して下さい。</p>
