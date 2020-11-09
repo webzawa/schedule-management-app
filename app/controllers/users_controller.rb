@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   def adminsettings
     @store  = Store.new
     @stores = Store.all.order(:storename => 'ASC')
+    @schedule_checkbox  = ScheduleCheckbox.new
+    @schedule_checkboxes = ScheduleCheckbox.all.order(:name_for_checkbox => 'ASC')
     @users_search = User.ransack(params[:q])
     @users = @users_search.result.order(:admin => 'DESC').order(:duty_hours => 'ASC').order(:username => 'ASC')
     @check = params[:q]

@@ -206,7 +206,7 @@ class SchedulesController < ApplicationController
 
   # シフト時間枠
   def timezones
-    @timezones = %w[A B C D E0 E1 E3 E]
+    @timezones = ScheduleCheckbox.order(:name_for_checkbox => 'ASC').pluck(:name_for_checkbox)
   end
 
   def timehours

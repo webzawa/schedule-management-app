@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :users, :only => [:update, :destroy] # adminsettings用
   resources :schedules
   resources :stores
+  resources :schedule_checkboxes
 end
