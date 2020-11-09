@@ -20,7 +20,11 @@
 </td>
 <td>
   <% if user.confirmed_at.present? %>
-    <%= link_to "ログイン承認済", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを非承認にします。"} %>
+    <% if user == current_user %>
+      ログイン承認済
+    <% else %>
+      <%= link_to "ログイン承認済", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを非承認にします。"} %>
+    <% end %>
   <% else %>
     <%= link_to "ログイン非承認", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを承認します。"} %>
   <% end %>
