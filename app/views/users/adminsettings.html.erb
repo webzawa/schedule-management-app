@@ -87,7 +87,9 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to "アカウント削除", user, data: { confirm: "警告：この変更は取り消せません\n#{user.username}のアカウントを削除してもよろしいでしょうか？" }, method: :delete, style: "color:red;" %>
+                <% unless user == current_user %>
+                  <%= link_to "アカウント削除", user, data: { confirm: "警告：この変更は取り消せません\n#{user.username}のアカウントを削除してもよろしいでしょうか？" }, method: :delete, style: "color:red;" %>
+                <% end %>
               </td>
             </tr>
           <% end %>
