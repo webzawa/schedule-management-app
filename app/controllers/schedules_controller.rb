@@ -166,7 +166,6 @@ class SchedulesController < ApplicationController
              "シフトを編集に失敗しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"
            end
 
-
     # respond_to do |format|
     #   if @schedule.update(schedule_params2)
     #     flash[:success] = "シフトを編集しました。ユーザ:#{@schedule.user.username}　店舗:#{@schedule.store.storename}　日付:#{@schedule.request_day}"

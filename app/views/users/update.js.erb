@@ -1,0 +1,6 @@
+$('.users_<%= @user.id %>').html("<%= j(render partial: 'users/users_table', locals: {user: @user}) %>");
+<% if @updated == true %>
+  toastr.success("<%= @msg %>");
+<% else %>
+  toastr.error("<%= @msg %>");
+<% end %>

@@ -1,0 +1,6 @@
+$('.users_<%= @user.id %>').remove();
+<% if @deleted == true %>
+  toastr.success("<%= @msg %>");
+<% else %>
+  toastr.error("<%= @msg %>");
+<% end %>

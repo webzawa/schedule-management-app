@@ -1,0 +1,35 @@
+<td><%= user.username %></td>
+<td>
+  <% if user.duty_hours == 0 %>指定なし<% end %>
+  <% if user.duty_hours == 1 %>朝勤<% end %>
+  <% if user.duty_hours == 2 %>昼勤<% end %>
+  <% if user.duty_hours == 3 %>夕勤<% end %>
+  <% if user.duty_hours == 4 %>夜勤<% end %>
+  <% if user.duty_hours == 5 %>店長クラス<% end %>
+</td>
+<td>
+  <% if user.admin? %>
+    <% if user == current_user %>
+      管理者
+    <% else %>
+      <%= link_to "管理者", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
+    <% end %>
+  <% else %>
+    <%= link_to "従業員", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
+  <% end %>
+</td>
+<td>
+  <% if user.confirmed_at.present? %>
+    <%= link_to "ログイン承認済", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを非承認にします。"} %>
+  <% else %>
+    <%= link_to "ログイン非承認", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを承認します。"} %>
+  <% end %>
+</td>
+<td>
+  <%= user.created_at.strftime("%Y/%m/%d %R").to_s %>
+</td>
+<td>
+  <% unless user == current_user %>
+    <%= link_to "アカウント削除", user, method: :delete, remote: true, style: "color:red;", data: { confirm: "警告：この変更は取り消せません\n#{user.username}のアカウントを削除してもよろしいでしょうか？" } %>
+  <% end %>
+</td>
