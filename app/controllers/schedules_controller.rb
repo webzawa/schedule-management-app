@@ -2,7 +2,7 @@
 
 class SchedulesController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_user, :only => [:approveschedule, :update]
+  before_action :admin_user, :only => [:approveschedule, :editschedule, :update, :edit, :update_to_edit_schedule]
 
   # シフト表ページ
   def workschedule
