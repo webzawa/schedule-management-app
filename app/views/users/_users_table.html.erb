@@ -12,7 +12,7 @@
     <% if user == current_user %>
       管理者
     <% else %>
-      <%= link_to "管理者", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
+      <%= link_to "管理者", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}の管理者権限を解除します。"} %>
     <% end %>
   <% else %>
     <%= link_to "一般", user, method: :patch, remote: true, style: "color:gray;", data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>

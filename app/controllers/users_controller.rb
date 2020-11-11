@@ -25,9 +25,9 @@ class UsersController < ApplicationController
            else
              if @user.update_attribute(:admin, false)
                @updated = true
-               "ユーザ「#{@user.username}」の管理者権限を削除しました。"
+               "ユーザ「#{@user.username}」の管理者権限を解除しました。"
              else
-               "ユーザ「#{@user.username}」の管理者権限の削除に失敗しました、サイト管理者に問い合わせてください。"
+               "ユーザ「#{@user.username}」の管理者権限の解除に失敗しました、サイト管理者に問い合わせてください。"
              end
            end
   end
