@@ -12,7 +12,7 @@ ja:
     failure:
       unauthenticated: "ログインしてください。"
       #      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: "本登録を行ってください。"
+      unconfirmed: "管理者の承認後にログイン可能になります。"
       #      unconfirmed: 'You have to confirm your account before continuing.'
       locked: "あなたのアカウントは凍結されています。"
       #      locked: 'Your account is locked.'
