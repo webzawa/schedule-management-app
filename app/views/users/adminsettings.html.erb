@@ -93,6 +93,7 @@
               <%= render partial: "users/users_table", locals: { user: user} %>
             </tr>
           <% end %>
+          <%= paginate @users %>
         </table>
       </div>
     <% else %>
