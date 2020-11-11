@@ -45,7 +45,8 @@ ja:
       updated: "アカウントを更新しました。"
       #      updated: 'You updated your account successfully.'
       destroyed: "アカウントを削除しました。またのご利用をお待ちしております。"
-    #      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      #      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      signed_up_but_unconfirmed: "本人確認用のメールを送信しました。管理者の承認後にログインが可能になります。"
     unlocks:
       send_instructions: "アカウントの凍結解除方法を数分以内にメールでご連絡します。"
       #      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
