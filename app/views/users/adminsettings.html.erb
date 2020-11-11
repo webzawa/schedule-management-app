@@ -20,7 +20,7 @@
         <% @stores.each do |store| %>
           <tr class="stores">
             <td><%= store.storename%></td>
-            <td><%= link_to "削除", store, method: :delete, data: { confirm: "警告：店舗を削除すると、紐付いているシフトも削除されます。\nこの操作は取り消せません。\n削除してもよろしいですか？"}%></td>
+            <td><%= link_to "削除", store, method: :delete, style: "color:red;", data: { confirm: "警告：店舗を削除すると、紐付いているシフトも削除されます。\nこの操作は取り消せません。\n「#{store.storename}」を削除してもよろしいですか？"}%></td>
           </tr>
         <% end %>
       </table>

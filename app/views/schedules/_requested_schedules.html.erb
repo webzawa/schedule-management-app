@@ -18,6 +18,6 @@
 </td>
 <td>
   <% if schedule.approved == false %>
-    <%= link_to "削除", schedule, method: :delete, remote: true, data: { confirm: "以下のシフトを削除します。\n店舗：#{schedule.store.storename}\n申請日：#{schedule.request_day}"} %>
+    <%= link_to "削除", schedule, method: :delete, remote: true, data: { confirm: "以下のシフトを削除します。\nユーザ：#{schedule.user.username}\n店舗：#{schedule.store.storename}\n申請日：#{schedule.request_day}\n申請内容：#{schedule.request_timezone}"} %>
   <% end %>
 </td>
