@@ -2,7 +2,6 @@
 .calender-table{
   font-weight: 900;
   margin: 1rem auto 1rem auto;
-  white-space: nowrap;
   th {
     background: #295554;
     color: #fff;
@@ -46,6 +45,39 @@
   }
 }
 
+.common-table{
+  font-weight: 900;
+  th{
+    text-align: center;
+    padding: 0rem 2rem 0rem 2rem;
+  }
+  td{
+    text-align: center;
+  }
+}
+
+//テーブルの左端を固定
+.table-fixed {
+  th:first-child, td:first-child {
+    position: sticky;  position: -webkit-sticky;
+    left: 0;
+  }
+}
+
 .modal-content{
   padding: 2rem;
+}
+
+//スマホ対応
+@media screen and (max-width: 768px) {
+  .common-table{
+    font-weight: 900;
+    th{
+      text-align: center;
+      padding: 0rem;
+    }
+    td{
+      text-align: center;
+    }
+  }
 }

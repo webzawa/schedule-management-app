@@ -68,18 +68,6 @@ h2 {
   margin-bottom: 0px;
 }
 
-.common-table{
-  white-space: nowrap;
-  font-weight: 900;
-  th{
-    text-align: center;
-    padding: 0rem 2rem 0rem 2rem;
-  }
-  td{
-    text-align: center;
-  }
-}
-
 /* ボタン類 */
 .btn{
   background-color: #428bca;
@@ -143,18 +131,6 @@ h2 {
   .field{
     width: 100%;
     margin: 0 auto;
-  }
-
-  .common-table{
-    white-space: nowrap;
-    font-weight: 900;
-    th{
-      text-align: center;
-      padding: 0rem;
-    }
-    td{
-      text-align: center;
-    }
   }
 }
 //PC対応

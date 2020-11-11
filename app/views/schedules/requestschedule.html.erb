@@ -113,23 +113,25 @@
       <% end %>
 
       <% if @check.present? %>
-        <table class="table-bordered table-striped table-responsive common-table">
-          <tr>
-            <% if current_user.admin? %>
-              <th><%= sort_link(@schedules_search, :user_username, "ユーザ名") %></th>
-            <% end %>
-            <th><%= sort_link(@schedules_search, :store_storename, "店舗") %></th>
-            <th><%= sort_link(@schedules_search, :request_day, "申請日") %></th>
-            <th><%= sort_link(@schedules_search, :request_timezone, "内容") %></th>
-            <th><%= sort_link(@schedules_search, :approved, "承認") %></th>
-          </tr>
-          <% @schedules.each do |schedule| %>
-            <tr class="schedules_<%= schedule.id %>">
-              <%= render partial: "schedules/requested_schedules", locals: { schedule: schedule} %>
+        <div class='text-nowrap table-responsive'>
+          <table class="table-bordered table-striped table-hover common-table">
+            <tr>
+              <% if current_user.admin? %>
+                <th><%= sort_link(@schedules_search, :user_username, "ユーザ名") %></th>
+              <% end %>
+              <th><%= sort_link(@schedules_search, :store_storename, "店舗") %></th>
+              <th><%= sort_link(@schedules_search, :request_day, "申請日") %></th>
+              <th><%= sort_link(@schedules_search, :request_timezone, "内容") %></th>
+              <th><%= sort_link(@schedules_search, :approved, "承認") %></th>
             </tr>
-          <% end %>
-          <%= paginate @schedules %>
-        </table>
+            <% @schedules.each do |schedule| %>
+              <tr class="schedules_<%= schedule.id %>">
+                <%= render partial: "schedules/requested_schedules", locals: { schedule: schedule} %>
+              </tr>
+            <% end %>
+            <%= paginate @schedules %>
+          </table>
+        </div>
       <% end %>
     </div>
   </div>

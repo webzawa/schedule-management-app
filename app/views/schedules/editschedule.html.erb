@@ -28,35 +28,35 @@
     <% end %>
 
     <% if @check.present? %>
-      <table class="calender-table table-bordered table-striped table-responsive table-hover">
-        <%= render partial: "shared/calender_storename_datepart" %>
-
-        <%# 個人ごとにシフトスケジュールを表示%>
-        <% @users_and_schedules.each do |user_and_schedules| %>
-          <tr>
-            <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
-            <% if user_and_schedules.duty_hours == 0 %><th class="no-settings"><%= user_and_schedules.username %></th><% end %>
-            <% if user_and_schedules.duty_hours == 1 %><th class="morning"    ><%= user_and_schedules.username %></th><% end %>
-            <% if user_and_schedules.duty_hours == 2 %><th class="noon"       ><%= user_and_schedules.username %></th><% end %>
-            <% if user_and_schedules.duty_hours == 3 %><th class="evening"    ><%= user_and_schedules.username %></th><% end %>
-            <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
-            <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
-            <% @beginningtoendday.each do |day| %>
-              <td>
-                <% user_and_schedules.schedules.each do |schedule| %>
-                  <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
-                    <div class="schedules_<%= schedule.id %>">
-                      <%= render partial: "schedules/edit", locals: { schedule: schedule} %>
-                    </div>
+      <div class='text-nowrap table-responsive'>
+        <table class="table-bordered table-striped table-hover calender-table table-fixed">
+          <%= render partial: "shared/calender_storename_datepart" %>
+          <%# 個人ごとにシフトスケジュールを表示%>
+          <% @users_and_schedules.each do |user_and_schedules| %>
+            <tr>
+              <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
+              <% if user_and_schedules.duty_hours == 0 %><th class="no-settings"><%= user_and_schedules.username %></th><% end %>
+              <% if user_and_schedules.duty_hours == 1 %><th class="morning"    ><%= user_and_schedules.username %></th><% end %>
+              <% if user_and_schedules.duty_hours == 2 %><th class="noon"       ><%= user_and_schedules.username %></th><% end %>
+              <% if user_and_schedules.duty_hours == 3 %><th class="evening"    ><%= user_and_schedules.username %></th><% end %>
+              <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
+              <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
+              <% @beginningtoendday.each do |day| %>
+                <td>
+                  <% user_and_schedules.schedules.each do |schedule| %>
+                    <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
+                      <div class="schedules_<%= schedule.id %>">
+                        <%= render partial: "schedules/edit", locals: { schedule: schedule} %>
+                      </div>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-
-        <%= render partial: "shared/calender_count_schedule" %>
-      </table>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+          <%= render partial: "shared/calender_count_schedule" %>
+        </table>
+      </div>
       <p class="approved">黒　：承認済</p>
       <p class="not-approved">灰色：未承認</p>
     <% else %>

@@ -13,17 +13,19 @@
   <div class="col-md-6">
     <h3>追加済み店舗一覧</h3>
     <div>
-      <table class="table-bordered table-striped table-responsive common-table">
-        <tr>
-          <th>店舗名</th>
-        </tr>
-        <% @stores.each do |store| %>
-          <tr class="stores">
-            <td><%= store.storename%></td>
-            <td><%= link_to "削除", store, method: :delete, style: "color:red;", data: { confirm: "警告：店舗を削除すると、紐付いているシフトも削除されます。\nこの操作は取り消せません。\n「#{store.storename}」を削除してもよろしいですか？"}%></td>
+      <div class='text-nowrap table-responsive'>
+        <table class="table-bordered table-striped table-hover common-table">
+          <tr>
+            <th>店舗名</th>
           </tr>
-        <% end %>
-      </table>
+          <% @stores.each do |store| %>
+            <tr class="stores">
+              <td><%= store.storename%></td>
+              <td><%= link_to "削除", store, method: :delete, style: "color:red;", data: { confirm: "警告：店舗を削除すると、紐付いているシフトも削除されます。\nこの操作は取り消せません。\n「#{store.storename}」を削除してもよろしいですか？"}%></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -42,17 +44,19 @@
   <div class="col-md-6">
     <h3>追加済みシフト申請項目一覧</h3>
     <div>
-      <table class="table-bordered table-striped table-responsive common-table">
-        <tr>
-          <th>項目名</th>
-        </tr>
-        <% @schedule_checkboxes.each do |schedule_checkbox| %>
-          <tr class="schedule_checkboxes">
-            <td><%= schedule_checkbox.name_for_checkbox%></td>
-            <td><%= link_to "削除", schedule_checkbox, method: :delete, data: { confirm: "警告：シフト申請項目「#{schedule_checkbox.name_for_checkbox}」を削除します。\nこの操作は取り消せません。\n削除してもよろしいですか？"}%></td>
+      <div class='text-nowrap table-responsive'>
+        <table class="table-bordered table-striped table-hover common-table">
+          <tr>
+            <th>項目名</th>
           </tr>
-        <% end %>
-      </table>
+          <% @schedule_checkboxes.each do |schedule_checkbox| %>
+            <tr class="schedule_checkboxes">
+              <td><%= schedule_checkbox.name_for_checkbox%></td>
+              <td><%= link_to "削除", schedule_checkbox, method: :delete, data: { confirm: "警告：シフト申請項目「#{schedule_checkbox.name_for_checkbox}」を削除します。\nこの操作は取り消せません。\n削除してもよろしいですか？"}%></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -79,8 +83,8 @@
   </div>
   <div class="col-md-6">
     <% if @check.present? %>
-      <div>
-        <table class="table-bordered table-striped table-responsive common-table">
+      <div class='text-nowrap table-responsive'>
+        <table class="table-bordered table-striped table-hover common-table">
           <tr>
             <th><%= sort_link(@users_search, :username, "ユーザ名") %></th>
             <th><%= sort_link(@users_search, :duty_hours, "勤務時間帯") %></th>
