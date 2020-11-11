@@ -15,18 +15,18 @@
       <%= link_to "管理者", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
     <% end %>
   <% else %>
-    <%= link_to "一般", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
+    <%= link_to "一般", user, method: :patch, remote: true, style: "color:gray;", data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
   <% end %>
 </td>
 <td>
   <% if user.confirmed_at.present? %>
     <% if user == current_user %>
-      ログイン承認済
+      承認済
     <% else %>
-      <%= link_to "ログイン承認済", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを非承認にします。"} %>
+      <%= link_to "承認済", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを非承認にします。"} %>
     <% end %>
   <% else %>
-    <%= link_to "ログイン非承認", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, data: {confirm: "注意：\n#{user.username}のログインを承認します。"} %>
+    <%= link_to "未承認", "/users/#{user.id}/update_confirmed_at", method: :post, remote: true, style: "color:gray;", data: {confirm: "注意：\n#{user.username}のログインを承認します。"} %>
   <% end %>
 </td>
 <td>

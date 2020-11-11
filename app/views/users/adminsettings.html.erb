@@ -85,7 +85,7 @@
             <th><%= sort_link(@users_search, :username, "ユーザ名") %></th>
             <th><%= sort_link(@users_search, :duty_hours, "勤務時間帯") %></th>
             <th><%= sort_link(@users_search, :admin, "権限") %></th>
-            <th><%= sort_link(@users_search, :confirmed_at, "登録状況") %></th>
+            <th><%= sort_link(@users_search, :confirmed_at, "ログイン許可") %></th>
             <th><%= sort_link(@users_search, :created_at, "登録日時") %></th>
           </tr>
           <% @users.each do |user| %>
