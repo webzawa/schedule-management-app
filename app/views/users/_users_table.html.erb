@@ -15,7 +15,7 @@
       <%= link_to "管理者", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}の管理者権限を削除します。"} %>
     <% end %>
   <% else %>
-    <%= link_to "従業員", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
+    <%= link_to "一般", user, method: :patch, remote: true, data: {confirm: "注意：\n#{user.username}に管理者権限を付与します。"} %>
   <% end %>
 </td>
 <td>
