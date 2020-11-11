@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @schedule_checkbox  = ScheduleCheckbox.new
     @schedule_checkboxes = ScheduleCheckbox.all.order(:name_for_checkbox => 'ASC')
     @users_search = User.ransack(params[:q])
-    @users = @users_search.result.order(:admin => 'DESC').order(:duty_hours => 'ASC').order(:username => 'ASC')
+    @users = @users_search.result.order(:created_at => 'DESC')
     @check = params[:q]
   end
 
