@@ -12,6 +12,8 @@ default: &default
   password: <%= ENV.fetch('DB_PASSWORD', 'password') %>
   socket: /tmp/mysql.sock
   host: <%= ENV.fetch('DB_HOST', 'db') %>
+  # 文字コードをutf8に統一
+  charset: utf8
 
 development:
   <<: *default

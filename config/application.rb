@@ -25,5 +25,8 @@ module ScheduleManagementApp
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     # config.encoding = "utf-8"
     config.assets.initialize_on_precompile = true
+    # Disable request forgery protection in test environment.
+    #CSRF対策
+    config.action_controller.allow_forgery_protection = false
   end
 end

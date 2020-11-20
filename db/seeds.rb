@@ -28,7 +28,7 @@ User.create!(
 end
 
 # シフト作成
-31.times do |n|
+30.times do |n|
   Schedule.create!(
     :request_day => "2020-11-#{n + 1}",
     :request_timezone => 'ADE',
@@ -38,7 +38,7 @@ end
   )
 end
 
-31.times do |n|
+30.times do |n|
   Schedule.create!(
     :request_day => "2020-11-#{n + 1}",
     :request_timezone => 'BC',
