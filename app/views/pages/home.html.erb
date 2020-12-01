@@ -1,6 +1,9 @@
 <% provide(:title, "ホーム") %>
 <div class="center jumbotron">
 
+  <%= render partial: "pages/signup" %>
+  <%= render partial: "pages/guest_signup" %>
+
   <p class="toppage-font">パソコン、スマートフォンからシフト申請ができるサイトです。</p><br>
 
   <div class="row">
@@ -17,9 +20,7 @@
     <div class="col-md-8"><%= image_tag 'request.png' ,style: "width: 100%;"%></div>
   </div>
 
-  <% unless user_signed_in? %>
-    <div class="flex common-justify-content-center">
-      <%= link_to "新規登録して始める", new_user_registration_path, class: "btn btn-lg btn-primary"%>
-    </div>
-  <% end %>
+  <%= render partial: "pages/signup" %>
+  <%= render partial: "pages/guest_signup" %>
+
 </div>
