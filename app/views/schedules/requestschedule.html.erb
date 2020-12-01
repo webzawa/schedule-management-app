@@ -34,7 +34,7 @@
       <div class="request-schedule-field">
         <%= f.label :シフト勤務時間帯 %><br>
         <% @timezones.each_with_index do |timezone,i| %>
-          <% if i % 5 == 0 %>
+          <% if i % 4 == 0 %>
             <br>
             <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
           <% else %>
