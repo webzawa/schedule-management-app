@@ -9,10 +9,16 @@ Rails.application.routes.draw do
   get    'schedules/editschedule'
   patch  'schedules/:id/update_to_edit_schedule' => 'schedules#update_to_edit_schedule'
   post   'users/:id/update_confirmed_at' => 'users#update_confirmed_at'
-  post   '/pages/guest_sign_in', to: 'pages#new_guest'
-  post   '/pages/guest_admin_sign_in', to: 'pages#new_guest_admin'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
+    post 'users/guest_admin_sign_in', to: 'users/sessions#new_guest_admin'
+  end
+
   resources :users, :only => [:update, :destroy] # adminsettings用
   resources :schedules
   resources :stores

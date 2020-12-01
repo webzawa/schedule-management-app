@@ -13,4 +13,24 @@ class User < ApplicationRecord
   validates :email, :presence => true, :length => { :maximum => 255 },
                     :format => { :with => VALID_EMAIL_REGEX },
                     :uniqueness => { :case_sensitive => false }
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.confirmed_at = Time.now
+      user.username = "ゲストユーザー（一般権限）"
+      user.duty_hours = 0
+      user.admin = false
+    end
+  end
+
+  def self.guest_admin
+    find_or_create_by!(:email => 'guest_admin@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.confirmed_at = Time.now
+      user.username = 'ゲストユーザー（店長権限）'
+      user.duty_hours = 5
+      user.admin = true
+    end
+  end
 end
