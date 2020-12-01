@@ -152,7 +152,7 @@ class SchedulesController < ApplicationController
 
   # シフト時間枠
   def timezones
-    @timezones = ScheduleCheckbox.order(:name_for_checkbox => 'ASC').pluck(:name_for_checkbox)
+    @timezones = ScheduleCheckbox.order(:id => 'ASC').pluck(:name_for_checkbox)
   end
 
   def render_schedule_calender(link_target)

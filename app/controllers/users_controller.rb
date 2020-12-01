@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @store  = Store.new
     @stores = Store.all.order(:storename => 'ASC')
     @schedule_checkbox  = ScheduleCheckbox.new
-    @schedule_checkboxes = ScheduleCheckbox.all.order(:name_for_checkbox => 'ASC')
+    @schedule_checkboxes = ScheduleCheckbox.all.order(:id => 'ASC')
     @users_search = User.ransack(params[:q])
     @users = @users_search.result.order(:created_at => 'DESC').page(params[:page])
     @check = params[:q]

@@ -33,9 +33,8 @@
 
       <div class="request-schedule-field">
         <%= f.label :シフト勤務時間帯 %><br>
-        <%# ★Aとかの右の時間枠の部分は別枠に移動する？店舗ごとに差異があるので %>
-        <% @timezones.each do |timezone| %>
-          <% if timezone == "E"%>
+        <% @timezones.each_with_index do |timezone,i| %>
+          <% if i % 5 == 0 %>
             <br>
             <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
           <% else %>
