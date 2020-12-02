@@ -93,9 +93,11 @@
             <th><%= sort_link(@users_search, :created_at, "登録日時") %></th>
           </tr>
           <% @users.each do |user| %>
-            <tr class="users_<%= user.id %>">
-              <%= render partial: "users/users_table", locals: { user: user} %>
-            </tr>
+            <% unless user.email == 'guest@example.com' || user.email == 'guest_admin@example.com' %>
+              <tr class="users_<%= user.id %>">
+                <%= render partial: "users/users_table", locals: { user: user} %>
+              </tr>
+            <% end %>
           <% end %>
           <%= paginate @users %>
         </table>
