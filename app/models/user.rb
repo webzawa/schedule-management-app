@@ -18,7 +18,7 @@ class User < ApplicationRecord
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Time.now
-      user.username = "ゲストユーザー（一般権限）"
+      user.username = 'ゲスト(一般)'
       user.duty_hours = 0
       user.admin = false
     end
@@ -28,7 +28,7 @@ class User < ApplicationRecord
     find_or_create_by!(:email => 'guest_admin@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Time.now
-      user.username = 'ゲストユーザー（店長権限）'
+      user.username = 'ゲスト(店長)'
       user.duty_hours = 5
       user.admin = true
     end
