@@ -26,6 +26,8 @@ ADD Gemfile.lock .
 
 RUN bundle install -j4
 
+RUN RAILS_ENV=production bundle exec rails assets:precompile
+
 ADD . /app
 
 EXPOSE 3000
