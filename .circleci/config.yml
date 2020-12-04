@@ -109,7 +109,6 @@ workflows:
           create-repo: true
           dockerfile: ./docker/nginx/Dockerfile
           repo: schedule-management-app-portfolio-nginx
-          tag: "${CIRCLE_SHA1}"
           filters:
             branches:
               only: master
@@ -119,7 +118,7 @@ workflows:
           family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
           cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
           service-name: "schedule-management-app-portfolio-serv" #サービス名
-          container-image-name-updates: "container=schedule-management-app-portfolio-nginx,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=schedule-management-app-portfolio-nginx:latest
   rails-deploy: # Railsのデプロイ
     jobs:
       - aws-ecr/build-and-push-image:
@@ -130,7 +129,6 @@ workflows:
           create-repo: true
           dockerfile: ./docker/rails/Dockerfile
           repo: schedule-management-app-portfolio
-          tag: "${CIRCLE_SHA1}"
           filters:
             branches:
               only: master
@@ -140,4 +138,4 @@ workflows:
           family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
           cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
           service-name: "schedule-management-app-portfolio-serv" #サービス名
-          container-image-name-updates: "container=schedule-management-app-portfolio,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=schedule-management-app-portfolio:latest
