@@ -18,7 +18,7 @@ https://www.schedulemanagement.work/
 * JQuery
 
 ## AWS構成図
-https://i.gyazo.com/eafebfed189eab213d556a1630915667.png
+[![Image from Gyazo](https://i.gyazo.com/eafebfed189eab213d556a1630915667.png)](https://gyazo.com/eafebfed189eab213d556a1630915667)
 
 ## 機能一覧
 ・ユーザ系：登録/ログイン/ログアウト/プロフィール表示<br />
