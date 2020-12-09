@@ -24,10 +24,12 @@ WORKDIR /app
 ADD Gemfile .
 ADD Gemfile.lock .
 
-RUN bundle install -j4
+RUN gem install bunlder && bundle install -j4 && bundle update
 
 RUN RAILS_ENV=production bundle exec rails assets:precompile
 
 ADD . /app
+
+WORKDIR .
 
 EXPOSE 3000
