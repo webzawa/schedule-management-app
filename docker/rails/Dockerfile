@@ -5,7 +5,7 @@ RUN apt-get update -qq && \
   build-essential \
   libpq-dev \
   vim \
-  default-mysql-client 
+  default-mysql-client
 RUN set -ex && \
   apt-get update -qq && \
   apt-get install -y sudo && \
@@ -24,7 +24,7 @@ WORKDIR /app
 ADD Gemfile .
 ADD Gemfile.lock .
 
-# RUN bundle install -j4
+RUN bundle install -j4
 
 RUN RAILS_ENV=production bundle exec rails assets:precompile
 
