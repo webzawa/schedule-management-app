@@ -24,15 +24,15 @@ WORKDIR /app
 ADD Gemfile .
 ADD Gemfile.lock .
 
-RUN bundle install -j4
+# RUN bundle install -j4
 
 RUN RAILS_ENV=production bundle exec rails assets:precompile
 
 # RUN RAILS_ENV=production bundle exec bin/webpack
 
-RUN RAILS_ENV=production bundle bundle exec rake webpacker:install
+RUN RAILS_ENV=production bundle exec rake webpacker:install
 
-RUN RAILS_ENV=production bundle bundle exec rake webpacker:compile
+RUN RAILS_ENV=production bundle exec rake webpacker:compile
 
 ADD . /app
 
