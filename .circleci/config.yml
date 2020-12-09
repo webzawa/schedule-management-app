@@ -2,9 +2,9 @@ version: 2.1 # バージョン指定
 
 executors:
   default:
-    working_directory: ~/schedule-management-app
+    working_directory: ~/railsApp/schedule-management-app
     docker:
-      - image: circleci/ruby:2.7.1-node
+      - image: circleci/ruby:2.7.1
         environment:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
