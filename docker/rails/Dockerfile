@@ -26,6 +26,7 @@ ADD Gemfile.lock .
 
 RUN gem install bunlder && bundle install -j4 && bundle update
 
+RUN yarn install --check-files
 RUN RAILS_ENV=production bundle exec rails assets:precompile
 
 ADD . /app
