@@ -8,9 +8,9 @@ executors:
         environment:
           BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
-          DB_HOST: 127.0.0.1
+          DB_HOSTNAME: 127.0.0.1
           DB_USERNAME: "root"
-          DB_PASSWORD: ""
+          DB_PASSWORD: "password"
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_HOST: "%"
