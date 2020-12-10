@@ -31,7 +31,7 @@ https://www.schedulemanagement.work/
 * RSpec
 
 # AWS構成図
-[![Image from Gyazo](https://i.gyazo.com/8daeea1e0b9444256f578820e2ad4381.png)](https://gyazo.com/8daeea1e0b9444256f578820e2ad4381)
+[![Image from Gyazo](https://i.gyazo.com/ae56e78f19b82afd617e5c639142f50d.png)](https://gyazo.com/ae56e78f19b82afd617e5c639142f50d)
 
 # 機能一覧
 - ユーザ関連
