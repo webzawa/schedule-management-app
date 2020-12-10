@@ -70,4 +70,5 @@ https://www.schedulemanagement.work/
 - ※作成中
 # 課題
 - テストが充実していない。
+- シフト申請画面にテンプレート登録機能がないので不便。
 - UIの洗練不足を感じる。Vue,Vuetifyを導入予定。
