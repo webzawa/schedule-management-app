@@ -5,7 +5,7 @@ RUN apt-get update -qq && \
   build-essential \
   libpq-dev \
   vim \
-  default-mysql-client 
+  default-mysql-client
 RUN set -ex && \
   apt-get update -qq && \
   apt-get install -y sudo && \
@@ -24,13 +24,15 @@ WORKDIR /app
 ADD Gemfile .
 ADD Gemfile.lock .
 
-RUN gem install bunlder && bundle install -j4 && bundle update
+RUN gem install bunlder && bundle install -j4
 
-RUN yarn install --check-files
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+# RUN yarn install --check-files
 
 ADD . /app
 
 WORKDIR .
+
+RUN RAILS_ENV=production bundle exec rails assets:precompile
+# RUN bundle exec rails assets:precompile
 
 EXPOSE 3000

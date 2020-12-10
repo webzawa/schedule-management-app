@@ -5,27 +5,27 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.1.0
 
 workflows:
-  nginx-deploy: # Nginxのデプロイ
-    jobs:
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          region: AWS_REGION
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
-          dockerfile: ./docker/nginx/Dockerfile
-          repo: schedule-management-app-portfolio-nginx
-          tag: "latest"
-          filters:
-            branches:
-              only: master
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
-          cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
-          service-name: "schedule-management-app-portfolio-serv" #サービス名
-          container-image-name-updates: "container=schedule-management-app-portfolio-nginx,tag=latest"
+  # nginx-deploy: # Nginxのデプロイ
+  #   jobs:
+  #     - aws-ecr/build-and-push-image:
+  #         account-url: AWS_ECR_ACCOUNT_URL
+  #         region: AWS_REGION
+  #         aws-access-key-id: AWS_ACCESS_KEY_ID
+  #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+  #         create-repo: true
+  #         dockerfile: ./docker/nginx/Dockerfile
+  #         repo: schedule-management-app-portfolio-nginx
+  #         tag: "latest"
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - aws-ecs/deploy-service-update:
+  #         requires:
+  #           - aws-ecr/build-and-push-image
+  #         family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
+  #         cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
+  #         service-name: "schedule-management-app-portfolio-serv" #サービス名
+  #         container-image-name-updates: "container=schedule-management-app-portfolio-nginx,tag=latest"
   rails-deploy: # Railsのデプロイ
     jobs:
       - aws-ecr/build-and-push-image:
@@ -34,16 +34,16 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           create-repo: true
-          dockerfile: ./docker/rails/Dockerfile
+          dockerfile: ../docker/rails/Dockerfile
           repo: schedule-management-app-portfolio
           tag: "latest"
           filters:
             branches:
               only: master
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
-          cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
-          service-name: "schedule-management-app-portfolio-serv" #サービス名
-          container-image-name-updates: "container=schedule-management-app-portfolio,tag=latest"
+      # - aws-ecs/deploy-service-update:
+      #     requires:
+      #       - aws-ecr/build-and-push-image
+      #     family: "schedule-management-app-portfolio-task" # ECSのタスク定義名
+      #     cluster-name: "arn:aws:ecs:ap-northeast-1:234012031826:cluster/schedule-management-app-portfolio-crus" #ECSのクラスターのARN
+      #     service-name: "schedule-management-app-portfolio-serv" #サービス名
+      #     container-image-name-updates: "container=schedule-management-app-portfolio,tag=latest"
