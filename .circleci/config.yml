@@ -34,7 +34,7 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           create-repo: true
-          dockerfile: ../docker/rails/Dockerfile
+          dockerfile: ./docker/rails/Dockerfile
           repo: schedule-management-app-portfolio
           tag: "latest"
           filters:
