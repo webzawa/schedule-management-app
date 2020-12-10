@@ -32,7 +32,10 @@ ADD . /app
 
 WORKDIR .
 
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+# RUN RAILS_ENV=production bundle exec rails assets:precompile
 # RUN bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile \
+  && yarn cache clean \
+  && rm -rf node_modules tmp/cache
 
 EXPOSE 3000
