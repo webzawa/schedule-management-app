@@ -26,14 +26,10 @@ ADD Gemfile.lock .
 
 RUN gem install bunlder && bundle install -j4
 
-# RUN yarn install --check-files
-
 ADD . /app
 
 WORKDIR .
 
-# RUN RAILS_ENV=production bundle exec rails assets:precompile
-# RUN bundle exec rails assets:precompile
 RUN SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile \
   && yarn cache clean \
   && rm -rf node_modules tmp/cache
