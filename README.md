@@ -102,7 +102,7 @@ https://www.schedulemanagement.work/
 [![Image from Gyazo](https://i.gyazo.com/2ebf82fffbdc6fa009b98ab09c12ba38.png)](https://gyazo.com/2ebf82fffbdc6fa009b98ab09c12ba38)
 
 # 課題
-- シフト申請画面が一日ごとにしか申請できず不便
+- シフト申請画面が一日ごとにしか申請できず不便。
   - テンプレート登録機能を実装予定。
   - 入力性向上のため、Handsontableの導入、GoogleカレンダーやLINE Botとの連携など検討中。
 - テストが充実していない。
