@@ -19,13 +19,13 @@ https://www.schedulemanagement.work/
 # 使用技術
 * HTML
 * CSS / Bootstrap
-* Javascript / Jquery / Ajax
+* JavaScript / jQuery / Ajax
 * Ruby 2.7.1
-* Rails 6.0.3.2
-* Nginx（Webサーバ）
-* puma（アプリケーションサーバ）
-* Git / Github
-* AWS(VPC、ECS、Route53,ACM,ALB,RDS for MySQL 5.7)
+* Ruby on Rails 6.0.3.2
+* nginx（Webサーバ）
+* Puma（アプリケーションサーバ）
+* Git / GitHub
+* AWS(VPC、ECS、Route53,ACM,ALB,IAM,RDS for MySQL 5.7)
 * Docker / Docker-compose
 * CircleCI
 * RSpec
