@@ -47,20 +47,22 @@ class SchedulesController < ApplicationController
 
   # シフト作成
   def create
+    # シフト申請日存在チェック
+    return @msg = '日付が選択されていません。' if params[:schedule][:request_day][0].blank?
+
+    # シフト時間枠の申請がいずれも存在しない場合エラー
+    return @msg = '時間が選択されていません、申請内容を修正してください。' if params[:schedule][:request_timezone].blank?
+
+    # 日付を配列に分割
     request_day_array = params[:schedule][:request_day][0].split(',')
+
     request_day_array.each do |request_day|
       @schedule = Schedule.new(schedule_params)
       @schedule.request_day = request_day
 
-      # シフト申請日存在チェック
-      return @msg = '日付が選択されていません。' if @schedule.request_day.nil?
-
       # 申請先店舗には同日シフトの申請はできないようにする
       requested_check = Schedule.find_by(:user_id => @schedule.user.id, :store_id => @schedule.store.id, :request_day => @schedule.request_day)
       return @msg = "#{@schedule.store.storename}には#{@schedule.request_day}にシフトを申請済みです。申請内容を修正してください。" unless requested_check.nil?
-
-      # シフト時間枠の申請がいずれも存在しない場合エラー
-      return @msg = '時間が選択されていません、申請内容を修正してください。' if @schedule.request_timezone.blank?
 
       # 夜勤のTimezone E0,E1,E3,Eは１つまでしか申請できないようにする（勤務時間が重複しているため）
       request_timezone_array = @schedule.request_timezone.split(',').map { |m| m.delete('[]"\\\\ ') }
