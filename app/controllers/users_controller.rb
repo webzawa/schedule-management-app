@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_user
+  before_action :admin_user, :only => %i[adminsettings update update_confirmed_at destroy]
 
   # 管理者用設定
   def adminsettings
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @check = params[:q]
   end
 
+  # 管理者用設定
   def update
     @user = User.find_by(:id => params[:id])
     @msg = if @user.admin == false
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
            end
   end
 
+  # 管理者用設定
   def update_confirmed_at
     @user = User.find_by(:id => params[:id])
     @msg = if @user.confirmed_at.blank?
@@ -51,6 +53,17 @@ class UsersController < ApplicationController
            end
   end
 
+  # 管理者用設定
+  def destroy
+    @user = User.find_by(:id => params[:id])
+    @msg = if @user.destroy
+             @deleted = true
+             "ユーザ「#{@user.username}」を削除しました。"
+           else
+             "ユーザ「#{@user.username}」の削除に失敗しました。"
+           end
+  end
+
   def update_to_comment
     @user = User.find_by(:id => params[:id])
     if @user.update_attribute(:comment, params[:user][:comment])
@@ -61,16 +74,4 @@ class UsersController < ApplicationController
       redirect_to schedules_requestschedule_path
     end
   end
-
-  def destroy
-    @user = User.find_by(:id => params[:id])
-
-    @msg = if @user.destroy
-             @deleted = true
-             "ユーザ「#{@user.username}」を削除しました。"
-           else
-             "ユーザ「#{@user.username}」の削除に失敗しました。"
-           end
-  end
-
 end
