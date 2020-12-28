@@ -51,6 +51,17 @@ class UsersController < ApplicationController
            end
   end
 
+  def update_to_comment
+    @user = User.find_by(:id => params[:id])
+    if @user.update_attribute(:comment, params[:user][:comment])
+      flash[:success] = '管理者向けコメントを更新しました。'
+      redirect_to schedules_requestschedule_path
+    else
+      flash[:error] = '管理者向けコメントの更新に失敗しました。'
+      redirect_to schedules_requestschedule_path
+    end
+  end
+
   def destroy
     @user = User.find_by(:id => params[:id])
 

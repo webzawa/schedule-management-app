@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get    'schedules/approveschedule'
   get    'schedules/editschedule'
   patch  'schedules/:id/update_to_edit_schedule' => 'schedules#update_to_edit_schedule'
+  patch  'users/:id/update_to_comment'   => 'users#update_to_comment'
   post   'users/:id/update_confirmed_at' => 'users#update_confirmed_at'
 
   devise_for :users, controllers: {

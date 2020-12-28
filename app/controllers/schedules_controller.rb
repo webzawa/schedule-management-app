@@ -32,6 +32,7 @@ class SchedulesController < ApplicationController
     timezones
     @stores = Store.all # 全店舗呼び出し
     @users  = User.all  # 全ユーザ呼び出し
+    @user   = User.find(current_user.id)
 
     if params[:q].nil? # 読み込み時処理
       @schedules_search = Schedule.ransack(params[:q])

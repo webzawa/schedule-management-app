@@ -4,7 +4,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <%= bootstrap_form_with(model: @schedule,url: "/schedules/#{@schedule.id}/update_to_edit_schedule") do |form| %>
+    <%= bootstrap_form_with(model: @schedule, url: "/schedules/#{@schedule.id}/update_to_edit_schedule") do |form| %>
       <% if @schedule.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
