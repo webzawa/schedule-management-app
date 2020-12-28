@@ -161,6 +161,10 @@ class SchedulesController < ApplicationController
   end
 
   def render_schedule_calender(link_target)
+    if link_target == 'workschedule'
+      @comment_visualization = false
+    end
+
     # エラーハンドリング
     schedule_nil_check = Schedule.first
     if schedule_nil_check.nil?
