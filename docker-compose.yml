@@ -12,6 +12,7 @@ services:
       - /var/tmp
       # socketファイルの共有
       - sockets:/app/tmp/sockets
+    stdin_open: true
     tty: true
     depends_on:
       - db
