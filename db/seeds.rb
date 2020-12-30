@@ -23,10 +23,23 @@ password = "foobar"
     username = "夜勤ユーザ#{n + 1}"
   end
 
+  if n == 1
+    comment = "朝、昼のうちどちらか1コマでお願いします。"
+  elsif n == 2
+    comment = "週3,4で希望"
+  elsif n == 3
+    comment = "週3 土日どちらかに夕方勤務　平日は夜勤"
+  elsif n == 4
+    comment = "月給85000円になるようお願いします。入れる日を出している為全て入れなくても大丈夫なのですが85000円にいくようお願いします。"
+  else
+    comment = ""
+  end
+
   User.create!(
     :username => username,
     :email => "test#{n + 1}@test.com",
     :duty_hours => duty_hours,
+    :comment => comment,
     :password => password,
     :password_confirmation => password,
     :admin => false,
