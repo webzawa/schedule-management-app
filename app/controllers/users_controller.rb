@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def update_to_comment
     @user = User.find_by(:id => params[:id])
-    if @user.update_attribute(:comment, params[:user][:comment])
+    if @user.update(update_to_comment_params)
       flash[:success] = 'その他要望を更新しました。'
       redirect_to schedules_requestschedule_path
     else
@@ -74,4 +74,13 @@ class UsersController < ApplicationController
       redirect_to schedules_requestschedule_path
     end
   end
+
+  private
+
+  def update_to_comment_params
+    params.require(:user).permit(
+      :comment
+    )
+  end
+
 end
