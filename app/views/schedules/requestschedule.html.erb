@@ -172,9 +172,9 @@
         // Add a new defaultDate property : value.
         datepickerSettings.defaultDate = pickedDate;
         // Avoid having to click twice on prev/next month.
-        $("#inputID").blur();
+        $("#datepicker").blur();
         setTimeout(function() {
-          $("#inputID").focus();
+          $("#datepicker").focus();
         }, 1); // 1 millisecond delay seems to be enought!!!
       }
     });
