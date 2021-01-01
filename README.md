@@ -33,7 +33,7 @@ https://www.schedulemanagement.work/
 # AWS構成図
 [![Image from Gyazo](https://i.gyazo.com/ae56e78f19b82afd617e5c639142f50d.png)](https://gyazo.com/ae56e78f19b82afd617e5c639142f50d)
 # ER図
-[![Image from Gyazo](https://i.gyazo.com/7857e47e9bfacc01767e77633cb849c0.png)](https://gyazo.com/7857e47e9bfacc01767e77633cb849c0)
+[![Image from Gyazo](https://i.gyazo.com/14a47f39b514b723661a5e2574a33e13.png)](https://gyazo.com/14a47f39b514b723661a5e2574a33e13)
 # 機能一覧
 - ユーザ関連
   - 新規登録
