@@ -32,6 +32,8 @@ https://www.schedulemanagement.work/
 
 # AWS構成図
 [![Image from Gyazo](https://i.gyazo.com/ae56e78f19b82afd617e5c639142f50d.png)](https://gyazo.com/ae56e78f19b82afd617e5c639142f50d)
+# ER図
+[![Image from Gyazo](https://i.gyazo.com/ac23ad9d068253d6db2478857c78df49.png)](https://gyazo.com/ac23ad9d068253d6db2478857c78df49)
 
 # 機能一覧
 - ユーザ関連
@@ -42,7 +44,7 @@ https://www.schedulemanagement.work/
   - 基本勤務時間帯の登録
 
 - シフト系
-  - 申請（予め登録された勤務時間帯のチェックボックスを選択、複数店舗に申請できる）
+  - 申請（複数日付に一括申請可能、予め登録された勤務時間帯のチェックボックスを選択し複数店舗に申請できる）
   - 削除
   - 承認（管理者ユーザ限定、シフト表の申請済シフトをクリックで承認可否を切替）
   - 編集（管理者ユーザ限定、シフト表の申請済シフトをクリックでモーダルウィンドウを表示、承認可否の切替、申請内容変更、削除）
@@ -65,6 +67,7 @@ https://www.schedulemanagement.work/
   - FlashのToast化
   - 静的コード解析ツール導入（Rubocop）
   - ゲストユーザー機能（編集不可ロジック組込み済）
+  - MultiDatespicker導入 (シフト申請、複数日付への一括申請に使用)
 
 # クイックチュートリアル
 1. シフトの申請
@@ -72,7 +75,9 @@ https://www.schedulemanagement.work/
   - 申請したシフトは右欄「申請済みシフト欄」で検索が可能です。
   - 申請直後のシフトは「未承認」の状態になっていますが、店長権限者が当該シフトを承認後に「承認済」に変化します。
   - なお、店長権限者は他ユーザのシフトの申請、検索、承認可否の選択が可能です。
-[![Image from Gyazo](https://i.gyazo.com/0c024973f7318c18cf11907229e3cdf4.png)](https://gyazo.com/0c024973f7318c18cf11907229e3cdf4)
+  - さらに、「その他要望」欄では店長向けの要望、コメントを記入することが可能です。
+[![Image from Gyazo](https://i.gyazo.com/d69df741220bcee5b4b9cf333642852f.png)](https://gyazo.com/d69df741220bcee5b4b9cf333642852f)
+[![Image from Gyazo](https://i.gyazo.com/2c62156534acb532c2cdd9e9b8721ba9.png)](https://gyazo.com/2c62156534acb532c2cdd9e9b8721ba9)
 
 2. スケジュール一覧ページ
   - 承認済のシフトのみ表示されます。
@@ -87,12 +92,13 @@ https://www.schedulemanagement.work/
   - シフトをクリックすると、「未承認」⇔「承認済」の切り替えが可能です。
   - 未承認のシフトはグレー、承認済のシフトは黒文字で表示されます。
   - ユーザ行下部にシフト申請項目ごとのカウンタがあり、同時刻にいくつシフトが申請されたか確認が可能です。
+  - シフト表右欄には各ユーザからの要望コメントが表示されます。
 [![Image from Gyazo](https://i.gyazo.com/cd6207eb423285777201456cf10ca769.png)](https://gyazo.com/cd6207eb423285777201456cf10ca769)
+[![Image from Gyazo](https://i.gyazo.com/e50e9b3ea51dea74abbb1a2e5e34ea3c.png)](https://gyazo.com/e50e9b3ea51dea74abbb1a2e5e34ea3c)
 
 4. シフト編集ページ（店長権限のみ使用可）
-  - 申請されたシフトが表示されます。
-  - シフトをクリックするとモーダルウィンドウが表示され、シフトの編集が出来ます。
-  - シフト申請内容、承認可否の編集が可能です。
+  - 主な機能は「シフト承認ページ」と同じですが、変更点は以下の通りです。
+  - シフトをクリックするとモーダルウィンドウが表示され、シフトの編集・削除が出来ます。
 [![Image from Gyazo](https://i.gyazo.com/4203a4b0c58acf0ecc4cb4ee67b2e08e.png)](https://gyazo.com/4203a4b0c58acf0ecc4cb4ee67b2e08e)
 
 5. 管理者用設定（店長権限のみ使用可）
@@ -105,5 +111,6 @@ https://www.schedulemanagement.work/
 - シフト申請画面が一日ごとにしか申請できず不便。
   - テンプレート登録機能を実装予定。
   - 入力性向上のため、Handsontableの導入、GoogleカレンダーやLINE Botとの連携など検討中。
+    - 2021/01/01追記：MultiDatespickerの導入により、一日一日しか申請できなかった問題を解決。  複数日付に一括申請できるように変更。
 - テストが充実していない。
 - UIの洗練不足を感じる。Vue,Vuetifyを導入予定。
