@@ -1,5 +1,5 @@
 {
-  "name": "bigwest_sch_app3",
+  "name": "schedule-management-app",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
