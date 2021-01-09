@@ -3,7 +3,7 @@
   <tr>
     <th><%= timezone %>申請数</th>
     <% @beginningtoendday.each do |day| %>
-      <td><%= countschedule_check(@user_and_schedules_first_schedules_first.store_id, day, timezone) %></td>
+      <td><%= countschedule_check(@user_and_schedules_first_schedules_first.store_id, day, timezone, @searched_approved) %></td>
     <% end %>
   </tr>
 <% end %>
