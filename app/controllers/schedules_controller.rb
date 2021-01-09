@@ -183,6 +183,8 @@ class SchedulesController < ApplicationController
       # すべてのUserとScheduleを取得
       @users_and_schedules_search = User.joins(:schedules).ransack(params[:q])
 
+      @searched_approved = params[:q][:schedules_approved_eq] #schedules_helperで使用　シフトのカウントは「承認可否」の「未選択」「承認済」「未承認」で変化する。
+
       # 勤務時間帯順に並び替え
       @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
       # 下記部分はschedulesをincludesしないと検索がうまくいかない。さらに、User作成順で昇順ソートするよう設定。
