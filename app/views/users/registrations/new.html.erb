@@ -9,6 +9,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :主な勤務店舗 %><br />
+    <%= f.collection_select :work_store, @stores, :id, :storename, { include_blank: true, hide_label: true} %>
+  </div>
+
+  <div class="field">
     <%= f.label :主な勤務時間帯 %><br />
     <%= f.select :duty_hours, [['指定なし',0],['朝勤',1],['昼勤',2],['夕勤',3],['夜勤',4],['店長クラス',5]], hide_label: true %>
   </div>

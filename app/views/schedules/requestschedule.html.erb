@@ -18,7 +18,7 @@
 
       <div class="request-schedule-field">
         <%= f.label :シフト申請先店舗 %><br>
-        <%= f.collection_select :store_id, Store.all, :id, :storename %>
+        <%= f.collection_select :store_id, Store.all, :id, :storename, {selected: current_user.work_store} %>
       </div>
 
       <div class="request-schedule-field">
