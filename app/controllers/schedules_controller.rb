@@ -19,7 +19,7 @@ class SchedulesController < ApplicationController
     render_schedule_calender('editschedule')
   end
 
-  # シフト元紙表示ページ（管理者専用）
+  # シフト原紙表示ページ（管理者専用）
   def originalschedule
     render_schedule_calender('originalschedule')
   end
