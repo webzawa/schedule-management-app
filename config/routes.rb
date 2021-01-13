@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get    'schedules/requestschedule'
   get    'schedules/approveschedule'
   get    'schedules/editschedule'
+  get    'schedules/originalschedule'
   patch  'schedules/:id/update_to_edit_schedule' => 'schedules#update_to_edit_schedule'
   patch  'users/:id/update_to_comment'   => 'users#update_to_comment'
   post   'users/:id/update_confirmed_at' => 'users#update_confirmed_at'

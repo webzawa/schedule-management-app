@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>tutorial.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E6%A6%82%E8%A6%81">概要</h1>
+<p>シフト表作成者の業務改善ための勤怠管理アプリです。<br />
+従業員ユーザが勤怠管理アプリにシフトを申請し、店長ユーザが申請されたシフトを一元管理できます。<br />
+従業員個別に希望シフトをヒヤリングして、Excelでシフト表を作成する手間を無くし、<br />
+シフト作成業務に割く時間を軽減できます。</p>
+<h1 id="%E4%BD%BF%E3%81%84%E6%96%B9">使い方</h1>
+<ol>
+<li>シフトの申請</li>
+</ol>
+<ul>
+<li>シフト申請先店舗を、申請日、勤務時間帯を選択してシフト申請することが出来ます。</li>
+<li>申請したシフトは右欄「申請済みシフト欄」で検索が可能です。</li>
+<li>申請直後のシフトは「未承認」の状態になっていますが、店長権限者が当該シフトを承認後に「承認済」に変化します。</li>
+<li>なお、店長権限者は他ユーザのシフトの申請、検索、承認可否の選択が可能です。</li>
+<li>さらに、「その他要望」欄では店長向けの要望、コメントを記入することが可能です。
+<a href="https://gyazo.com/d69df741220bcee5b4b9cf333642852f"><img src="https://i.gyazo.com/d69df741220bcee5b4b9cf333642852f.png" alt="Image from Gyazo"></a>
+<a href="https://gyazo.com/2c62156534acb532c2cdd9e9b8721ba9"><img src="https://i.gyazo.com/2c62156534acb532c2cdd9e9b8721ba9.png" alt="Image from Gyazo"></a></li>
+</ul>
+<ol start="2">
+<li>スケジュール一覧ページ</li>
+</ol>
+<ul>
+<li>承認済のシフトのみ表示されます。</li>
+<li>店舗、期間を選択してスケジュールの一覧を表示します。</li>
+<li>ユーザの表示順はユーザ登録時に設定する、「主な勤務時間帯」順になっています。</li>
+<li>勤務時間帯に応じてユーザ欄が色分けされます。</li>
+<li>画面全体をキャプチャし、PNG画像出力が可能です。（PC限定限定）
+<a href="https://gyazo.com/24b8a263c0c6fa56bb91976143c7e758"><img src="https://i.gyazo.com/24b8a263c0c6fa56bb91976143c7e758.png" alt="Image from Gyazo"></a></li>
+</ul>
+<ol start="3">
+<li>シフト承認ページ（店長権限のみ使用可）</li>
+</ol>
+<ul>
+<li>申請されたシフトが表示されます。</li>
+<li>シフトをクリックすると、「未承認」⇔「承認済」の切り替えが可能です。</li>
+<li>未承認のシフトはグレー、承認済のシフトは黒文字で表示されます。</li>
+<li>ユーザ行下部にシフト申請項目ごとのカウンタがあり、同時刻にいくつシフトが申請されたか確認が可能です。</li>
+<li>シフト表右欄には各ユーザからの要望コメントが表示されます。
+<a href="https://gyazo.com/cd6207eb423285777201456cf10ca769"><img src="https://i.gyazo.com/cd6207eb423285777201456cf10ca769.png" alt="Image from Gyazo"></a>
+<a href="https://gyazo.com/e50e9b3ea51dea74abbb1a2e5e34ea3c"><img src="https://i.gyazo.com/e50e9b3ea51dea74abbb1a2e5e34ea3c.png" alt="Image from Gyazo"></a></li>
+</ul>
+<ol start="4">
+<li>シフト編集ページ（店長権限のみ使用可）</li>
+</ol>
+<ul>
+<li>主な機能は「シフト承認ページ」と同じですが、変更点は以下の通りです。</li>
+<li>シフトをクリックするとモーダルウィンドウが表示され、シフトの編集・削除が出来ます。
+<a href="https://gyazo.com/4203a4b0c58acf0ecc4cb4ee67b2e08e"><img src="https://i.gyazo.com/4203a4b0c58acf0ecc4cb4ee67b2e08e.png" alt="Image from Gyazo"></a></li>
+</ul>
+<ol start="5">
+<li>管理者用設定（店長権限のみ使用可）</li>
+</ol>
+<ul>
+<li>店舗、シフト申請項目追加、ユーザ情報編集が出来ます。</li>
+<li>ユーザ情報編集では、「一般ユーザ」⇔「店長ユーザ（管理者）」の権限切替、<br>
+新規ユーザのログイン許可、アカウント削除が可能です。
+<a href="https://gyazo.com/2ebf82fffbdc6fa009b98ab09c12ba38"><img src="https://i.gyazo.com/2ebf82fffbdc6fa009b98ab09c12ba38.png" alt="Image from Gyazo"></a></li>
+</ul>
+<h1 id="%E6%A9%9F%E8%83%BD%E4%B8%80%E8%A6%A7">機能一覧</h1>
+<ul>
+<li>
+<p>ユーザ関連</p>
+<ul>
+<li>新規登録</li>
+<li>ログイン</li>
+<li>ログアウト</li>
+<li>プロフィール表示、編集</li>
+<li>基本勤務時間帯の登録</li>
+</ul>
+</li>
+<li>
+<p>シフト系</p>
+<ul>
+<li>申請（複数日付に一括申請可能、予め登録された勤務時間帯のチェックボックスを選択し複数店舗に申請できる）</li>
+<li>削除</li>
+<li>承認（管理者ユーザ限定、シフト表の申請済シフトをクリックで承認可否を切替）</li>
+<li>編集（管理者ユーザ限定、シフト表の申請済シフトをクリックでモーダルウィンドウを表示、承認可否の切替、申請内容変更、削除）</li>
+<li>シフトの検索、絞り込み機能（ユーザ名、店舗名、申請日、承認可否）</li>
+<li>確定シフト表の表示（月単位）</li>
+<li>確定シフト表のPNG画像出力</li>
+<li>勤務時間帯順でシフト表のユーザ表示順をソート</li>
+<li>時間帯ごとのシフト申請数をカウント（時間帯ごとに必要な人員数があるので見える化）</li>
+</ul>
+</li>
+<li>
+<p>管理者設定系</p>
+<ul>
+<li>店舗追加（フランチャイズでは複数店舗を経営することがあるので必要）</li>
+<li>勤務時間帯項目追加（シフト申請用のチェックボックスの追加）</li>
+<li>ログイン許可機能（新規ユーザログイン許可に使用）</li>
+<li>他ユーザの権限変更（従業員ユーザ⇔店長ユーザ）</li>
+<li>他ユーザの削除（退職者アカウントの削除）</li>
+</ul>
+</li>
+<li>
+<p>その他</p>
+<ul>
+<li>レスポンシブ対応</li>
+<li>Ajax化（シフト作成・承認・編集・削除、新規ユーザログイン許可・権限変更・削除で使用）</li>
+<li>FlashのToast化</li>
+<li>静的コード解析ツール導入（Rubocop）</li>
+<li>ゲストユーザー機能（編集不可ロジック組込み済）</li>
+<li>MultiDatespicker導入 (シフト申請、複数日付への一括申請に使用)</li>
+</ul>
+</li>
+</ul>
+<h1 id="%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93">使用技術</h1>
+<ul>
+<li>HTML</li>
+<li>CSS / Bootstrap</li>
+<li>JavaScript / jQuery / Ajax</li>
+<li>Ruby 2.7.1</li>
+<li>Ruby on Rails 6.0.3.2</li>
+<li>nginx（Webサーバ）</li>
+<li>Puma（アプリケーションサーバ）</li>
+<li>Git / GitHub</li>
+<li>AWS(VPC,ECS,Route53,ACM,ALB,IAM,RDS for MySQL 5.7)</li>
+<li>Docker / Docker-compose</li>
+<li>CircleCI</li>
+<li>RSpec</li>
+</ul>
+<h1 id="aws%E6%A7%8B%E6%88%90%E5%9B%B3">AWS構成図</h1>
+<p><a href="https://gyazo.com/b1e07f086d67a8c83cbf9c0174decb7f"><img src="https://i.gyazo.com/b1e07f086d67a8c83cbf9c0174decb7f.png" alt="Image from Gyazo"></a></p>
+<h1 id="er%E5%9B%B3">ER図</h1>
+<p><a href="https://gyazo.com/cfea68de619124993f97e330faa966f7"><img src="https://i.gyazo.com/cfea68de619124993f97e330faa966f7.png" alt="Image from Gyazo"></a></p>
+
+</body>
+</html>
