@@ -9,8 +9,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :その他要望　例：週4勤務希望、月給20万以上希望など %><br />
-    <%= f.text_field :comment, hide_label: true %>
+    <%= f.label :主な勤務店舗 %><br />
+    <%= f.collection_select :work_store, @stores, :id, :storename, { include_blank: true, hide_label: true} %>
   </div>
 
   <div class="field">

@@ -6,24 +6,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :check_guest, only: %i[update destroy]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @stores = Store.all
+    super
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @stores = Store.all
+    super
+  end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    @stores = Store.all
+    super
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    @stores = Store.all
+    super
+  end
 
   # DELETE /resource
   # def destroy
