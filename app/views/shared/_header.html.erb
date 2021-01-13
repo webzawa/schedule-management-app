@@ -15,6 +15,7 @@
           <% if current_user.admin? %>
             <li><%= link_to "シフト承認",     schedules_approveschedule_path %><%# only admin%></li>
             <li><%= link_to "シフト編集",     schedules_editschedule_path %><%# only admin%></li>
+            <li><%= link_to "シフト元紙",     schedules_originalschedule_path %><%# only admin%></li>
             <li><%= link_to "管理者用設定",   users_adminsettings_path %><%# only superadmin%></li>
           <% end %>
           <li><%= link_to "ログアウト", destroy_user_session_path,method: :delete %></li>

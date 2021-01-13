@@ -1,12 +1,12 @@
-<% provide(:title, "シフト編集") %>
+<% provide(:title, "シフト元紙") %>
 
 <div class="row">
   <div class="col-md-12">
 
-    <h4>シフト編集ページ</h4>
-    <p>カレンダー内のシフトをクリックすると、シフトの編集を行えます。</p>
+    <h4>シフト元紙ページ</h4>
+    <p>シフト申請時の情報が表示されます。</p>
 
-    <%= search_form_for @users_and_schedules_search, url: schedules_editschedule_path do |f| %>
+    <%= search_form_for @users_and_schedules_search, url: schedules_originalschedule_path do |f| %>
       <%= f.label :store_id_eq, "店舗"%>
       <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename, {selected: current_user.work_store} %>
 
@@ -19,10 +19,6 @@
             use_month_numbers: true,
             date_separator: '%s'),
           '年 ') + '月' %>
-
-      <br>
-      <%= f.label :approved, "承認可否"%>
-      <%= f.select :schedules_approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
 
       <div class="actions ransack-submit"><%= f.submit "検索" %></div>
     <% end %>
@@ -42,31 +38,63 @@
               <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
               <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
               <% @beginningtoendday.each do |day| %>
-                <td>
-                  <% user_and_schedules.schedules.each do |schedule| %>
-                    <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
-                      <div class="schedules_<%= schedule.id %>">
-                        <%= render partial: "schedules/edit", locals: { schedule: schedule} %>
-                      </div>
+                  <td>
+                    <% user_and_schedules.schedules.each do |schedule| %>
+                      <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
+                        <%#申請シフトが未承認だったらCSSでColor付与する%>
+                        <% if schedule.approved == true %><div class="approved"><% else %><div class="not-approved"><% end %>
+                          <%= schedule.original_request_timezone %>
+                        </div>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </td>
+                  </td>
               <% end %>
-              <th class="user-comment"><%= user_and_schedules.comment %></th>
             </tr>
           <% end %>
-          <%= render partial: "shared/calender_count_schedule" %>
         </table>
       </div>
-      <p class="approved">黒　：承認済</p>
-      <p class="not-approved">灰色：未承認</p>
+
+      <button class="btn btn-primary" type="button" onclick="screenshot_function()">
+        全体スクリーンショット
+        <br>
+        ( PCのみ使用可 )
+        <br>
+        対応ブラウザ
+        <br>
+        Google Chrome
+        <br>
+        Microsoft Edge
+      </button>
+
     <% else %>
       <p>表示したい店舗と期間を検索して下さい。</p>
     <% end %>
   </div>
 </div>
 
-<div id="schedule-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-  </div>
-</div>
-
+<script>
+  const screenshot_function = () => {
+    (() => {
+      const src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"
+      const sc = document.createElement("script")
+      sc.type="text/javascript"
+      sc.src=src
+      sc.onload = () => {
+        html2canvas(document.body, {
+          onrendered: (canvas) => {
+            const imgageData = canvas.toDataURL("image/png")
+            const newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream")
+            const element = document.createElement('a')
+            element.setAttribute('href', newData)
+            element.setAttribute('download', 'screen.png')
+            element.style.display = 'none'
+            document.body.appendChild(element)
+            element.click()
+            document.body.removeChild(element)
+          }
+        })
+      }
+      document.body.appendChild(sc)
+    })()
+  }
+</script>

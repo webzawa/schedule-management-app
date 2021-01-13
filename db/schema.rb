@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_060547) do
+ActiveRecord::Schema.define(version: 2021_01_13_102638) do
 
   create_table "schedule_checkboxes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_for_checkbox", default: ""
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_01_13_060547) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "store_id"
     t.bigint "user_id"
+    t.string "original_request_timezone", default: ""
     t.index ["id", "user_id"], name: "index_schedules_on_id_and_user_id", unique: true
     t.index ["store_id"], name: "index_schedules_on_store_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
