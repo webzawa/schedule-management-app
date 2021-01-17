@@ -29,6 +29,7 @@ https://www.schedulemanagement.work/
 * Docker / Docker-compose
 * CircleCI
 * RSpec
+* Visual Studio Code (エディタ)
 
 # AWS構成図
 [![Image from Gyazo](https://i.gyazo.com/b1e07f086d67a8c83cbf9c0174decb7f.png)](https://gyazo.com/b1e07f086d67a8c83cbf9c0174decb7f)
