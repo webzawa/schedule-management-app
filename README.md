@@ -25,7 +25,7 @@ https://www.schedulemanagement.work/
 * nginx（Webサーバ）
 * Puma（アプリケーションサーバ）
 * Git / GitHub
-* AWS(VPC,ECS,Route53,ACM,ALB,IAM,RDS for MySQL 5.7)
+* AWS(VPC,ECS,ECR,Route53,ACM,ALB,IAM,RDS for MySQL 5.7)
 * Docker / Docker-compose
 * CircleCI
 * RSpec
