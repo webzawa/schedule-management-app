@@ -87,7 +87,9 @@
         <table class="table-bordered table-striped table-hover common-table">
           <tr>
             <th><%= sort_link(@users_search, :username, "ユーザ名") %></th>
+            <th><%= sort_link(@users_search, :work_store, "主な勤務店舗") %></th>
             <th><%= sort_link(@users_search, :duty_hours, "勤務時間帯") %></th>
+            <th><%= sort_link(@users_search, :join_date, "入店時期") %></th>
             <th><%= sort_link(@users_search, :admin, "権限") %></th>
             <th><%= sort_link(@users_search, :confirmed_at, "ログイン許可") %></th>
             <th><%= sort_link(@users_search, :created_at, "登録日時") %></th>

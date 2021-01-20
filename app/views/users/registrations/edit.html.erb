@@ -19,6 +19,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :入店時期 %><br />
+    <%= f.date_field :join_date, hide_label: true %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", hide_label: true %>
   </div>
