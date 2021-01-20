@@ -1,26 +1,21 @@
 <% provide(:title, "ホーム") %>
-<div class="center jumbotron">
-
-  <%= render partial: "pages/signup" %>
-  <%# render partial: "pages/guest_signup" %>
-
-  <p class="toppage-font">パソコン、スマートフォンからシフト申請ができるサイトです。</p><br>
-
-  <div class="row">
-    <div class="col-md-8"><%= image_tag 'calender.png' ,style: "width: 100%;"%></div>
-    <div class="col-md-4"><p class="toppage-font"><br>店舗ごとのシフト状況がひと目でわかる！</p></div>
-  </div>
-
-  <br>
-  <br>
-  <br>
-
-  <div class="row">
-    <div class="col-md-4"><p class="toppage-font"><br>シフトの申請も簡単に！<br>申請したシフトも一覧で確認！</p></div>
-    <div class="col-md-8"><%= image_tag 'request.png' ,style: "width: 100%;"%></div>
-  </div>
-
-</div>
 <div class="container">
+  <%= render partial: "pages/inquiry" %>
+  <div class="center jumbotron">
+    <%= render partial: "pages/signup" %>
+    <%# render partial: "pages/guest_signup" %>
+    <p class="toppage-font">パソコン、スマートフォンからシフト申請ができるサイトです。</p><br>
+    <div class="row">
+      <div class="col-md-8"><%= image_tag 'calender.png' ,style: "width: 100%;"%></div>
+      <div class="col-md-4"><p class="toppage-font"><br>店舗ごとのシフト状況がひと目でわかる！</p></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-4"><p class="toppage-font"><br>シフトの申請も簡単に！<br>申請したシフトも一覧で確認！</p></div>
+      <div class="col-md-8"><%= image_tag 'request.png' ,style: "width: 100%;"%></div>
+    </div>
+  </div>
   <%= render partial: "pages/tutorial" %>
 </div>

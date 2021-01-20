@@ -1,4 +1,5 @@
 <td><%= user.username %></td>
+<td><%= search_work_store_name(user.work_store) %></td>
 <td>
   <% if user.duty_hours == 0 %>指定なし<% end %>
   <% if user.duty_hours == 1 %>朝勤<% end %>
@@ -7,6 +8,7 @@
   <% if user.duty_hours == 4 %>夜勤<% end %>
   <% if user.duty_hours == 5 %>店長クラス<% end %>
 </td>
+<td><%= user.join_date %></td>
 <td>
   <% if user.admin? %>
     <% if user == current_user %>
@@ -30,7 +32,7 @@
   <% end %>
 </td>
 <td>
-  <%= user.created_at.strftime("%Y/%m/%d %R").to_s %>
+  <%= user.created_at.strftime("%Y-%m-%d %R").to_s %>
 </td>
 <td>
   <% unless user == current_user %>

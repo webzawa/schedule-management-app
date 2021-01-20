@@ -3,7 +3,8 @@
   font-weight: 900;
   margin: 1rem auto 1rem auto;
   th {
-    background: #295554;
+    // background: #295554;
+    background: rgb(73, 73, 73);
     color: #fff;
     text-align: center;
     padding: 0rem 1rem;
@@ -24,26 +25,63 @@
   }
   //従業員の勤務時間帯でth色変更
   .morning{
-    background-color: yellow;
+    // background-color: yellow;
+    background-color: rgb(255, 255, 138);
     color: black;
-  }
+    border-color: rgb(184, 184, 184);
+}
   .noon{
-    background-color: lightgreen;
+    // background-color: rgba(144, 238, 144, 0.9);
+    background-color: rgba(182, 255, 182, 0.9);
     color: black;
+    border-color: rgb(184, 184, 184);
   }
   .evening{
-    background-color: forestgreen;
+    // background-color: rgba(255, 182, 193, 0.9);
+    background-color: rgba(255, 202, 210, 0.9);
     color: black;
+    border-color: rgb(184, 184, 184);
   }
+  // .evening>tr>th>td{
+  //   // {
+  //     background-color: violet;
+  //     color: black;
+  //   // }
+  // }
+//   .table-striped tbody tr:nth-of-type(odd) {
+//   background-color:  rgba(72, 113, 248, 0.068);
+// }
+
+  // .evening>tr>th>td{
+  //   background-color: lightpink;
+  //   color: black;
+  //   // .evening>tr>th>td{
+  //   //   background-color: violet;
+  //   //   color: black;
+  //   // }
+  // }
+  // .evening th:nth-child(even) td{
+  //     background-color:violet;
+  //   color: black;
+  // }
   .night{
-    background-color: lightblue;
+    // background-color: lightblue;
+    background-color: rgb(171, 230, 250);
     color: black;
+    border-color: rgb(184, 184, 184);
   }
   .manager{
-    background-color: orange;
+    // background-color: orange;
+    background-color: rgb(255, 201, 101);
     color: black;
+    border-color: rgb(184, 184, 184);
   }
   .user-comment{
+    background-color: #fff;
+    color: black;
+    text-align: left;
+  }
+  .user-join-date{
     background-color: #fff;
     color: black;
     text-align: left;

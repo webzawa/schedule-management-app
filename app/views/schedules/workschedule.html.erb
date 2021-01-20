@@ -37,7 +37,12 @@
               <% if user_and_schedules.duty_hours == 4 %><th class="night"      ><%= user_and_schedules.username %></th><% end %>
               <% if user_and_schedules.duty_hours == 5 %><th class="manager"    ><%= user_and_schedules.username %></th><% end %>
               <% @beginningtoendday.each do |day| %>
-                  <td>
+                  <% if user_and_schedules.duty_hours == 0 %><td class="no-settings"><% end %>
+                  <% if user_and_schedules.duty_hours == 1 %><td class="morning"    ><% end %>
+                  <% if user_and_schedules.duty_hours == 2 %><td class="noon"       ><% end %>
+                  <% if user_and_schedules.duty_hours == 3 %><td class="evening"    ><% end %>
+                  <% if user_and_schedules.duty_hours == 4 %><td class="night"      ><% end %>
+                  <% if user_and_schedules.duty_hours == 5 %><td class="manager"    ><% end %>
                     <% user_and_schedules.schedules.each do |schedule| %>
                       <% if day == schedule.request_day && user_and_schedules.id == schedule.user_id %>
                         <%#申請シフトが未承認だったらCSSでColor付与する%>
@@ -48,6 +53,7 @@
                     <% end %>
                   </td>
               <% end %>
+              <th class="user-join-date"><%= user_and_schedules.join_date %></th>
             </tr>
           <% end %>
         </table>

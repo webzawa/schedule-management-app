@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_102638) do
+ActiveRecord::Schema.define(version: 2021_01_20_112527) do
+
+  create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "request_comment"
+    t.datetime "request_datetime", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_inquiries_on_user_id"
+  end
 
   create_table "schedule_checkboxes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_for_checkbox", default: ""
@@ -55,10 +64,12 @@ ActiveRecord::Schema.define(version: 2021_01_13_102638) do
     t.boolean "admin", default: false
     t.string "comment", default: ""
     t.integer "work_store"
+    t.date "join_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "inquiries", "users"
   add_foreign_key "schedules", "stores"
   add_foreign_key "schedules", "users"
 end
