@@ -8,7 +8,11 @@
 
     <%= search_form_for @users_and_schedules_search, url: schedules_approveschedule_path do |f| %>
       <%= f.label :store_id_eq, "店舗"%>
-      <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename, {selected: current_user.work_store} %>
+      <% if current_user.work_store.blank? %>
+        <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename %>
+      <% else %>
+        <%= f.collection_select :schedules_store_id_eq, @stores, :id, :storename, {selected: current_user.work_store} %>
+      <% end %>
     
       <br>
       <%= f.label :request_day, "期間"%>
