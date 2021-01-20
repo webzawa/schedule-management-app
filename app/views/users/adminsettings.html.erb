@@ -112,3 +112,20 @@
     <% end %>
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>アプリ要望一覧</h3>
+      <% @inquiries.each do |inquiry| %>
+        <div class="inquiries-index-item">
+          <div class="inquiry-left">
+            <%= inquiry.request_datetime.strftime("%Y年%m月%d日 %R").to_s %>
+          </div>
+          <div class="inquiry-right">
+            <%= inquiry.request_comment %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
