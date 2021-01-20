@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_112527) do
 
   create_table "inquiries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "request_comment"
-    t.date "request_day", null: false
+    t.datetime "request_datetime", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

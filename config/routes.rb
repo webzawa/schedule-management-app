@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   resources :schedules
   resources :stores
   resources :schedule_checkboxes
+  resources :inquiries
 end
