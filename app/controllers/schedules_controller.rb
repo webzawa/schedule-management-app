@@ -170,7 +170,7 @@ class SchedulesController < ApplicationController
 
   def render_schedule_calender(link_target)
     if link_target == 'workschedule' || link_target == 'originalschedule'
-      @comment_visualization = false
+      @visualization = false
     end
 
     # エラーハンドリング
