@@ -56,6 +56,7 @@
                   <% end %>
                 </td>
               <% end %>
+              <th class="user-salary"><%= salary_calculation(user_and_schedules, @beginningday, @endday, @searched_approved) %></th>
               <th class="user-join-date"><%= user_and_schedules.join_date %></th>
               <th class="user-comment"><%= user_and_schedules.comment %></th>
             </tr>
@@ -71,7 +72,7 @@
   </div>
 </div>
 
-<div id="schedule-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="schedule-modal" class="modal center-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
   </div>
 </div>
 

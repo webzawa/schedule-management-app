@@ -86,6 +86,11 @@
     color: black;
     text-align: left;
   }
+  .user-salary{
+    background-color: #fff;
+    color: black;
+    text-align: right;
+  }
 }
 
 .common-table{
@@ -109,6 +114,10 @@
 
 .modal-content{
   padding: 2rem;
+}
+
+.center-modal {
+  top: 20%;
 }
 
 //スマホ対応

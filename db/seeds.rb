@@ -65,14 +65,14 @@ User.create!(
 end
 
 # シフト申請枠作成
-ScheduleCheckbox.create!(:name_for_checkbox => "6-9")
-ScheduleCheckbox.create!(:name_for_checkbox => "9-13")
-ScheduleCheckbox.create!(:name_for_checkbox => "13-17")
-ScheduleCheckbox.create!(:name_for_checkbox => "17-21")
-ScheduleCheckbox.create!(:name_for_checkbox => "21-0")
-ScheduleCheckbox.create!(:name_for_checkbox => "21-1")
-ScheduleCheckbox.create!(:name_for_checkbox => "21-3")
-ScheduleCheckbox.create!(:name_for_checkbox => "21-6")
+ScheduleCheckbox.create!(:name_for_checkbox => "A")
+ScheduleCheckbox.create!(:name_for_checkbox => "B")
+ScheduleCheckbox.create!(:name_for_checkbox => "C")
+ScheduleCheckbox.create!(:name_for_checkbox => "D")
+ScheduleCheckbox.create!(:name_for_checkbox => "E0")
+ScheduleCheckbox.create!(:name_for_checkbox => "E1")
+ScheduleCheckbox.create!(:name_for_checkbox => "E3")
+ScheduleCheckbox.create!(:name_for_checkbox => "E")
 
 10.times do |f|
   31.times do |n|
@@ -80,24 +80,24 @@ ScheduleCheckbox.create!(:name_for_checkbox => "21-6")
     request_day = Date.today.beginning_of_month + n
 
     if user.duty_hours == 1
-      request_timezone = '6-9'
+      request_timezone = 'A'
     elsif user.duty_hours == 2
       if request_day.wday == 4 || request_day.wday == 5
-        request_timezone = '13-17'
+        request_timezone = 'C'
       else
-        request_timezone = '9-13'
+        request_timezone = 'B'
       end
     elsif user.duty_hours == 3
       if request_day.wday == 4 || request_day.wday == 5
-        request_timezone = '17-21'
+        request_timezone = 'D'
       else
-        request_timezone = '13-17'
+        request_timezone = 'C'
       end
     else
       if request_day.wday == 4 || request_day.wday == 5
-        request_timezone = '21-6'
+        request_timezone = 'E'
       else
-        request_timezone = '21-3'
+        request_timezone = 'E3'
       end
     end
 
