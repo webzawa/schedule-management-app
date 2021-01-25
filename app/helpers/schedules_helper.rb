@@ -59,12 +59,12 @@ module SchedulesHelper
       elsif timezone == "E3"
         searched_timezone = schedules_of_month.where('request_timezone like ?', "%#{timezone}%")
         unless searched_timezone.count == 0
-          salarycount = searched_timezone.count * hourly_pay * 1 + searched_timezone.count * hourly_pay * 5 * night_duty_hourly_pay_of_magnification - hourly_pay * 0.75
+          salarycount = searched_timezone.count * hourly_pay * 1 + searched_timezone.count * hourly_pay * 5 * night_duty_hourly_pay_of_magnification
         end
       elsif timezone == "E"
         searched_timezone = schedules_of_month.where('request_timezone like ?', "%#{timezone}")
         unless searched_timezone.count == 0
-          salarycount = searched_timezone.count * hourly_pay * 1 + searched_timezone.count * hourly_pay * 8 * night_duty_hourly_pay_of_magnification - hourly_pay * 1
+          salarycount = searched_timezone.count * hourly_pay * 1 + searched_timezone.count * hourly_pay * 8 * night_duty_hourly_pay_of_magnification
         end
       else
         #何もしない
