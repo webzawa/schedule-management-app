@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :入店時期（覚えていなければおおよその時期で結構です） %><br />
-    <%= f.date_select :join_date, discard_day:true, hide_label: true %>
+    <%= f.date_select :join_date, { include_blank: true, discard_day:true, hide_label: true } %>
   </div>
 
   <div class="field">
