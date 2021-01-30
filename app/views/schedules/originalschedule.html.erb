@@ -53,7 +53,11 @@
                     <% end %>
                   </td>
               <% end %>
-              <th class="user-join-date"><%= user_and_schedules.join_date %></th>
+              <th class="user-join-date">
+                <% if user_and_schedules.join_date.present? %>
+                  <%= user_and_schedules.join_date.strftime("%Y-%m").to_s %>
+                <% end %>
+              </th>
             </tr>
           <% end %>
         </table>

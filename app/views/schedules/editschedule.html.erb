@@ -57,7 +57,11 @@
                 </td>
               <% end %>
               <th class="user-salary"><%= salary_calculation(user_and_schedules, @beginningday, @endday, @searched_approved) %></th>
-              <th class="user-join-date"><%= user_and_schedules.join_date %></th>
+              <th class="user-join-date">
+                <% if user_and_schedules.join_date.present? %>
+                  <%= user_and_schedules.join_date.strftime("%Y-%m").to_s %>
+                <% end %>
+              </th>
               <th class="user-comment"><%= user_and_schedules.comment %></th>
             </tr>
           <% end %>
