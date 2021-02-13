@@ -4,4 +4,4 @@
 //= require_tree .
 //= require toastr
 
-window.$ = jQuery;
+window.$ = jQuery;//= require serviceworker-companion
