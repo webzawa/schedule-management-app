@@ -196,8 +196,7 @@ class SchedulesController < ApplicationController
       # 勤務時間帯順に並び替え
       @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
       # 下記部分はschedulesをincludesしないと検索がうまくいかない。さらに、User入店時期順、アプリ登録順で昇順ソートするよう設定。
-      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).order(:join_date => 'ASC').order(:created_at => 'ASC').includes(:schedules)
-
+      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).order('join_date IS NULL, join_date ASC').includes(:schedules)
       # 検索対象のレコードがない場合
       if @users_and_schedules.blank?
         flash.now[:error] = 'スケジュールが存在しません。'
