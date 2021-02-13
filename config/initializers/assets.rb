@@ -15,3 +15,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += ['node_modules/toastr/build/toastr.min.js']
 Rails.application.config.assets.precompile += ['node_modules/toastr/build/toastr.min.css']
+Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]
