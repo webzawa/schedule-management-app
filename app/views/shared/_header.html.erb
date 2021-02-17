@@ -4,6 +4,12 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-menu">
         <i class="menuicon fas fa-bars" style="color:white;"> MENU </i>
       </button>
+      <button type="button" class="navbar-toggle sp-mode" style="display:none;">
+        <i class="menuicon fas fa-mobile-alt" style="color:white;"> スマートフォン表示 </i>
+      </button>
+      <button type="button" class="navbar-toggle pc-mode" style="display:none;">
+        <i class="menuicon fas fa-desktop" style="color:white;"> PC表示 </i>
+      </button>
       <%= link_to "勤怠管理", root_path, id: "logo", class: "navbar-brand"%>
     </div>
     <div class="collapse navbar-collapse" id="site-menu">
@@ -27,3 +33,28 @@
     </div>
   </div>
 </nav>
+<script>
+  var pc_width = 1080;
+  var device = (screen.width < 600 ? 'sp' : 'pc');
+  var view_mode = (device == 'pc' || document.cookie.indexOf('view_mode=pc') != -1 ? 'pc' : 'sp');
+  if (device == 'sp' && view_mode == 'pc') {
+    document.getElementsByName('viewport')[0].setAttribute('content', 'width=' + pc_width + ',initial-scale=1');
+  }
+  $(function () {
+    if (device == 'sp') {
+      if (view_mode == 'pc') {
+        $('.sp-mode').on('click', function () {
+          var date = new Date();
+          date.setTime(0);
+          document.cookie = 'view_mode=;expires='+date.toGMTString();
+          location.reload(false);
+        }).show();
+      } else {
+        $('.pc-mode').on('click', function () {
+          document.cookie = 'view_mode=pc';
+          location.reload(false);
+        }).show();
+      }
+    }
+  });
+</script>
