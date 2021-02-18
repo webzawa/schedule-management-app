@@ -69,10 +69,10 @@
     <h3>その他要望</h3>
     <%= bootstrap_form_with(model: @user, url: "/users/#{@user.id}/update_to_comment", local: true) do |f| %>
       <div class="add-store-field">
-        <%= f.label :例：週4勤務希望、月給20万以上希望など %><br />
+        <%= f.label :希望勤務日時、給与、その他要望など %><br />
         <%= f.text_area :comment, hide_label: true, placeholder: "255文字以内で記入して下さい", :size => "40x6" %>
       </div>
-      <%= f.submit "更新", class: "btn btn-primary" %>
+      <%= f.submit "要望更新", class: "btn btn-primary" %>
     <% end %>
 
     <h3>申請済みシフト欄</h3>
