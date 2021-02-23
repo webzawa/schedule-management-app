@@ -71,6 +71,7 @@ h2 {
 /* ボタン類 */
 .btn{
   background-color: black;
+  border-color:black; //枠の色を上書き
   color: white;
   &:hover{
     opacity:0.8;
@@ -137,6 +138,7 @@ h2 {
     margin: 0 auto;
   }
 }
+
 //PC対応
 @media screen and (min-width: 768px) {
   .row{
