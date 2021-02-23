@@ -7,7 +7,11 @@
 <tr>
   <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
   <% @beginningtoendday.each do |day| %>
-    <th><%= day.strftime("%d").to_s %></th>
+    <% if day == Date.today %>
+      <th style="background-color:rgb(255, 201, 101);color:black;"><%= day.strftime("%d").to_s %></th>
+    <% else %>
+      <th><%= day.strftime("%d").to_s %></th>
+    <% end %>
   <% end %>
 </tr>
 
