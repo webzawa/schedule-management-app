@@ -1,6 +1,8 @@
 <% unless user_signed_in? %>
   <div class="flex common-justify-content-center">
-    <%= link_to "新規登録して始める", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "新規登録", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+    &nbsp;&nbsp;&nbsp;
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
 <br>
