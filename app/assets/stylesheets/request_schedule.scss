@@ -20,3 +20,14 @@
 .request-schedule-field{
   margin: 0.1rem 0rem 0rem 0rem;
 }
+
+//スマホ対応
+@media screen and (max-width: 768px) {
+  .schedule-request-button-area{
+    text-align:right;  
+  }
+  .schedule-request-button-area-change-position{
+    position:relative;
+    bottom:5rem;
+  }
+}

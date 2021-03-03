@@ -1,12 +1,9 @@
 <% if user_signed_in? %>
   <div class="flex common-justify-content-center">
     <%= bootstrap_form_with(model: @inquiry, local: true) do |f| %>
-      <p>
-        アプリに要望のある方はコメントをお願いします。
-        <br>
-        細かいことでも結構です！
-      </p>
-      <%= f.text_area :request_comment, :size => "80x3", hide_label: true %>
+      <%= f.label :アプリ改善要望欄 %>
+      <p>例：この機能を改善して欲しい〜など</p>
+      <%= f.text_area :request_comment, :size => "80x2", hide_label: true %>
       <%= f.submit "送信", class: "btn btn-primary" %>
     <% end %>
   </div>

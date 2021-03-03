@@ -61,7 +61,9 @@
         <br>
       </div>
 
-      <%= f.submit "シフト申請", class: "schedule-request-button btn btn-primary" %>
+      <div class="schedule-request-button-area schedule-request-button-area-change-position">
+        <%= f.submit "シフト申請", class: "schedule-request-button btn btn-primary" %>
+      </div>
     <% end %>
   </div>
 
@@ -72,7 +74,9 @@
         <%= f.label :希望勤務日時、給与、その他要望など %><br />
         <%= f.text_area :comment, hide_label: true, placeholder: "255文字以内で記入して下さい", :size => "40x6" %>
       </div>
-      <%= f.submit "要望更新", class: "btn btn-primary" %>
+      <div class="schedule-request-button-area">
+        <%= f.submit "要望更新", class: "btn btn-primary" %>
+      </div>
     <% end %>
 
     <h3>申請済みシフト欄</h3>
@@ -122,7 +126,9 @@
         <%= f.select :approved_eq, [['',nil],['承認済',true],['未承認',false]] %>
         <br>
 
-        <div class="actions ransack-submit"><%= f.submit "検索" %></div>
+        <div class="schedule-request-button-area">
+          <%= f.submit "検索", class: "btn btn-primary" %>
+        </div>
       <% end %>
 
       <% if @check.present? %>
