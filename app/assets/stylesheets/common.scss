@@ -135,6 +135,10 @@ h2 {
   margin-top: 5rem;
 }
 
+.navbar-toggle{
+  margin-right: 0.3rem; //ナビゲーションバーのボタン幅を調整
+}
+
 //スマホ対応
 @media screen and (max-width: 768px) {
   .field{
