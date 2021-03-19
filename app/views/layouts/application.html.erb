@@ -47,6 +47,12 @@
         <% end %>
       </script>
       <%= yield %>
+      <% if Rails.env.development? %>
+        <div>
+          <%= debug params %>
+          <%= @users_and_schedules.first if @users_and_schedules.present? %>
+        </div>
+      <% end %>
     </div>
   </body>
 </html>
