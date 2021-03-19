@@ -13,8 +13,11 @@
           <%= f.collection_select :user_id, @users, :id, :username, {selected: current_user.id} %>
         <% else %>
           <%= f.hidden_field :user_id, :value => current_user.id %>
+          <%= f.label :ユーザ名 %>:
+          <%= current_user.username %>
         <% end %>
       </div>
+      <br>
 
       <div class="request-schedule-field">
         <%= f.label :シフト申請先店舗 %><br>
@@ -24,32 +27,30 @@
           <%= f.collection_select :store_id, Store.all, :id, :storename, {selected: current_user.work_store} %>
         <% end %>
       </div>
+      <br>
 
       <div class="request-schedule-field">
         <%= f.label :シフト申請日 %><br>
-        <%# raw sprintf(
-            f.date_select(
-              :request_day,
-              use_month_numbers: true,
-              date_separator: '%s'),
-            '年 ', '月 ') + '日' %>
         <input multiple="multiple"  name="schedule[request_day][]" id="datepicker" readonly>
       </div>
+      <br>
 
       <div class="request-schedule-field">
-        <%= f.label :シフト勤務時間帯 %><br>
+        <%= f.label :シフト勤務時間帯 %>
         <% @timezones.each_with_index do |timezone,i| %>
-          <% if i % 4 == 0 %>
-            <br>
-            <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
-          <% else %>
-            <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
-          <% end %>
+          <% if i % 4 == 0 %><br><% end %>
+          <label for="schedule_request_timezone_<%= timezone.downcase %>">
+          <%= timezone %>
+          <%#= f.label "request_timezone_#{timezone.downcase}", "#{timezone}" %>
+          <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %>
+          </label>
+          &nbsp;&nbsp;&nbsp;
         <% end %>
       </div>
 
       <div class="request-schedule-field">
         <% if current_user.admin? %>
+          <br>
           <%= f.label :承認可否 %>
           <%= f.radio_button :approved, :true %>
           <%= f.label :approved, "承認", {value: :true, checked: true, style: "display: inline-block;"} %>
@@ -61,7 +62,11 @@
         <br>
       </div>
 
-      <div class="schedule-request-button-area schedule-request-button-area-change-position">
+      <% if current_user.admin? %>
+        <div class="schedule-request-button-area schedule-request-button-area-change-position-admin">
+      <% else %>
+        <div class="schedule-request-button-area schedule-request-button-area-change-position">
+      <% end %>
         <%= f.submit "シフト申請", class: "schedule-request-button btn btn-primary" %>
       </div>
     <% end %>
