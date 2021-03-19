@@ -40,16 +40,17 @@
         <% @timezones.each_with_index do |timezone,i| %>
           <% if i % 4 == 0 %><br><% end %>
 
-<%if false%>
           <label for="schedule_request_timezone_<%= timezone.downcase %>">
           <%= timezone %>
           <%#= f.label "request_timezone_#{timezone.downcase}", "#{timezone}" %>
           <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %>
           </label>
           &nbsp;&nbsp;&nbsp;
+
+<%if false%>
+          <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
 <%end%>
 
-          <span class="timezones-checkbox"><%= timezone %> <%= f.check_box :request_timezone ,{ multiple: true }, timezone , nil %></span>
         <% end %>
       </div>
 
@@ -64,7 +65,6 @@
         <% else %>
           <%= f.hidden_field :approved, :value => false %>
         <% end %>
-        <br>
       </div>
 
       <% if current_user.admin? %>

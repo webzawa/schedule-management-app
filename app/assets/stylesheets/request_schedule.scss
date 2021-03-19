@@ -25,13 +25,15 @@
 @media screen and (max-width: 768px) {
   .schedule-request-button-area{
     text-align:right;  
+    z-index: -1;
   }
   .schedule-request-button-area-change-position{
-    position:relative;
-    bottom:7rem;
+    // divが重なってボタンが押せなかったので暫定削除
+    // position:relative;
+    // bottom:7rem;
   }
   .schedule-request-button-area-change-position-admin{
-    position:relative;
-    bottom:5rem;
+    // position:relative;
+    // bottom:5rem;
   }
 }
