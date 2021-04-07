@@ -5,7 +5,8 @@ RUN apt-get update -qq && \
   build-essential \
   libpq-dev \
   vim \
-  default-mysql-client
+  default-mysql-client \
+  shared-mime-info
 RUN set -ex && \
   apt-get update -qq && \
   apt-get install -y sudo && \
@@ -18,25 +19,28 @@ RUN set -ex && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update -qq && \
   apt-get install -y yarn
-# chromeの追加
-RUN apt-get update && apt-get install -y unzip && \
-  CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
-  wget -N http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/ && \
-  unzip ~/chromedriver_linux64.zip -d ~/ && \
-  rm ~/chromedriver_linux64.zip && \
-  chown root:root ~/chromedriver && \
-  chmod 755 ~/chromedriver && \
-  mv ~/chromedriver /usr/bin/chromedriver && \
-  sh -c 'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' && \
-  sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
-  apt-get update && apt-get install -y google-chrome-stable
+# # chromeの追加
+# RUN apt-get update && apt-get install -y unzip && \
+#   CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+#   wget -N http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/ && \
+#   unzip ~/chromedriver_linux64.zip -d ~/ && \
+#   rm ~/chromedriver_linux64.zip && \
+#   chown root:root ~/chromedriver && \
+#   chmod 755 ~/chromedriver && \
+#   mv ~/chromedriver /usr/bin/chromedriver && \
+#   sh -c 'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' && \
+#   sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+#   apt-get update && apt-get install -y google-chrome-stable
 
 WORKDIR /app
 
 ADD Gemfile .
 ADD Gemfile.lock .
 
-RUN gem install bunlder && bundle install -j4
+RUN gem install bundler && bundle install -j4
+# RUN gem install bundler
+# RUN bundle update mimemagic
+# RUN bundle install -j4
 
 ADD . /app
 
