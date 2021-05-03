@@ -7,7 +7,7 @@
 <tr>
   <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
   <% @beginningtoendday.each do |day| %>
-    <% if day == Date.today %>
+    <% if day == Date.current %>
       <!-- 当日はオレンジ色に -->
       <th style="background-color:rgb(255, 201, 101);color:black;"><%= day.strftime("%d").to_s %></th>
     <% else %>
@@ -20,7 +20,7 @@
 <tr>
   <th>曜日</th>
   <% @beginningtoendday.each do |day| %>
-    <% if day == Date.today %>
+    <% if day == Date.current %>
       <!-- 当日はオレンジ色に -->
       <th style="background-color:rgb(255, 201, 101);color:black;">
         <% if day.strftime("%a").to_s == "Sun" %><div class="sunday" style="color:black !important;">日</div><% end %>

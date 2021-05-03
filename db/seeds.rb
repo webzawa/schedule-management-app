@@ -77,7 +77,7 @@ ScheduleCheckbox.create!(:name_for_checkbox => "E")
 10.times do |f|
   31.times do |n|
     user = User.find(f + 1)
-    request_day = Date.today.beginning_of_month + n
+    request_day = Date.current.beginning_of_month + n
 
     if user.duty_hours == 1
       request_timezone = 'A'
