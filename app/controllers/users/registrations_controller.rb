@@ -15,6 +15,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @stores = Store.all
     super
+
+    # 新規ユーザ登録を管理者に通知（paramsだとidがわからないが、リファクタリング後は管理者（課金ユーザ）に紐付けるので改修は容易か）
+    ApplicationMailer.confirmation_instructions_notification_for_admin(params[:user]).deliver
   end
 
   # GET /resource/edit

@@ -1,6 +1,10 @@
 $('.users_<%= @user.id %>').html("<%= j(render partial: 'users/users_table', locals: {user: @user}) %>");
 <% if @updated == true %>
   toastr.success("<%= @msg %>");
+  // ログイン許可対象ユーザにメール通知
+  <% if @user.confirmed_at.present? %>
+    <% ApplicationMailer.login_approval_notification(@user).deliver %>
+  <% end %>
 <% else %>
   toastr.error("<%= @msg %>");
 <% end %>
