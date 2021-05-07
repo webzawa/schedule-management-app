@@ -39,15 +39,14 @@ class SchedulesController < ApplicationController
     @users  = User.all  # 全ユーザ呼び出し
     @user   = User.find(current_user.id)
 
-    if params[:q].nil? # 読み込み時処理
-      @schedules_search = Schedule.ransack(params[:q])
-      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).page(params[:page])
-    else # 検索時処理
-      @schedules_search = Schedule.ransack(params[:q])
-      @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
-      @schedules = @schedules_search.result.includes(%i[user store]).page(params[:page])
+    if params[:q].nil? # 読み込み時はRansack用のparamsが空なので当日月のスケジュールを出す用の値を格納
+      params[:q] = { :user_id_eq => current_user.id }
     end
+
+    @schedules_search = Schedule.ransack(params[:q])
+    @schedules_search.sorts = 'request_day desc' if @schedules_search.sorts.blank?
+    @schedules = @schedules_search.result.includes(%i[user store]).page(params[:page])
+
     @check = params[:q] # 未検索時チェック
   end
 
@@ -182,45 +181,55 @@ class SchedulesController < ApplicationController
 
     @stores = Store.all
 
-    if params[:q].nil? # 読み込み時処理
-      @users_and_schedules_search = User.ransack(params[:q])
-      @users_and_schedules = @users_and_schedules_search.result
-    else # 検索時処理
-      # RansackでUserとScheduleをInnerJoinしたところからシフト申請店舗＆シフト申請月を検索して絞る
-      # すべてのUserとScheduleを取得
-      @users_and_schedules_search = User.joins(:schedules).ransack(params[:q])
-
-      @searched_approved = params[:q][:schedules_approved_eq] #schedules_helperで使用　シフトのカウントは「承認可否」の「未選択」「承認済」「未承認」で変化する。
-      @searched_store    = params[:q][:schedules_store_id_eq]
-# byebug
-      # 勤務時間帯順に並び替え
-      @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
-      # 下記部分はschedulesをincludesしないと検索がうまくいかない。さらに、User入店時期順、アプリ登録順で昇順ソートするよう設定。
-      @users_and_schedules = @users_and_schedules_search.result(:distinct => true).order('join_date IS NULL, join_date ASC').includes(:schedules)
-      # 検索対象のレコードがない場合
-      if @users_and_schedules.blank?
-        flash.now[:error] = 'スケジュールが存在しません。'
-        return render link_target
-      end
-
-      # すべてのUserとScheduleからFirst(1 User hasmany Schedules)を取得
-      @user_and_schedules_first = @users_and_schedules.first
-
-      # 1 User hasmany SchedulesからSchedulesを取得
-      @user_and_schedules_first_schedules = @user_and_schedules_first.schedules
-
-      # 1 User hasmany Schedulesから1 Scheduleを取得
-      @user_and_schedules_first_schedules_first = @user_and_schedules_first_schedules.first
-
-      # 1 Scheduleの日付から月初と月末を抽出
-      @beginningday      = @user_and_schedules_first_schedules_first.request_day.beginning_of_month
-      @endday            = @user_and_schedules_first_schedules_first.request_day.end_of_month
-      # 月初から月末までを変数に代入
-      @beginningtoendday = @beginningday..@endday
-
-      # シフト時間枠の配列を作成
-      timezones
+    if params[:q].nil? # 読み込み時はRansack用のparamsが空なので当日月のスケジュールを出す用の値を格納
+      params[:q] = { :schedules_store_id_eq => "1",
+                     :schedules_request_day_during_year_month => Date.current.beginning_of_month,
+                     :schedules_approved_eq => "true"
+                   }
     end
+
+    @users_and_schedules_search = User.ransack(params[:q])
+    @users_and_schedules = @users_and_schedules_search.result(:distinct => true).order('join_date IS NULL, join_date ASC').includes(:schedules)
+    if @users_and_schedules.blank?
+      flash.now[:error] = 'スケジュールが存在しません。'
+      return render link_target
+    end
+
+    # RansackでUserとScheduleをInnerJoinしたところからシフト申請店舗＆シフト申請月を検索して絞る
+    # すべてのUserとScheduleを取得
+    @users_and_schedules_search = User.joins(:schedules).ransack(params[:q])
+
+    @searched_approved = params[:q][:schedules_approved_eq] #schedules_helperで使用　シフトのカウントは「承認可否」の「未選択」「承認済」「未承認」で変化する。
+    @searched_store    = params[:q][:schedules_store_id_eq]
+
+    # 勤務時間帯順に並び替え
+    @users_and_schedules_search.sorts = 'duty_hours asc' if @users_and_schedules_search.sorts.blank?
+    # 下記部分はschedulesをincludesしないと検索がうまくいかない。さらに、User入店時期順、アプリ登録順で昇順ソートするよう設定。
+    @users_and_schedules = @users_and_schedules_search.result(:distinct => true).order('join_date IS NULL, join_date ASC').includes(:schedules)
+    # 検索対象のレコードがない場合
+    if @users_and_schedules.blank?
+      flash.now[:error] = 'スケジュールが存在しません。'
+      return render link_target
+    end
+
+    # すべてのUserとScheduleからFirst(1 User hasmany Schedules)を取得
+    @user_and_schedules_first = @users_and_schedules.first
+
+    # 1 User hasmany SchedulesからSchedulesを取得
+    @user_and_schedules_first_schedules = @user_and_schedules_first.schedules
+
+    # 1 User hasmany Schedulesから1 Scheduleを取得
+    @user_and_schedules_first_schedules_first = @user_and_schedules_first_schedules.first
+
+    # 1 Scheduleの日付から月初と月末を抽出
+    @beginningday      = @user_and_schedules_first_schedules_first.request_day.beginning_of_month
+    @endday            = @user_and_schedules_first_schedules_first.request_day.end_of_month
+    # 月初から月末までを変数に代入
+    @beginningtoendday = @beginningday..@endday
+
+    # シフト時間枠の配列を作成
+    timezones
+
     @check = params[:q] # 未検索時チェック
   end
 end
