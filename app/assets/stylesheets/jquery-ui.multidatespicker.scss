@@ -10,3 +10,12 @@ table.ui-datepicker-calendar {border-collapse: separate;}
 	background: #743620 none;
 	color: white;
 }
+
+.ui-datepicker-calendar .day-sunday > a,
+.ui-datepicker-calendar .day-holiday > a {
+  background: #ffc0c0;
+}
+
+.ui-datepicker-calendar .day-saturday > a {
+  background: #c0d0ff;
+}

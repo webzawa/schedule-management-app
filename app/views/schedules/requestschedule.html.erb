@@ -31,7 +31,7 @@
 
       <div class="request-schedule-field">
         <%= f.label :シフト申請日 %><br>
-        <input multiple="multiple"  name="schedule[request_day][]" id="datepicker" readonly>
+        <input type="text" multiple="multiple" name="schedule[request_day][]" id="datepicker" placeholder="日付を選択してください" readonly>
       </div>
       <br>
 
@@ -168,9 +168,10 @@
 
 <%= javascript_include_tag 'jquery-ui.multidatespicker.js' %>
 <script>
-  $(function() {
+  $.get("https://holidays-jp.github.io/api/v1/date.json", function(holidaysData) {
     var today = new Date();
     $('#datepicker').multiDatesPicker({
+      showAnim: "",
       dateFormat: "yy/mm/dd",
 	    altField: '#altField',
       minDate: 0,
@@ -197,6 +198,23 @@
         setTimeout(function() {
           $("#datepicker").focus();
         }, 1); // 1 millisecond delay seems to be enought!!!
+      },
+      beforeShowDay: function(date) {
+        if (date.getDay() == 0) {
+          return [true, 'day-sunday', null];
+        } else if (date.getDay() == 6) {
+          return [true, 'day-saturday', null];
+        }
+        var holidays = Object.keys(holidaysData);
+        for (var i = 0; i < holidays.length; i++) {
+          var holiday = new Date(Date.parse(holidays[i]));
+          if (holiday.getYear() == date.getYear() &&
+              holiday.getMonth() == date.getMonth() &&
+              holiday.getDate() == date.getDate()) {
+              return [true, 'day-holiday', null];
+          }
+        }
+        return [true, 'day-weekday', null];
       }
     });
   });
