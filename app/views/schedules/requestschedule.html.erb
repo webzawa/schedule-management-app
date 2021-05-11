@@ -31,7 +31,9 @@
 
       <div class="request-schedule-field">
         <%= f.label :シフト申請日 %><br>
-        <input type="text" multiple="multiple" name="schedule[request_day][]" id="datepicker" placeholder="日付を選択してください" readonly>
+        <div id="datepicker">
+          <input style="width: 22rem;" type="text" multiple="multiple" name="schedule[request_day][]" id="date_val" placeholder="日付を選択してください" readonly>
+        </div>
       </div>
       <br>
 
@@ -81,7 +83,7 @@
     <h3>その他要望</h3>
     <%= bootstrap_form_with(model: @user, url: "/users/#{@user.id}/update_to_comment", local: true) do |f| %>
       <div class="add-store-field">
-        <%= f.label :希望勤務日時、給与、その他要望など %><br />
+        <%= f.label :希望勤務日時、給与、その他要望など（店長のみ閲覧可） %><br />
         <%= f.text_area :comment, hide_label: true, placeholder: "255文字以内で記入して下さい", :size => "40x6" %>
       </div>
       <div class="schedule-request-button-area">
@@ -173,8 +175,8 @@
     $('#datepicker').multiDatesPicker({
       showAnim: "",
       dateFormat: "yy/mm/dd",
-	    altField: '#altField',
-      minDate: 0,
+	    altField: '#date_val',
+      // minDate: 0,
       multidate: true,
       defaultDate: "0d",
       onSelect: function() {
