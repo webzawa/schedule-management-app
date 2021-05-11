@@ -182,16 +182,30 @@ class SchedulesController < ApplicationController
     @stores = Store.all
 
     if params[:q].nil? # 読み込み時はRansack用のparamsが空なので当日月のスケジュールを出す用の値を格納
-      if current_user.work_store.present?
-        params[:q] = { :schedules_store_id_eq => current_user.work_store,
-                       :schedules_request_day_during_year_month => Date.current.beginning_of_month,
-                       :schedules_approved_eq => "true"
-                     }
+      if link_target == 'workschedule'
+        if current_user.work_store.present?
+          params[:q] = { :schedules_store_id_eq => current_user.work_store,
+                         :schedules_request_day_during_year_month => Date.current.beginning_of_month,
+                         :schedules_approved_eq => "true"
+                       }
+        else
+          params[:q] = { :schedules_store_id_eq => "1",
+                         :schedules_request_day_during_year_month => Date.current.beginning_of_month,
+                         :schedules_approved_eq => "true"
+                       }
+        end
       else
-        params[:q] = { :schedules_store_id_eq => "1",
-                       :schedules_request_day_during_year_month => Date.current.beginning_of_month,
-                       :schedules_approved_eq => "true"
-                     }
+        if current_user.work_store.present?
+          params[:q] = { :schedules_store_id_eq => current_user.work_store,
+                         :schedules_request_day_during_year_month => Date.current.beginning_of_month,
+                         :schedules_approved_eq => nil
+                       }
+        else
+          params[:q] = { :schedules_store_id_eq => "1",
+                         :schedules_request_day_during_year_month => Date.current.beginning_of_month,
+                         :schedules_approved_eq => nil
+                       }
+        end
       end
     end
 
