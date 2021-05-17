@@ -153,6 +153,7 @@
               <th><%= sort_link(@schedules_search, :store_storename, "店舗") %></th>
               <th><%= sort_link(@schedules_search, :request_day, "申請日") %></th>
               <th><%= sort_link(@schedules_search, :request_timezone, "内容") %></th>
+              <th><%= sort_link(@schedules_search, :original_request_timezone, "提出時原本") %></th>
               <th><%= sort_link(@schedules_search, :approved, "承認") %></th>
             </tr>
             <% @schedules.each do |schedule| %>

@@ -10,6 +10,11 @@
   <% end %>
 </td>
 <td>
+  <% unless schedule.original_request_timezone.nil? %>
+    <%= schedule.original_request_timezone %>
+  <% end %>
+</td>
+<td>
   <% if schedule.approved == false %>
     <div class="not-approved">未</div>
   <% else %>
