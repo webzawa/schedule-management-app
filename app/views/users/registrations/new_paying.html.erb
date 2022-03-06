@@ -1,7 +1,5 @@
-<h2>新規登録</h2>
+<h2>paying新規登録</h2>
 
-<%= resource %>
-<%= resource_name %>
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -41,6 +39,11 @@
   <div class="field">
     <%= f.label :パスワード再入力 %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :paying_signup_flag %><br />
+    <%= f.hidden_field :paying_signup_flag, value: true %>
   </div>
 
   <div class="actions">

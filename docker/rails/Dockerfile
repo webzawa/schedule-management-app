@@ -1,4 +1,4 @@
-FROM ruby:2.7.1
+FROM ruby:2.7.3
 
 RUN apt-get update -qq && \
   apt-get install -y apt-utils \
@@ -6,7 +6,8 @@ RUN apt-get update -qq && \
   libpq-dev \
   vim \
   default-mysql-client \
-  shared-mime-info
+  shared-mime-info \
+  graphviz
 RUN set -ex && \
   apt-get update -qq && \
   apt-get install -y sudo && \

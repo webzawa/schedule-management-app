@@ -4,6 +4,13 @@
   <%= render partial: "pages/update_log" %>
   <div class="center jumbotron">
     <%= render partial: "pages/signup" %>
+  <br>
+    <% if current_user.present? %>
+      <%= link_to "料金プラン変更", new_payment_path, class: "btn btn-lg btn-primary" %>
+      <%# subscription = Stripe::Subscription.retrieve(current_user.plan_id) %>
+      <%#= subscription.status %>
+      <p><%#= "有料プランです" if subscription.plan.amount > 0 %></p>
+    <% end %>
     <% if Rails.env.development? %>
       <%= render partial: "pages/guest_signup" %>
     <% end %>
