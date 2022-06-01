@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.3'
 
 gem 'bootsnap', '>= 1.4.2', :require => false
 gem 'bootstrap_form'
@@ -18,13 +18,16 @@ gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'mysql2'
 gem 'puma', '~> 4.1'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
+gem 'rails', '~> 6.1', '>= 6.1.4.1'
+gem 'holiday_japan'
+gem 'mimemagic', '~> 0.4.3'
 gem 'rails_12factor'
 gem 'rails-i18n'
 gem 'ransack'
 gem 'rename'
 gem 'sass-rails', '>= 6'
 gem 'serviceworker-rails'
+gem 'stripe'
 gem 'toastr-rails'
 gem 'uglifier'
 gem 'webpacker', '~> 4.0'
@@ -34,6 +37,7 @@ group :development, :test do
   gem 'byebug', :platforms => %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
+  gem 'rails-erd'
   gem 'rspec-rails'
 end
 
@@ -44,6 +48,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   # gem 'pre-commit'
   gem 'bullet'
+  # gem 'letter_opener_web'
   gem 'rubocop', :require => false
   gem 'rubocop-performance', :require => false
   gem 'rubocop-rails', :require => false

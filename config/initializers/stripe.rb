@@ -1,0 +1,2 @@
+Stripe.api_key = "sk_test_51IvjsWARQpFlJcJAgSukw7pxyqRGlj55POiFb4HLVq5CeCX91fElOOqvQ62aSRwOnVFNJQ2dkT4lO3TPekvrFlYY00gPb0o5R6"
+Stripe.api_version = "2020-08-27"

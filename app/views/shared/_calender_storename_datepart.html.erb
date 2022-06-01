@@ -7,7 +7,8 @@
 <tr>
   <th><%= @beginningday.strftime("%Y/%m").to_s %></th>
   <% @beginningtoendday.each do |day| %>
-    <% if day == Date.today %>
+    <% if day == Date.current %>
+      <!-- 当日はオレンジ色に -->
       <th style="background-color:rgb(255, 201, 101);color:black;"><%= day.strftime("%d").to_s %></th>
     <% else %>
       <th><%= day.strftime("%d").to_s %></th>
@@ -19,7 +20,8 @@
 <tr>
   <th>曜日</th>
   <% @beginningtoendday.each do |day| %>
-    <% if day == Date.today %>
+    <% if day == Date.current %>
+      <!-- 当日はオレンジ色に -->
       <th style="background-color:rgb(255, 201, 101);color:black;">
         <% if day.strftime("%a").to_s == "Sun" %><div class="sunday" style="color:black !important;">日</div><% end %>
         <% if day.strftime("%a").to_s == "Mon" %>月<% end %>
@@ -29,7 +31,18 @@
         <% if day.strftime("%a").to_s == "Fri" %>金<% end %>
         <% if day.strftime("%a").to_s == "Sat" %><div class="saturday" style="color:black !important;">土</div><% end %>
       </th>
-      <% else %>
+    <% elsif HolidayJapan.check(day) %>
+      <!-- 祝日は日曜日と同じ実装 -->
+      <th>
+        <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
+        <% if day.strftime("%a").to_s == "Mon" %><div class="sunday">月</div><% end %>
+        <% if day.strftime("%a").to_s == "Tue" %><div class="sunday">火</div><% end %>
+        <% if day.strftime("%a").to_s == "Wed" %><div class="sunday">水</div><% end %>
+        <% if day.strftime("%a").to_s == "Thu" %><div class="sunday">木</div><% end %>
+        <% if day.strftime("%a").to_s == "Fri" %><div class="sunday">金</div><% end %>
+        <% if day.strftime("%a").to_s == "Sat" %><div class="sunday">土</div><% end %>
+      </th>
+    <% else %>
       <th>
         <% if day.strftime("%a").to_s == "Sun" %><div class="sunday">日</div><% end %>
         <% if day.strftime("%a").to_s == "Mon" %>月<% end %>

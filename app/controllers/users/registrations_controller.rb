@@ -13,8 +13,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    if User.find_by(:email => params[:user][:email])
+      flash[:error] = '入力されたメールアドレスはすでに使用されています。'
+      redirect_to users_paying_user_sign_in_path
+      return
+    end
     @stores = Store.all
     super
+
+    if params[:user][:paying_signup_flag]
+      customer = Stripe::Customer.create({
+        email: params[:user][:email],
+        description: "My First Test Customer (created for API docs) #{Time.zone.now}",
+      })
+      subscription = Stripe::Subscription.create(
+        customer: customer.id,
+        items: [{
+          plan: "price_1IymOnARQpFlJcJAeUDkrGee",
+        }],
+      )
+      user = User.find_by(:email => params[:user][:email])
+      user.admin = true
+      user.confirmed_at = Time.zone.now
+      user.customer_id = customer.id
+      user.plan_id = subscription.id
+      user.save!
+    end
+
+
+    # 新規ユーザ登録を管理者に通知（paramsだとidがわからないが、リファクタリング後は管理者（課金ユーザ）に紐付けるので改修は容易か）
+    # ApplicationMailer.confirmation_instructions_notification_for_admin(params[:user]).deliver
   end
 
   # GET /resource/edit
@@ -27,6 +55,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     @stores = Store.all
     super
+  end
+
+  def new_paying
+    self.new
+    # resource = User.new
+    # byebug
   end
 
   # DELETE /resource

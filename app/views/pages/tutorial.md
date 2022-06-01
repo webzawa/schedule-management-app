@@ -81,7 +81,7 @@
 * HTML
 * CSS / Bootstrap
 * JavaScript / jQuery / Ajax
-* Ruby 2.7.1
+* Ruby 2.7.3
 * Ruby on Rails 6.0.3.2
 * nginx（Webサーバ）
 * Puma（アプリケーションサーバ）

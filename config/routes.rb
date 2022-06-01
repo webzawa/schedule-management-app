@@ -14,11 +14,13 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
+    sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
     post 'users/guest_admin_sign_in', to: 'users/sessions#new_guest_admin'
+    get 'users/paying_user_sign_in', to: 'users/registrations#new_paying'
   end
 
   resources :users, :only => [:update, :destroy] # adminsettings用
@@ -26,4 +28,9 @@ Rails.application.routes.draw do
   resources :stores
   resources :schedule_checkboxes
   resources :inquiries
+
+  resources :payments, only: [:new]
+  get '/payments/after_payment_register', controller: 'payments', action: 'after_payment_register'
+  get '/payments/payment_cancel', controller: 'payments', action: 'payment_cancel'
+
 end

@@ -1,0 +1,9 @@
+<script src="https://js.stripe.com/v3"></script>
+
+<script>
+  var stripe = Stripe('pk_test_51IvjsWARQpFlJcJAn51b7ZcikYYsEPEPct39tGld906FA0hhNBEscDWwp66DIcKxNbuC58Y0chV747KLY7xw5AJa00p7gzcJbY'); // ()内には公開可能キーを記述
+  stripe.redirectToCheckout({
+    sessionId: '<%= @session.id %>'
+  }).then(function (result) {
+  });
+</script>

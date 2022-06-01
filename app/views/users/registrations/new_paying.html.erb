@@ -1,0 +1,54 @@
+<h2>paying新規登録</h2>
+
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :氏名　例：山田太郎 %><br />
+    <%= f.text_field :username, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :主な勤務店舗 %><br />
+    <%= f.collection_select :work_store, @stores, :id, :storename, { include_blank: true, hide_label: true} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :主な勤務時間帯 %><br />
+    <%= f.select :duty_hours, [['指定なし',0],['朝勤',1],['昼勤',2],['夕勤',3],['夜勤',4],['店長クラス',5]], hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :入店時期（覚えていなければおおよその時期で結構です） %><br />
+    <%= f.date_select :join_date, { include_blank: true, discard_day:true, start_year:2010, end_year:Time.now.year, hide_label: true } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %>文字以上)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password", hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード再入力 %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :paying_signup_flag %><br />
+    <%= f.hidden_field :paying_signup_flag, value: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :timeoutable
 
+  attr_accessor :paying_signup_flag
+
   has_many :schedules, :dependent => :destroy
 
   validates :username, :presence => true, :length => { :maximum => 20 }

@@ -36,6 +36,7 @@
         <table class="table-bordered table-striped table-hover calender-table table-fixed">
           <%= render partial: "shared/calender_storename_datepart" %>
           <%# 個人ごとにシフトスケジュールを表示%>
+          <% count_schedule_hash = {} %>
           <% @users_and_schedules.each do |user_and_schedules| %>
             <tr>
               <%#勤務時間帯ごとにCSSでBackgroundColorを付与%>
